@@ -4,7 +4,7 @@
 
 ## Symulacja i wizualizacja pracy bankomatu
 
-Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być może takie nie istniją, nie są publicznie dostępne ani opisane. 
+Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być może takie nie istnieją, nie są publicznie dostępne ani opisane. 
 
 ## Zastosowanie
 
@@ -31,7 +31,7 @@ Przedstawienie użytych narzędzi i motywacja
 
 ## Symulator wypłat bankomatów
 
-Cel: symulacja ma reprezentować relistyczne, naturalne rozkłady wypłat bankomatowych.
+Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat bankomatowych.
 
 ### Elementy symulacji
 
@@ -51,18 +51,17 @@ Karta
 
 ### Parametry symulacji
 
+Symulacja musi być realistyczna, naturalna.
+
  - ziarnistość symulacji: godzina
- - okres sumulacji: rok
+ - okres symulacji: rok
 
-zdarzenia "nietypowe":
-- zostawiamy użytkownikowi - modelowane jako parametry wejściowe symulacji, przedziały czasowe
+Rozkłady muszą pokrywać cały okres symulacji.
 
-naturalność symulacji: zrobić okresy symulacji: rozdzielczość godzinowa. definiujemy godzinowo rozkłady w przedziałach. rozkłady muszą pokrywać cały okres symulacji
+## Wizualizacja
 
-
-## Wizualizacja mapowa
-
-definiowanie: na mapie, klikać
+Wizualizacja przedstawia pozycje bankomatów na mapie, ich stan sejfu oraz natężenie ruchu oraz błędy.
+Udostępnia definiowanie konfiguracji symulacji.
 
 Wyróżnianie bankomatów:
  - wielkość kropki - obciążenie bankomatu
