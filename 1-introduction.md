@@ -19,11 +19,11 @@ Podstawowe informacje o bankach, instytucjach finansowych, zrzeszeniach finansow
 
 # Projekt
 
-## Symulacja
+## Symulacja \autocite{Hartmann:simulation:2005} \autocite{hartmann:2015:bigsim}
 
-### Symulacja w grach komputerowych
+### Symulacja w grach komputerowych \autocite{vogel:simulation}
 
-### Generatory liczb losowych i pseudolosowych
+### Generatory liczb losowych i pseudolosowych \autocite{Ecuyer:rng} \autocite{Hellekalek:rng} \autocite{Ecuyer:simulation:rng}
 
 ### Użyte narzędzia
 
