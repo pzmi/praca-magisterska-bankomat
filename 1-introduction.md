@@ -29,10 +29,12 @@ Podstawowe informacje o bankach, instytucjach finansowych, zrzeszeniach finansow
 
 Przedstawienie użytych narzędzi i motywacja
 
-#### Akka
+### Akka
 
-##### Model aktorowy \autocite{todd:2012:simulation} \autocite{barat:2017:simulation} \autocite{aceto:2011:simulations} \autocite{Waite2013ScaNSU} \autocite{Harrison:2015:actors}
- 
+### Model aktorowy \autocite{todd:2012:simulation} \autocite{barat:2017:simulation} \autocite{aceto:2011:simulations} \autocite{Waite2013ScaNSU} \autocite{Harrison:2015:actors}
+
+TODO: przepisać i uzupełnić
+
 Model aktorowy jest modelem programowania, w którym przetwarzanie jest wykonywane z natury współbieżnie. Podstawową jednostką wykonawczą tego modelu jest *aktor*.
 
 Aktor jest jednostką wykonawczą, która odwzorowuje każdą przychodzącą wiadomość na krotkę składającą się z:
@@ -43,7 +45,7 @@ Aktor jest jednostką wykonawczą, która odwzorowuje każdą przychodzącą wia
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[resolution=130]{graphics/actor-messages.png}
+\includegraphics[width=140mm]{graphics/actor-messages.png}
 \caption{Akcje w modelu aktorowym \autocite{karmani2009actor}}
 \end{figure}
 
@@ -51,9 +53,9 @@ Aktorzy, w odróżnieniu od modelu współdzielonych zmiennych, nie dzielą mię
 w wyniku przetwarzania nadchodzących wiadomości. Co więcej, komunikacja jest transparentna. Pomimo "świadomości" istnienia innego aktora, nie jest znane jego położenie. Umożliwia to utworzenie systemu aktorów fizycznie rozproszonych pomiędzy wiele maszyn połączonych w sieć oraz dynamiczną rekonfigurację topologii \autocite{karmani2009actor, hewitt1977laws, agha86actors}.
 
 
-#### Akka Streams
+### Akka Streams
 
-##### Reaktywne strumienie
+### Reaktywne strumienie
 
 ## Symulator wypłat bankomatów
 
@@ -61,16 +63,14 @@ Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat banko
 
 ### Elementy symulacji
 
-#### Karta
+### Karta
 
-Obiektem który wypłaca jest karta, konto bankomatowe
-
-Karta
+ - jest obiektem, który wypłaca pieniądze z bankomatu
  - posiada datę ważność
  - jest powiązana z bankiem / instytucją która ją wypuściła
  - może mieć różne waluty
 
- #### Bankomat
+### Bankomat
 
  - ma maksymalną pojemność
  - przynależy do banku / instytucji finansowej
@@ -90,6 +90,7 @@ Wizualizacja przedstawia pozycje bankomatów na mapie, ich stan sejfu oraz natę
 Udostępnia definiowanie konfiguracji symulacji.
 
 Wyróżnianie bankomatów:
+
  - wielkość kropki - obciążenie bankomatu
  - stos pieniędzy, który maleje w miarę upływania pieniędzy w sejfie bankomatu
 
