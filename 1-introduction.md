@@ -2,7 +2,7 @@
 
 # Wstęp
 
-## Symulacja i wizualizacja pracy bankomatu
+## Symulacja i wizualizacja pracy systemu bankomatów
 
 Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być może takie nie istnieją, nie są publicznie dostępne ani opisane. 
 
@@ -20,6 +20,10 @@ Podstawowe informacje o bankach, instytucjach finansowych, zrzeszeniach finansow
 # Projekt
 
 ## Symulacja \autocite{Hartmann:simulation:2005} \autocite{hartmann:2015:bigsim}
+
+Ekperymenty, fizyczne, ekonomiczne lub socjologiczne, w świecie rzeczywistym bywają skomplikowane lub niemożliwe do przeprowadzenia. Symulacja jest procesem umożliwiającym takie eksperymenty poprzez proces reprezentacji świata rzeczywisatego jako uproszczonego, abstrakcyjnego modelu. W wielu przypadkach wykorzystywana jest losowość, aby wprowadzić element różnorodności do symulacji. Umożliwia to naukowcom wykorzystanie statystycznych obserwacji do uzupełnienia szczegółów uproszczonego modelu, których nie da się przedstawić w modelu matematycznym lub czynniki ten nie mają bezpośredniego wpływu na badanie. Połączenie losowości z możliwością sterowania warunkami modelu umożliwia generowanie wyników poprzez zapis cyklu uruchomień modelu i statastyczną ich analizę. Obiektem dyskusji w tej pracy są symulacje komputerowe. chociaż historia symulacji sięga daleko przed powstaniem komputerów. Przed komputerami, dużą rolę w symulacjach odgrywało modelowanie matematyczne. W tej dziedzinie cały system jest przedstawiony w postaci zbioru równań, obliczanych dla zadanych parametrów. W kontraście, symulacje operają się na uruchomieniach modelu, dla których dwa wyniki z tymi samymi warunkami początkowymi mogą być inne. Symulacje kompuerowe dzielą się na dwie kategorie. Pierwszą z nich stanowią symulacje modele, w których aktorzy, ludzie lub inne elementy świata rzeczywistego, wchodzą w interakcję z systemem w czasie symulacji. Systemy te są często nazywane systemami "w pętli" lub symulacją z "ludźmi w pętli". Sztandarowymi przykłademi tego typu symulacji są gry komputerowe, interaktywne systemy treningu wojskowego oraz systemy testowania maszyn przemysłowych. Drugą z kategorii są symulacje, w których cały syste jest zaprojektowany jako oprogramowanie komputerowe. Wśród nich znajdują się symulacje ze zdarzeniami dyskretnymi, symulacje z czasem dyskretnym oraz symulacje statystyczne/Monte Carlo. Kluczową cechą wyróżnającą metody "w pętli" od pozostałych jest wymaganie odpowiedzi w czasie rzeczywistym.  Systemy "w pętli" muszą odpowiadać w zadanym czasie, aby zewnętrzny obserwator, człowiek lub maszyna, otrzymał odpowiedź na wykonaną akcje. W przeciwieństwie do systemów "W pętli", pozostałe systemy generują wyniki symulacji w dowolnych odstępach czasowych.
+
+Symulacja jest eksperymentalną dziedziną nauki, więc w tworzenie i wykorzystywanie symulacji często przypomina proces przeprowadzania eksperymentów fizycznych lub chemicznych. Pierwszym krokiem jest zdefiniowanie tezy lub hipotezy do sprwadzenia oraz usatlenie istotnych waunków początkowych. W następstwie specyfikacji, wymagane są obserwacje świata rzeczywistego. Polegają one na zebraniu pomiarów o obiekcie symulacji oraz danych statystycznych odnośnie elementów dynamicznych. Krok ten jest analogią części teoretycznej eksperymentu fizycznego, definiuje domenę oraz parametry eksperymentu.  
 
 ### Symulacja w grach komputerowych \autocite{vogel:simulation}
 
@@ -70,7 +74,7 @@ Karta
  - jest powiązana z bankiem / instytucją która ją wypuściła
  - może mieć różne waluty
 
- #### Bankomat
+ #### Bankomaty
 
  - ma maksymalną pojemność
  - przynależy do banku / instytucji finansowej
@@ -84,7 +88,7 @@ Symulacja musi być realistyczna, naturalna.
 
 Rozkłady muszą pokrywać cały okres symulacji.
 
-## Wizualizacja
+## Wizualizacja na mapie
 
 Wizualizacja przedstawia pozycje bankomatów na mapie, ich stan sejfu oraz natężenie ruchu oraz błędy.
 Udostępnia definiowanie konfiguracji symulacji.
