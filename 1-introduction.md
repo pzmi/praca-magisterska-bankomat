@@ -2,7 +2,7 @@
 
 # Wstęp
 
-## Symulacja i wizualizacja pracy systemu bankomatów
+## Symulacja pracy systemu bankomatów i wizualizacja na mapie
 
 Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być może takie nie istnieją, nie są publicznie dostępne ani opisane. 
 
@@ -33,11 +33,27 @@ Symulacja z czasem dyskretnym jest modyfikacją symulacji ze zdarzeniami dyskret
 
 ### Generatory liczb losowych i pseudolosowych \autocite{Ecuyer:rng} \autocite{Hellekalek:rng} \autocite{Ecuyer:simulation:rng}
 
-### Użyte narzędzia
+## Użyte narzędzia
 
 Przedstawienie użytych narzędzi i motywacja
 
+### Java
+
+Simula \autocite{dahl1968simula} jest językiem, który wprowadził podstawowe zagadnienia programowania obiektowego. Przy jego projektowaniu, twórcy położyli nacisk na wykorzystanie języka w symulacjach komputerowych, co wpłynęło na rozwój systemów symulacyjnych. Simula zapoczątkowała połączenie symulacji z programowaniem obiektowym, jako naturalnej reprezentacją symulacji. Związek ten istnieje po dziś dzień w wielu współczesnych narzędziach symulacyjnych zaimplementowanych w popularnych językach zorientowanych obiektowo, jak C++ lub Java. \autocite{urbansim} \autocite{advanced:simulation:library}
+
+Java \autocite{gosling1995java} jest językiem programowania zaprojektowanym w latach 90. Wywodzi się z rodziny języka C i wspiera programowanie obiektowe. Obecnie Java zawiera koncepty z wielu różnych paradygmatów programowania, lecz centralnym punktem tego języka są klasy. Pieczę nad rozwojem języka oraz środowiska uruchomieniowego trzyma Java Community Process, komisja obradująca nad propozycjami rozwoju Javy. 
+
+Głównym założeniem języka Java jest bezpieczeństwo wykonywanych operacji w modelu obiektowym. To doprowadziło do stworzenia języka z automatycznym zarządzaniem pamięcią, działającym na wirtualnej maszynie, zwanej Java Virtual Machine. Przejmuje ona część obowiązków, jak poprawność i bezpieczeństwo, z programisty na środowisko uruchomieniowe. 
+
+Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie dokonuje się rozróżnienia pomiędzy samym jęzkiem, a standardową biblioteką. Zawiera ona moduły szerokiego zastosowania, struktury danych, model współbieżności, lecz brak w niej wsparcia dla programowania aktorowego, który należy uzupełnić biblioteką zewnętrzną.
+
 ### Akka
+
+Akka \autocite{akka:web} 
+
+
+### Scala
+
 
 ### Model aktorowy \autocite{todd:2012:simulation} \autocite{barat:2017:simulation} \autocite{aceto:2011:simulations} \autocite{Waite2013ScaNSU} \autocite{Harrison:2015:actors}
 
