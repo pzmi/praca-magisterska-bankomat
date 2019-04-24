@@ -47,26 +47,30 @@ Przedstawienie użytych narzędzi i motywacja
 
 Simula \autocite{dahl1968simula} jest językiem, który wprowadził podstawowe zagadnienia programowania obiektowego. Przy jego projektowaniu, twórcy położyli nacisk na wykorzystanie języka w symulacjach komputerowych, co wpłynęło na rozwój systemów symulacyjnych. Simula zapoczątkowała połączenie symulacji z programowaniem obiektowym, jako naturalnej reprezentacją symulacji. Związek ten istnieje po dziś dzień w wielu współczesnych narzędziach symulacyjnych zaimplementowanych w popularnych językach zorientowanych obiektowo, jak C++ lub Java. \autocite{urbansim} \autocite{advanced:simulation:library}
 
-Java \autocite{gosling1995java} jest językiem programowania zaprojektowanym w latach 90. Wywodzi się z rodziny języka C i wspiera programowanie obiektowe. Obecnie Java zawiera koncepty z wielu różnych paradygmatów programowania, lecz centralnym punktem tego języka są klasy. Pieczę nad rozwojem języka oraz środowiska uruchomieniowego trzyma Java Community Process, komisja obradująca nad propozycjami rozwoju Javy. 
+Java \autocite{gosling1995java} jest językiem programowania zaprojektowanym w latach 90. Wywodzi się z rodziny języka C i wspiera programowanie obiektowe. Obecnie Java zawiera koncepty z wielu różnych paradygmatów programowania, lecz centralnym punktem tego języka są klasy. Pieczę nad rozwojem języka oraz środowiska uruchomieniowego trzyma Java Community Proces, komisja obradująca nad propozycjami rozwoju Javy. 
 
 Głównym założeniem języka Java jest bezpieczeństwo wykonywanych operacji w modelu obiektowym. To doprowadziło do stworzenia języka z automatycznym zarządzaniem pamięcią, działającym na wirtualnej maszynie, zwanej Java Virtual Machine. Przejmuje ona część obowiązków, jak poprawność i bezpieczeństwo, z programisty na środowisko uruchomieniowe. 
 
-Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie dokonuje się rozróżnienia pomiędzy samym jęzkiem, a standardową biblioteką. Zawiera ona moduły szerokiego zastosowania, struktury danych, model współbieżności, lecz brak w niej wsparcia dla programowania aktorowego, który należy uzupełnić biblioteką zewnętrzną.
+Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie dokonuje się rozróżnienia pomiędzy samym jęzkyem, a standardową biblioteką. Zawiera ona moduły szerokiego zastosowania, struktury danych, model współbieżności, lecz brak w niej wsparcia dla programowania aktorowego, który należy uzupełnić biblioteką zewnętrzną.
 
 ### Akka
 
-Akka \autocite{akka:web} jest zewnętrznym zestawem narzędzi, który implementuje aktorowy model programowania i współbieżności. Zestaw ten napisany jest w języku Scala, lecz wspiera również język Java przez kompatybilny interfejs programistyczny. 
+Akka \autocite{akka:web} \autocite{roestenburg2015akka} jest zewnętrznym zestawem narzędzi, który implementuje aktorowy model programowania i współbieżności. Zestaw ten napisany jest w języku Scala, lecz wspiera również język Java przez kompatybilny interfejs programistyczny. Powstał, aby zredukować koszty wytwarzania zadań asynchronicznych i współbieżnych. W założeniu, Akka ma zapewniać sprawdzony zestaw funkcjonalności do budowania skalowalnych oraz niezawodnych rozwiązań programistycznych.
 
+Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania wspóbieżnego i równoległego jak wątki (*ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *CAS (compare-and-swap)*, aby ograniczyć liczbę blokad do minimum.
 
 ### Scala
 
-Scala \autocite{odersky2008scala} jest językiem programowania ogólnego przeznaczenia, zorientowanym na programowanie funkcyjne. Został zaprojektowany do tworzenia zwięzłego kodu, oraz aby poprawić niedoskonałości Javy. Mimo tego Scala jest kompilowana do kodu bajtowego wirtualnej maszyny Javy, aby zachować kompatybilność z tymże językiem.
+Scala \autocite{odersky2008scala} jest językiem programowania ogólnego przeznaczenia, łączącym w sobie dwa, uzupełniające się podejścia, programowania zorientowanego obiektowo oraz programowania funkcyjnego, w statycznie typowany język. Jego funkcyjna strona umożliwia budowanie funkcjonalności z prostych elementów składowych. Podejście obiektowe zaś umożliwia porządkowanie złożonych systemów. Nazwa **Scala** wywodzi się od *scalable language*, aby zaznaczyć jego rozwój wraz z rosnącymi wymaganiami jego użytkowników. Został zaprojektowany do tworzenia zwięzłego kodu w prostych skryptach jak i rozbudowanych systemach informatycznych. Scala jest kompilowana do kodu bajtowego wirtualnej maszyny Javy, aby zachować kompatybilność pełną z tymże językiem.
 
 ### Model aktorowy \autocite{todd:2012:simulation} \autocite{barat:2017:simulation} \autocite{aceto:2011:simulations} \autocite{Waite2013ScaNSU} \autocite{Harrison:2015:actors}
 
 TODO: przepisać i uzupełnić
 
-Model aktorowy jest modelem programowania, w którym przetwarzanie jest wykonywane z natury współbieżnie. Podstawową jednostką wykonawczą tego modelu jest *aktor*.
+Model aktorowy jest modelem programowania, w którym przetwarzanie jest wykonywane z natury współbieżnie. 
+Został on zaproponowany w 1973 roku przez Carla Hewitta, Patera Bishopa oraz Richarda Steigera. Język Erlang oraz jego pośrednia warstwa oprogramowania OTP, zostały stworzone przez firmę Ericsson około roku 1986, operają się na aktorowym modelu przetwarzania i są w wysoce niezawodnych systemach o bardzo dużej skali. Pomimo tego, że model aktorowy zaimplementowany w Erlangu różni się nieco od tego w narzędziach Akka, to miał znaczący wpływ na ich rozwój i współdzielą ze sobą wiele konceptów.
+
+Podstawową jednostką wykonawczą modelu aktorowego jest *aktor*.
 
 Aktor jest jednostką wykonawczą, która odwzorowuje każdą przychodzącą wiadomość na krotkę składającą się z:
 
