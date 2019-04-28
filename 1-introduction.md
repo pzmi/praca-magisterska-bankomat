@@ -45,6 +45,12 @@ Czym jest losowość w symulacjach? Poprzez losowość rozumiemy *losową sekwen
 Można postrzegać losową sekwencję jako generator, który produkuje wartość, kiedy jest o to poproszony, której nie da się przewidzieć na podstawie żadnej z poprzednich wartości.
 Procesy losowe są często przedstawiane jako próbkowanie z rozkładu prawdopodobieństwa. W związku z tym, pomimo faktu, że da się przewidzieć $n_k$, można stworzyć przybliżenie rozkładu prawdopodobieństwa, zbudowanego na podstawie histogramu z wartości próbek pobranych z generatora.
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=140mm]{graphics/distributions.png}
+\caption{Przykładowe rozkłady przedstawiające procesy losowe \autocite{Kneusel2018RandomNA}}
+\end{figure}
+
 Zakładamy, że sekwencje losowe istnieją i można znaleść je w fizycznym świecie. Przykładami procesów losowych, które można użyć do wygenerowania losowej sekwencji są:
 
 #. sprawiedliwy rzut kością
@@ -52,11 +58,7 @@ Zakładamy, że sekwencje losowe istnieją i można znaleść je w fizycznym św
 #. rozpad radioaktywnych pierwiastków
 #. wzór zakłóceń telewizora CRT 
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=140mm]{graphics/distributions.png}
-\caption{Przykładowe rozkłady przedstawiające procesy losowe \autocite{Kneusel2018RandomNA}}
-\end{figure}
+
 
 ## Użyte narzędzia
 
