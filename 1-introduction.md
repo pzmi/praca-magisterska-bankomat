@@ -34,10 +34,29 @@ W symulacjach ze zdarzeniami dyskretnymi, modelowany system jest przedstawiony j
 Symulacja z czasem dyskretnym jest modyfikacją symulacji ze zdarzeniami dyskretnymi. Zamiast skokowego postępu czasu wynikającego z czasu zdarzeń, w tym typie symulacji czas posuwa się o stałą wartość. Wszystkie zdarzenia, które pojawiają się w danym okresie czasu są traktowane tak jakby wydarzyły się w tym samym momencie. Podejście to ma szereg zalet nad symulacją ze zdarzeniami dyskretnymi. W przypadku dyskretnych zdarzeń, gdy zdarzenia są gęsto rozmieszczone w czasie, symulacja nie może pomijać okresów czasu, co zwiększa zapotrzebowanie na moc obliczeniową. Ten problem nie występuje w symulacji z czasem dyskretnym ze względu na równe odstępy czasu pojawiania się zbioru zdarzeń. Kolejną zaletą wynikającą z tej własności jest brak konieczności utrzymywania globalnej, uporządkowanej struktury danych zdarzeń. Zamiast niej można wykorzystać struktury danych o lepszych właściwościach dostępu do danych, takich jak tablice mieszające. Co więcej, dzięki temu, że w symulacjach z czasem dyskretnym zdarzenia w danym okresie czasu występują jednocześnie, przetwarzanie tego okresu można zrównoleglić. W takim przypadku przetwarzanie można rozdzielić pomiędzy wiele procesów roboczych na zasadzie rozprosz-zbierz (*ang. scatter-gather*).
 
 
-
 ### Symulacja w grach komputerowych \autocite{vogel:simulation}
 
-### Generatory liczb losowych i pseudolosowych \autocite{Ecuyer:rng} \autocite{Hellekalek:rng} \autocite{Ecuyer:simulation:rng}
+### Generatory liczb losowych i pseudolosowych \autocite{Ecuyer:rng} \autocite{Hellekalek:rng} \autocite{Ecuyer:simulation:rng} \autocite{Kneusel2018RandomNA}
+
+Czym jest losowość w symulacjach? Poprzez losowość rozumiemy *losową sekwencję*.
+
+> Sekwencja *a* *n* liczb, zawierających się w określonym zbiorze, w której nie da się przewidzieć $n_{k+1}$ z żadnej kombinacji poprzedzającej $n_i, i = 0,1,...,k$.
+
+Można postrzegać losową sekwencję jako generator, który produkuje wartość, kiedy jest o to poproszony, której nie da się przewidzieć na podstawie żadnej z poprzednich wartości.
+Procesy losowe są często przedstawiane jako próbkowanie z rozkładu prawdopodobieństwa. W związku z tym, pomimo faktu, że da się przewidzieć $n_k$, można stworzyć przybliżenie rozkładu prawdopodobieństwa, zbudowanego na podstawie histogramu z wartości próbek pobranych z generatora.
+
+Zakładamy, że sekwencje losowe istnieją i można znaleść je w fizycznym świecie. Przykładami procesów losowych, które można użyć do wygenerowania losowej sekwencji są:
+
+#. sprawiedliwy rzut kością
+#. sprawiedliwy rzut monetą
+#. rozpad radioaktywnych pierwiastków
+#. wzór zakłóceń telewizora CRT 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=140mm]{graphics/distributions.png}
+\caption{Przykładowe rozkłady przedstawiające procesy losowe \autocite{Kneusel2018RandomNA}}
+\end{figure}
 
 ## Użyte narzędzia
 
