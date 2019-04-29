@@ -40,7 +40,7 @@ Symulacja z czasem dyskretnym jest modyfikacją symulacji ze zdarzeniami dyskret
 
 Czym jest losowość w symulacjach? Poprzez losowość rozumiemy *losową sekwencję*.
 
-> Sekwencja *a* *n* liczb, zawierających się w określonym zbiorze, w której nie da się przewidzieć $n_{k+1}$ z żadnej kombinacji poprzedzającej $n_i, i = 0,1,...,k$.
+> Sekwencją losową *a* *n* liczb nazywamy sekwencję liczb, zawierających się w określonym zbiorze, w której nie da się przewidzieć $n_{k+1}$ z żadnej kombinacji poprzedzającej $n_i, i = 0,1,...,k$.
 
 Można postrzegać losową sekwencję jako generator, który produkuje wartość, kiedy jest o to poproszony, której nie da się przewidzieć na podstawie żadnej z poprzednich wartości.
 Procesy losowe są często przedstawiane jako próbkowanie z rozkładu prawdopodobieństwa. W związku z tym, pomimo faktu, że da się przewidzieć $n_k$, można stworzyć przybliżenie rozkładu prawdopodobieństwa, zbudowanego na podstawie histogramu z wartości próbek pobranych z generatora.
@@ -57,6 +57,27 @@ Zakładamy, że sekwencje losowe istnieją i można znaleść je w fizycznym św
 #. sprawiedliwy rzut monetą
 #. rozpad radioaktywnych pierwiastków
 #. wzór zakłóceń telewizora CRT 
+
+> Jak wiele razy wspomniano, coś takiego jaki liczba losowa nie istnieje - występują jedynie metody tworzenia liczb losowych, a ścisła arytmetyczna procedura taką metodą nie jest. /autocite{vonN51}
+
+Jak napisał John von Neumann, wygenerowanie prawdziwie losowych liczb przy pomocy deterministycznego algorytmu jest niemożliwe. Jednakże, do celów symulacji, osiągnięcie asymptotycznie bliskich do prawdziwych wyników, jest wystarczające.
+Do tego celu można wykorzystać generatory liczb *pseudolosowych*
+
+> Pseudolosową sekwencją nazywamy deterministycznie wygenerowaną sekwencję liczb, która jest nieodróżnialna od prawdziwie losowej sekwencji liczb.
+
+Generator liczb pseudolosowych jest matematycznym algorytmem, który dla zadanego stanu początkowego wytwarza sekwencję liczb pseudolosowych. Generatory te mają klika zalet nad generatorami liczb prawdziwie losowych. Główną z nich są określone, matematyczne właściwości, jak długość sekwencji, które zapewniają przewidywalność oraz fakt, że można taki generator zaimplementować bez użycie specjalistycznego sprzętu.
+Większość generatorów liczb pseudolosowych skupia się na wytwarzaniu ciągów o rozkładzie jednostajnym. 
+Generator $P$ produkuje sekwencje liczb całkowitych, $n$, na zbiorze , $[0,m], 0 <= n < m$ dla pewnej maksymalnej, nieosiągalnej wartości m oraz spełniają definicje losowej sekwencji liczb z asymptotyczną dokładnością, dostosowaną do zastosowania.
+
+Tak zdefiniowany generator liczb całkowitych można przekształcić do przeskalowanej postaci, która wytwarza liczby zmiennoprzecinkowe w dowolnym zakresie.
+
+$$
+f = \frac{P}{m}, f \in [0, 1)
+
+\omega = a + (b - a) * f, \omega \in [a,b)
+$$$
+
+
 
 
 
