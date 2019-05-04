@@ -60,9 +60,7 @@ Zakładamy, że sekwencje losowe istnieją i można znaleść je w fizycznym św
 
 TODO: dyskusja na temat prawdziwych generatorów i pseudo
 
-TODO: zastosowanie generatorów prawdziwych
-
-TODO: generatory crypto secure
+TODO: zastosowanie generatorów prawdziwych i dlaczego nie nadają się do symulacji
 
 > Jak wiele razy wspomniano, coś takiego jaki liczba losowa nie istnieje - występują jedynie metody tworzenia liczb losowych, a ścisła arytmetyczna procedura taką metodą nie jest. /autocite{vonN51}
 
@@ -83,11 +81,24 @@ f = \frac{P}{m}, f \in [0, 1)
 $$$
 
 Generatory liczb pseudolosowych można podzielić na dwie główne kategorie: generatory bazowe oraz generatory dystrybucyjne.
-Najczęściej generator bazowy jest generatorem liczb pseudolosowych,który skupia się na wytwarzaniu ciągów o rozkładzie jednorodnym. Generator dystrybucyjny jesy procedurą, która biorąc wkład z generatora bazowego, przekształca go na wartości odpowiadające zadanym rozkładom, takim jak jednorodne, normalne (Gaussa) lub gamma. 
+Najczęściej generator bazowy jest generatorem liczb pseudolosowych, który skupia się na wytwarzaniu ciągów o rozkładzie jednorodnym. Generator dystrybucyjny jest procedurą, która biorąc wkład z generatora bazowego, przekształca go na wartości odpowiadające zadanym rozkładom, takim jak jednorodne, normalne (Gaussa) lub gamma. 
 
-TODO: cykle generatorów
+Dobry bazowy generator liczb losowych powinien spełniać następujące cechy:
 
-Cykl generatora bazowego jest określony przez maksymalną długość sekwencji, która może zostać wytworzona zanim zacznie się powtarzać. Stan początkowy generatora jest nazywany ziarnem.
+ - jednorodność
+ - powtarzalność
+ - duża długość cyklu
+ - niezależność
+ - niezależność od ziarna
+ - wysoka szybkość
+ - niskie zużycie pamięci
+
+Z praktycznego punktu widzenia, generator powinien zwracać poprawne rezultaty w tak wielu zastosowaniach jak to jest możliwe. Jednakże własność ta jest niemożliwa do realizacji.
+Nie istnieje idealna kombinacja cech generatora, który będzie spełniał wszystkie wymagania użytkownika. Są one zależne od zastosowania i znacznie różnią się generatory do zastosowań kryptograficznych i kryptologicznych, od tych dostosowanych pod symulacje stochastyczną.
+
+Liczby generowane przez taki generator powinny być jednorodnie rozłożone w zakresie (0,1]. Aby generator nadawał się do zastosowań eksperymentów i symulacji, dla zadanych parametrów musi wytworzyć tę samą sekwencję. Jest to niezbędne w przypadku analizy wyników oraz potencjalnych błędów. Generatory liczb pseudolosowych, są niczym innym niż deterministycznymi algorytmami, wytwarzającymi liczby o określonych własnościach rozkładu. Pseudo losowa sekwencja ma skończoną dokładność arytmetyczną, więc powtarza się ze skończonym okresem. Okres ten powinien być znacznie dłuższy niż liczba liczb losowych potrzebnych do symulacji. Wygenerowana liczba musi być niezależna od poprzedzającej jej sekwencji. Ponadto, niezależność tyczy się również stanu początkowego, czyli ziarna. Różnie jego wartości nie mogą wypływać na długość okresu lub jakość generowanych sekwencji. Symulacje są procesami czasochłonnymi i szybkość generatora liczb pseudolosowych nie jest w nich kluczowa. Jednakże, szybkość generatora może mieć znaczenie w przypadku symulacji wielokrotnie powtarzanych. Jeśli wybrany symulator będzie 10-o krotnie szybszy od innego, może to znacznie przyspieszyć proces badawczy. Zużycie pamięci zaś powinno być dostosowane do wykorzystywanego sprzętu komputerowego. Niewystarczająca ilość pamięci może powodować spowolnienia oraz błędy symulacji, często trudne to zlokalizowania.
+
+Zadaniem generatora, nie jest symulowanie losowości, a zwrócić poprawne wyniki w symulacji. W związku z tym, do symulacji należy dobrać odpowiedni generator liczb pseudolosowych, co nie jest zadaniem łatwym. Na szczęście z pomocą przychodzą zdefiniowane matematyczne właściwości generatorów, jak długość cyklu lub rozkład i współczynnik korelacji, które zabezpieczają projektantów symulacji przed uzyskaniem nieprawidłowych wyników na skutek nieprawidłowo dobranego generatora.
 
 TODO: przykłady generatorów: LCG
 
@@ -144,6 +155,10 @@ w wyniku przetwarzania nadchodzących wiadomości. Co więcej, komunikacja jest 
 ### Akka Streams
 
 ### Reaktywne strumienie
+
+### React js
+
+### Websocket
 
 ## Symulator wypłat z bankomatów
 
@@ -207,3 +222,4 @@ Wyróżnianie bankomatów:
  - funkcja wpłatomatu
  - sprawdzanie stanu konta
  - transakcja anulowana - klient rozpoczął transakcje, ale nie wypłacił pieniędzy
+  - testowanie modelu
