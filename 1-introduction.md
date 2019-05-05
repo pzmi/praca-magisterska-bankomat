@@ -38,7 +38,8 @@ Symulacja z czasem dyskretnym jest modyfikacją symulacji ze zdarzeniami dyskret
 
 ### Generatory liczb losowych i pseudolosowych \autocite{Ecuyer:rng} \autocite{Hellekalek:rng} \autocite{Ecuyer:simulation:rng} \autocite{Kneusel2018RandomNA}
 
-Czym jest losowość w symulacjach? Poprzez losowość rozumiemy *losową sekwencję*.
+Losowość ma wiele zastosowań. Często sprawdzenie wszystkich możliwych przypadków jest niepraktyczne, a losowa próbka pozwoli zbadać typowe zachowanie. Liczby losowe są również wykorzystywane w programach komputerowych, aby sprawdzać efektywność algorytmów. Ponadto, istnieje cała kategoria algorytmów losowych, zwanych też *Monte Carlo*, które opierają swoje działanie na losowości. Szczególnym przypadkiem programów komputerowych, są gry. W nich losowość jest stosowana, aby świat przedstawiony wydawał się bardziej rzeczywisty. Liczby losowe wykorzystuje się do podobnych celów w symulacjach, w których komputer odwzorowuje zjawiska naturalne. 
+Ciężko określić co jest liczbą losową, bo czy liczba 2 jest losowa? Poprzez losowość rozumiemy *losową sekwencję*.
 
 > Sekwencją losową *a* *n* liczb nazywamy sekwencję liczb, zawierających się w określonym zbiorze, w której nie da się przewidzieć $n_{k+1}$ z żadnej kombinacji poprzedzającej $n_i, i = 0,1,...,k$.
 
@@ -58,14 +59,14 @@ Zakładamy, że sekwencje losowe istnieją i można znaleść je w fizycznym św
 #. rozpad radioaktywnych pierwiastków
 #. wzór zakłóceń telewizora CRT 
 
-TODO: dyskusja na temat prawdziwych generatorów i pseudo
+Niestety, powyższe metody są niepraktyczne do zastosowań naukowych. Z tego powodu powstały specjalistyczne maszyny do mechanicznego generowania losowych sekwencji, bazujące na generatorach szumu lub licznikach Geigera . Początkowo służyły one to produkcji tablic liczb losowych, obliczanych przed przeprowadzeniem eksperymentu. Ze względu na ograniczenia pamięci, długi czas wprowadzania sekwencji oraz jej ograniczoną długość, metoda ta nie znalazła szerokiego zastosowania w programach komputerowych.
 
-TODO: zastosowanie generatorów prawdziwych i dlaczego nie nadają się do symulacji
+Jednakże, metody mechaniczne okazały się niewystarczające, ponieważ niemożliwa jest reprodukcja eksperymentu poprzez ponowne przeprowadzenie obliczeń.
 
 > Jak wiele razy wspomniano, coś takiego jaki liczba losowa nie istnieje - występują jedynie metody tworzenia liczb losowych, a ścisła arytmetyczna procedura taką metodą nie jest. /autocite{vonN51}
 
-Jak napisał John von Neumann, wygenerowanie prawdziwie losowych liczb przy pomocy deterministycznego algorytmu jest niemożliwe. Jednakże, do celów symulacji, osiągnięcie asymptotycznie bliskich do prawdziwych wyników, jest wystarczające.
-Do tego celu można wykorzystać generatory liczb *pseudolosowych*
+Jak napisał John von Neumann, wygenerowanie prawdziwie losowych liczb przy pomocy deterministycznego algorytmu jest niemożliwe. Jednakże, do symulacji, osiągnięcie asymptotycznie bliskich do prawdziwych wyników, jest wystarczające.
+W tym celu można wykorzystać generatory liczb *pseudolosowych*
 
 > Pseudolosową sekwencją nazywamy deterministycznie wygenerowaną sekwencję liczb, która jest nieodróżnialna od prawdziwie losowej sekwencji liczb.
 
@@ -115,13 +116,13 @@ Java \autocite{gosling1995java} jest językiem programowania zaprojektowanym w l
 
 Głównym założeniem języka Java jest bezpieczeństwo wykonywanych operacji w modelu obiektowym. To doprowadziło do stworzenia języka z automatycznym zarządzaniem pamięcią, działającym na wirtualnej maszynie, zwanej Java Virtual Machine. Przejmuje ona część obowiązków, jak poprawność i bezpieczeństwo, z programisty na środowisko uruchomieniowe. 
 
-Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie dokonuje się rozróżnienia pomiędzy samym jęzkyem, a standardową biblioteką. Zawiera ona moduły szerokiego zastosowania, struktury danych, model współbieżności, lecz brak w niej wsparcia dla programowania aktorowego, który należy uzupełnić biblioteką zewnętrzną.
+Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie dokonuje się rozróżnienia pomiędzy samym językiem, a standardową biblioteką. Zawiera ona moduły szerokiego zastosowania, struktury danych, model współbieżności, lecz brak w niej wsparcia dla programowania aktorowego, który należy uzupełnić biblioteką zewnętrzną.
 
 ### Akka
 
 Akka \autocite{akka:web} \autocite{roestenburg2015akka} jest zewnętrznym zestawem narzędzi, który implementuje aktorowy model programowania i współbieżności. Zestaw ten napisany jest w języku Scala, lecz wspiera również język Java przez kompatybilny interfejs programistyczny. Powstał, aby zredukować koszty wytwarzania zadań asynchronicznych i współbieżnych. W założeniu, Akka ma zapewniać sprawdzony zestaw funkcjonalności do budowania skalowalnych oraz niezawodnych rozwiązań programistycznych.
 
-Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania wspóbieżnego i równoległego jak wątki (*ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *CAS (compare-and-swap)*, aby ograniczyć liczbę blokad do minimum.
+Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania współbieżnego i równoległego jak wątki (*ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *CAS (compare-and-swap)*, aby ograniczyć liczbę blokad do minimum.
 
 ### Scala
 
@@ -132,7 +133,7 @@ Scala \autocite{odersky2008scala} jest językiem programowania ogólnego przezna
 TODO: przepisać i uzupełnić
 
 Model aktorowy jest modelem programowania, w którym przetwarzanie jest wykonywane z natury współbieżnie. 
-Został on zaproponowany w 1973 roku przez Carla Hewitta, Patera Bishopa oraz Richarda Steigera. Język Erlang oraz jego pośrednia warstwa oprogramowania OTP, zostały stworzone przez firmę Ericsson około roku 1986, operają się na aktorowym modelu przetwarzania i są w wysoce niezawodnych systemach o bardzo dużej skali. Pomimo tego, że model aktorowy zaimplementowany w Erlangu różni się nieco od tego w narzędziach Akka, to miał znaczący wpływ na ich rozwój i współdzielą ze sobą wiele konceptów.
+Został on zaproponowany w 1973 roku przez Carla Hewitta, Patera Bishopa oraz Richarda Steigera. Język Erlang oraz jego pośrednia warstwa oprogramowania OTP, zostały stworzone przez firmę Ericsson około roku 1986, bazują na aktorowym modelu przetwarzania i są w wysoce niezawodnych systemach o bardzo dużej skali. Pomimo tego, że model aktorowy zaimplementowany w Erlangu różni się nieco od tego w narzędziach Akka, to miał znaczący wpływ na ich rozwój i współdzielą ze sobą wiele konceptów.
 
 Podstawową jednostką wykonawczą modelu aktorowego jest *aktor*.
 
