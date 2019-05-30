@@ -75,11 +75,10 @@ Generator $P$ produkuje sekwencje liczb całkowitych, $n$, na zbiorze , $[0,m], 
 
 Tak zdefiniowany generator liczb całkowitych można przekształcić do przeskalowanej postaci, która wytwarza liczby zmiennoprzecinkowe w dowolnym zakresie.
 
-$$
-f = \frac{P}{m}, f \in [0, 1)
 
-\omega = a + (b - a) * f, \omega \in [a,b)
-$$$
+$$f = \frac{P}{m}, f \in [0, 1)$$
+
+$$\omega = a + (b - a) * f, \omega \in [a,b)$$
 
 Generatory liczb pseudolosowych można podzielić na dwie główne kategorie: generatory bazowe oraz generatory dystrybucyjne.
 Najczęściej generator bazowy jest generatorem liczb pseudolosowych, który skupia się na wytwarzaniu ciągów o rozkładzie jednorodnym. Generator dystrybucyjny jest procedurą, która biorąc wkład z generatora bazowego, przekształca go na wartości odpowiadające zadanym rozkładom, takim jak jednorodne, normalne (Gaussa) lub gamma. 
