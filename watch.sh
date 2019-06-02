@@ -1,8 +1,8 @@
-#/bin/bash
+#!/bin/bash
 
 inotifywait -e CLOSE_WRITE -m * | 
     while read path ignored; do
-        if [[ "$path" =~ .*(md|config\.tex|title\.tex)$ ]]; then 
+        if [[ "$path" =~ .*(md|config\.tex|title\.tex|bib)$ ]]; then 
             echo "$path changed"
 
             if [[ $path =~ ".md" ]]; then 
@@ -10,9 +10,6 @@ inotifywait -e CLOSE_WRITE -m * |
 				pandoc $path -o ${base}.tex --listings
 			fi
 
-			pdflatex praca
-			biber praca
-			pdflatex praca
-			pdflatex praca
+			source ./build.sh
         fi
     done
