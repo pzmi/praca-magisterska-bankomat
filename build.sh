@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=$(ls [1-9]*.md)
+files=$(ls [0-9]*.md)
 
 for file in $files; do
 	base=$(basename $file .md)
@@ -10,5 +10,6 @@ done
 
 pdflatex praca
 biber praca
+makeglossaries praca
 pdflatex praca
 pdflatex praca

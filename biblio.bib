@@ -147,17 +147,7 @@ note	= {Master's Thesis}
   year={2013}
 }
 
-@article{aceto:2011:simulations,
-author = {Aceto, Luca and Cimini, Matteo and Ingolfsdottir, Anna and Hermann Reynisson, Arni and Hugi Sigurdarson, Steinar and Sirjani, Marjan},
-year = {2011},
-month = {07},
-pages = {},
-title = {Modelling and Simulation of Asynchronous Real-Time Systems using Timed Rebeca},
-volume = {89},
-journal = {Science of Computer Programming},
-doi = {10.4204/EPTCS.58.1}
-}
-
+# na razie pomijam
 @inproceedings{barat:2017:simulation,
 author={S. {Barat} and V. {Kulkarni} and T. {Clark} and B. {Barn}},
 booktitle={2017 Winter Simulation Conference (WSC)},
@@ -171,6 +161,7 @@ doi={10.1109/WSC.2017.8247838},
 ISSN={1558-4305},
 month={12},}
 
+
 @article{todd:2012:simulation,
 author = {B Todd, Aaron and K Keller, Amara and Lewis, Mark and G Kelly, Martin},
 year = {2012},
@@ -179,7 +170,7 @@ pages = {},
 title = {Multi-agent System Simulation in Scala: An Evaluation of Actors for Parallel Simulation}
 }
 
-// TODO: jak będzie mało z knutha
+# TODO: jak będzie mało z knutha
 @inproceedings{lecuyer:2017:history,
  author = {L'Ecuyer, Pierre},
  title = {History of Uniform Random Number Generation},
@@ -197,11 +188,7 @@ title = {Multi-agent System Simulation in Scala: An Evaluation of Actors for Par
  address = {Piscataway, NJ, USA},
 }
 
-@inproceedings{Mertens2009RandomNG,
-  title={Random Number Generators : A Survival Guide for Large Scale Simulations},
-  author={Stephan Mertens},
-  year={2009}
-}
+
 
 @book{dahl1968simula,
   title={SIMULA 67 common base language},
@@ -240,7 +227,8 @@ author="{Lightbend, Inc.}",
  url = {https://akka.io/},
  urldate = {2019-04-21}
 }
-
+ 
+# scala - duh
 @book{odersky2008scala,
   title={Programming in scala},
   author={Odersky, Martin and Spoon, Lex and Venners, Bill},
@@ -253,17 +241,6 @@ author="{Lightbend, Inc.}",
   author={Roestenburg, Raymond and Bakker, Rob and Williams, Rob},
   year={2015},
   publisher={Manning Publications Co.}
-}
-
-@article{macal2010agents,
-  author = {Macal, C and North, Michael},
-  year = {2010},
-  month = {09},
-  pages = {151-162},
-  title = {Tutorial on agent-based modelling and simulation},
-  volume = {4},
-  journal = {J. Simulation},
-  doi = {10.1057/jos.2010.3}
 }
 
 # 2.1.1 random number generation - wykorzystać wstęp o historii
@@ -282,7 +259,8 @@ author="{Lightbend, Inc.}",
   year={2014}
 }
 
-// TODO: lcg
+# 31 - lcg
+# 33 - długość ciągu w zależności od parametrów
 @inproceedings{Kneusel2018RandomNA,
   title={Random Numbers and Computers},
   author={Ronald T. Kneusel},
@@ -290,6 +268,8 @@ author="{Lightbend, Inc.}",
   year={2018}
 }
 
+# str 2 - what is simulation - na wstęp
+# str 3 - statyczna symulacja i dynamiczna symulacja - do działu z symulacją
 @book{robinson2014simulation,
   author = {Robinson, Stewart},
   year = {2014},
@@ -311,7 +291,6 @@ author="{Lightbend, Inc.}",
   Pages                    = {36--38}
 }
 
-// TODO: zaznaczone miejsca
 @book{lnuth1997art,
  author = {Knuth, Donald E.},
  title = {The Art of Computer Programming, Volume 2 (3rd Ed.): Seminumerical Algorithms},
@@ -321,7 +300,13 @@ author="{Lightbend, Inc.}",
  address = {Boston, MA, USA},
 } 
 
-// TODO: random
+# str 3 - opis symulacji
+# str 6 - opis modelu i discrete event simulation - dynamizm i porównanie do modeli matematycznych
+# str 7 - zmienne stanu
+# str 8 - activities - aktywność powoduje zmianę w przyszłości poprzez delay - side effecty
+# str 9 - struktury modeli - wymienić - opisać po 1 zdaniu, napisać o activity scanning więcej - bo tak w sumie działa system. pominąć three phase
+# str 10 - zalety i wady symulacji
+# str 94 - lcg
 @book{banks1998handbook,
   title={Handbook of Simulation: Principles, Methodology, Advances, Applications, and Practice},
   author={Banks, J. and Knovel (Firm)},
@@ -338,3 +323,63 @@ author="{Lightbend, Inc.}",
  url = {https://www.nbp.pl/home.aspx?f=/systemplatniczy/karty/informacje_kwartalne.html},
  urldate = {2019-06-02}
 }
+
+@inproceedings{firkowicz2018bankomaty,
+  title={Bankomaty w Polsce - podsumowanie 2018 roku},
+  author={Marek Firkowicz},
+  booktitle={Central European Digital Payments 2018},
+  year={2018}
+}
+
+@misc{ncr2019marketing,
+  title={Materiały marketingowe},
+  author="{NCR Corporation}",
+  year={2019}
+}
+
+@misc{ncr2019tech,
+  title={Specyfikacja techniczna systemów NCR SelfServ™},
+  author="{NCR Corporation}",
+  year={2019}
+}
+
+@article{gosling1995java,
+  title={The Java language environment},
+  author={Gosling, James and McGilton, Henry},
+  journal={Sun Microsystems Computer Company},
+  volume={2550},
+  year={1995}
+}
+
+@article{sycara1998multiagent,
+  author    = {Katia P. Sycara},
+  title     = {Multiagent Systems},
+  journal   = {{AI} Magazine},
+  volume    = {19},
+  number    = {2},
+  pages     = {79--92},
+  year      = {1998},
+  url       = {http://www.aaai.org/ojs/index.php/aimagazine/article/view/1370},
+  timestamp = {Wed, 29 Dec 2010 17:09:22 +0100},
+  biburl    = {https://dblp.org/rec/bib/journals/aim/Sycara98a},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{armstrong2010erlang,
+ author = {Armstrong, Joe},
+ title = {Erlang},
+ journal = {Commun. ACM},
+ issue_date = {September 2010},
+ volume = {53},
+ number = {9},
+ month = sep,
+ year = {2010},
+ issn = {0001-0782},
+ pages = {68--75},
+ numpages = {8},
+ url = {http://doi.acm.org/10.1145/1810891.1810910},
+ doi = {10.1145/1810891.1810910},
+ acmid = {1810910},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 

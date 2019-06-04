@@ -7,6 +7,7 @@
 *.toc
 *.bcf
 *.run.xml
+0-abstract.tex
 1-introduction.tex
 3-architecture.tex 
 5-scalability.tex
@@ -21,3 +22,14 @@
 *.docx
 *.odt
 *.html
+*.lot
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+*.lot
+*.lof

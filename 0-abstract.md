@@ -1,1 +1,3 @@
-# Streszczenie
+\section*{Streszczenie}
+
+Tu będzie streszczenie

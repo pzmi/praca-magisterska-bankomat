@@ -1,23 +1,28 @@
-# Wstęp
+\chapter{Wstęp}
 
-## Symulacja wypłat z systemu bankomatów i wizualizacja na mapie
+Simulation models are in everyday use and so simulation is a concept that is not alien to us.
+For instance, weather forecasters daily show us simulations of the weather system, where we
+see the movement of weather fronts over the days ahead. Many of us have game consoles
+that simulate a whole variety of activities, enabling us to test our skills as racing drivers,
+adventurers and city planners. Simulations need not be computer based. Model railways
+and remote control boats are familiar examples of physical simulations.
 
 Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być może takie nie istnieją, nie są publicznie dostępne ani opisane. 
 
-## Cel pracy
+# Cel pracy
 
  - symulacja pracy bankomatu
  - symulacja wypłat ze zbioru bankomatów w terenie
  - wizualizacja powyższych na mapie terenowej
 
-### Zastosowanie
+# Zastosowanie
 
  - dydaktyka - badanie rozkładów, badanie najkrótszych ścieżek zaopatrzenia bankomatów
  - rozkłady - dniowe, godzinowe obciążenia
  - baza danych do gry
  - symulacja samochodów z pieniędzmi, wożących pieniądze - optymalizacja
 
-## Instytucje finansowe i bankomaty
+# Instytucje finansowe i bankomaty
 
 \begin{figure}[htbp]
 \centering
@@ -45,20 +50,119 @@ Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być moż
 
 Podstawowe informacje o bankach, instytucjach finansowych, zrzeszeniach finansowych i wypłatach bankomatowych.
 
-# Projekt
+\chapter{Projekt}
 
-## Symulacja
+# Symulacja
 
-Eksperymenty, fizyczne, ekonomiczne lub socjologiczne, w świecie rzeczywistym bywają skomplikowane lub niemożliwe do przeprowadzenia. Symulacja jest procesem umożliwiającym takie eksperymenty poprzez proces reprezentacji świata rzeczywistego jako uproszczonego, abstrakcyjnego modelu. Aby wprowadzić element różnorodności do symulacji, w wielu przypadkach wykorzystywana jest losowość. Umożliwia to naukowcom wykorzystanie statystycznych obserwacji do uzupełnienia szczegółów uproszczonego modelu, których nie da się przedstawić w modelu matematycznym lub czynniki ten nie mają bezpośredniego wpływu na badanie. Połączenie losowości ze sterowaniem warunkami modelu umożliwia generowanie wyników poprzez zapis cyklu uruchomień modelu i statystyczną ich analizę. Obiektem dyskusji w tej pracy są symulacje komputerowe, chociaż historia symulacji sięga daleko przed powstaniem komputerów. Przed komputerami, dużą rolę w symulacjach odgrywało modelowanie matematyczne. W tej dziedzinie cały system jest przedstawiony w postaci zbioru równań, obliczanych dla zadanych parametrów. W kontraście symulacje opierają się na uruchomieniach modelu, dla których dwa wyniki z tymi samymi warunkami początkowymi mogą być inne. Symulacje komputerowe dzielą się na dwie kategorie. Pierwszą z nich stanowią modele, w których aktorzy, ludzie lub inne elementy świata rzeczywistego, wchodzą w interakcję z systemem w czasie symulacji. Systemy te są często nazywane systemami "w pętli" lub symulacją z "ludźmi w pętli". Sztandarowymi przykładem tego typu symulacji są gry komputerowe, interaktywne systemy treningu wojskowego oraz systemy testowania maszyn przemysłowych. Drugą z kategorii są symulacje, w których cały system jest zaprojektowany jako oprogramowanie komputerowe. Wśród nich znajdują się symulacje ze zdarzeniami dyskretnymi, symulacje z czasem dyskretnym oraz symulacje statystyczne/Monte Carlo. Kluczową cechą wyróżniającą metody "w pętli" od pozostałych jest wymaganie odpowiedzi w czasie rzeczywistym.  Systemy "w pętli" muszą odpowiadać w zadanym czasie, aby zewnętrzny obserwator, człowiek lub maszyna, otrzymał odpowiedź na wykonaną akcje. W przeciwieństwie do systemów "W pętli" pozostałe systemy generują wyniki symulacji w dowolnych odstępach czasowych.
+Imitation implies mimicking or copying something else. For instance, a forger imitates the work of a great artist. The Strip in Las Vegas is full of imitations: the Eiffel Tower, the New York skyline, Venice and so on. In the 2002 soccer world cup, if a player imitated being the recipient of foul play, it was referred to as a ‘‘simulation’’. Computer aided design (CAD) systems provide imitations of production facility designs and a business process map is an imitation of a business organization. All of these can be described as a simulation in its most general sense. There is, however, a key difference between these imitations and those examples described in the first paragraph of this section. The earlier examples involve the passage of time, whether it is the movement of trains on a track or clouds in a weather system. The second set of examples does not involve the passage of time. Hence there is a difference between the concepts of a static simulation, which imitates a system at a point in time, and a dynamic simulation, which imitates a system as it progresses through time (Law and Kelton 2000). The term simulation is mostly used in the context of dynamic simulation. This book is concerned only with dynamic simulations. Further to this, the focus is on computer based simulations rather than physical simulations, although many of the principles that are described would still apply to the latter. Building on the previous definition, computer based dynamic simulation can be defined as follows: An imitation (on a computer) of a system as it progresses through time. Some aspects of this definition need exploring a little further. First, the concept of a system needs to be explained. In general terms a system is a collection of parts organized for some purpose (Coyle 1996). The weather system, for instance, is a collection of parts, including the sun, water and land, that is designed (assuming we believe in a Creator) for the purpose of maintaining life. Checkland (1981) identifies four main classes of system:  
+
+ * Natural systems: systems whose origins lie in the origins of the universe, e.g. the atom, the Earth’s weather system and galactic systems.  
+ * Designed physical systems: physical systems that are a result of human design, e.g. a house, a car and a production facility.  
+ * Designed abstract systems: abstract systems that are a result of human design, e.g. mathematics and literature.  
+ * Human activity systems: systems of human activity that are consciously, or unconsciously, ordered, e.g. a family, a city and political systems. 
+
+Why simulate? In order to answer this question, three perspectives are adopted. First, the need to use simulation because of the nature of operations systems is discussed. Secondly, the advantages of simulation over other approaches to understanding and improving a system are described. Finally, the disadvantages of simulation are discussed, on the grounds that it is important to be cognizant of these when determining whether or not to use the approach. 
+
+Many operations systems are subject to variability. This might be predictable variations, for instance, changing the number of operators in a call centre during the day to meet changing call volumes or planned stoppages in a production facility. It might also be variations that are unpredictable, such as the arrival rate of patients at a hospital emergency department or the breakdown of equipment in a flexible manufacturing cell. Both forms of variability are present in most operations systems.
+
+Many operations systems are interconnected and subject to both variability and complexity (combinatorial and dynamic). Because it is difficult to predict the performance of systems that are subject to any one of variability, interconnectedness and complexity, it is very difficult, if not impossible, to predict the performance of operations systems that are potentially subject to all three. Simulation models, however, are able explicitly to represent the variability, interconnectedness and complexity of a system. As a result, it is possible with a simulation to predict system performance, to compare alternative system designs and to determine the effect of alternative policies on system performance.
+
+Simulation is not the only method of analysing and improving operations systems. In particular, it might be possible to experiment with the real system or to use another modelling approach (Pidd 1998). What are the specific advantages of simulation over these approaches?
+
+Rather than develop and use a simulation model, experiments could be carried out in the real system. For instance, additional check-in desks could be placed in an airport departure area, or a change in the flow around a factory floor could be implemented. There are some obvious, and less obvious, reasons why simulation is preferable to such direct experimentation. 
+
+Cost. Experimentation with the real system is likely to be costly. It is expensive to interrupt day-to-day operations in order to try out new ideas. Apart from the cost of making changes, it may be necessary to shut the system down for a period while alterations are made. Added to this, if the alterations cause the operation’s performance to worsen, this may be costly in terms of loss of custom and customer dissatisfaction. With a simulation, however, changes can be made at the cost of the time it takes to alter the model and without any interruption to the operation of the real world system.
+
+Time. It is time consuming to experiment with a real system. It may take many weeks or months (possibly more) before a true reflection of the performance of the system can be obtained. Depending on the size of the model and speed of the computer, a simulation can run many times faster than real time. Consequently, results on system performance can be obtained in a matter of minutes, maybe hours. This also has the advantage that results can be obtained over a very long time frame, maybe years of operation, if required. Faster experimentation also enables many ideas to be explored in a short time frame.
+
+The real system does not exist. A most obvious difficulty with real world experimentation is that the real system may not yet exist. Apart from building a series of alternative real world systems, which is unlikely to be practical in any but the most trivial of situations, direct experimentation is impossible in such circumstances. The only alternative is to develop a model.
+
+Control of the experimental conditions. When comparing alternatives it is useful to control the conditions under which the experiments are performed so direct comparisons can be made. This is difficult when experimenting with the real system. For instance, it is not possible to control the arrival of patients at a hospital. It is also likely that experimentation with the real system will lead to the Hawthorne effect, where staff performance improves simply because some attention is being paid to them. In some cases the real system only occurs once, for example, a military campaign, and so there is no option to repeat an experiment. With a simulation model the conditions under which an experiment is performed can be repeated many times. The same pattern of patient arrivals can be generated time and time again, or the events that occur during a military campaign can be reproduced exactly as often as is required.
+
+Simulations are not the only models that can be used for understanding and improving the real world. Other modelling approaches range from simple paper calculations, through spreadsheet models, to more complex mathematical programming and heuristic methods (e.g. linear programming, dynamic programming, simulated annealing and genetic algo- rithms). Queuing theory provides a specific class of model that looks at similar situations to those often represented by simulations, arrivals, queues and service processes (Winston 1994). There are some reasons why simulation would be used in preference to these other methods.
+
+Modelling variability. It has already been stated that simulations are able to model variability and its effects. Meanwhile, many of the methods mentioned above are not able to do so. (It should be noted that some modelling approaches can be adapted to account for variability, but this often increases their complexity.) If the systems being modelled are subject to significant levels of variability, then simulation is often the only means for accurately predicting performance. Some systems cannot be modelled analytically. This is illustrated by Robinson and Higton (1995) who contrast the results from a ‘‘static’’ analysis of alternative factory designs with a simulation. In the static analysis the variability, largely resulting from equipment failures, was accounted for by averaging their effects into the process cycle times. In the simulation, the variability was modelled in detail. Whilst the static analysis predicted each design would reach the throughput required, the simulation showed that none of the designs were satisfactory. It is vital that variability is properly accounted for when attempting to predict performance.
+
+Restrictive assumptions. Simulation requires few, if any, assumptions, although the desire to simplify models and a shortage of data mean that some appropriate assumptions are normally made. Many other modelling approaches require certain assumptions. Queuing theory, for instance, often assumes particular distributions for arrival and service times. For many processes these distributions are not appropriate. In simulation, any distribution can be selected.
+
+Transparency. A manager faced with a set of mathematical equations or a large spreadsheet may struggle to understand, or believe, the results from the model. Simulation is appealing because it is more intuitive and an animated display of the system can be created, giving a non-expert greater understanding of, and confidence in, the model.
+
+There are a number of problems with using simulation and these must not be ignored when deciding whether or not it is appropriate.
+
+Expensive. Simulation software is not necessarily cheap and the cost of model develop- ment and use may be considerable, particularly if consultants have to be employed.
+
+Time consuming. It has already been stated that simulation is a time consuming approach. This only adds to the cost of its use and means that the benefits are not immediate.
+
+Data hungry. Most simulation models require a significant amount of data. This is not always immediately available and, where it is, much analysis may be required to put it in a form suitable for the simulation.
+
+Requires expertise. Simulation modelling is more than the development of a computer program or the use of a software package. It requires skills in, among other things, conceptual modelling, validation and statistics, as well as skills in working with people and project management. These are the skills that are discussed in this book. This expertise is not always readily available.
+
+Overconfidence. There is a danger that anything produced on a computer is seen to be right. With simulation this is further exacerbated with the use of an animated display, giving an appearance of reality. When interpreting the results from a simulation, consideration must be given to the validity of the underlying model and the assumptions and simplifications that have been made.
+
+
+
+
+Eksperymenty, fizyczne, ekonomiczne lub socjologiczne, w świecie rzeczywistym bywają skomplikowane lub niemożliwe do przeprowadzenia. Symulacja jest procesem umożliwiającym takie eksperymenty poprzez proces reprezentacji świata rzeczywistego jako uproszczonego, abstrakcyjnego modelu. Aby wprowadzić element różnorodności do symulacji, w wielu przypadkach wykorzystywana jest losowość. Umożliwia to naukowcom wykorzystanie statystycznych obserwacji do uzupełnienia szczegółów uproszczonego modelu, których nie da się przedstawić w modelu matematycznym lub czynniki ten nie mają bezpośredniego wpływu na badanie. Połączenie losowości ze sterowaniem warunkami modelu umożliwia generowanie wyników poprzez zapis cyklu uruchomień modelu i statystyczną ich analizę. Obiektem dyskusji w tej pracy są symulacje komputerowe, chociaż historia symulacji sięga daleko przed powstaniem komputerów. Przed komputerami, dużą rolę w symulacjach odgrywało modelowanie matematyczne. W tej dziedzinie cały system jest przedstawiony w postaci zbioru równań, obliczanych dla zadanych parametrów. W kontraście symulacje opierają się na uruchomieniach modelu, dla których dwa wyniki z tymi samymi warunkami początkowymi mogą być inne. 
+
+Symulacje komputerowe dzielą się na dwie kategorie. Pierwszą z nich stanowią modele, w których aktorzy, ludzie lub inne elementy świata rzeczywistego, wchodzą w interakcję z systemem w czasie symulacji. Systemy te są często nazywane systemami "w pętli" lub symulacją z "ludźmi w pętli". Sztandarowymi przykładem tego typu symulacji są gry komputerowe, interaktywne systemy treningu wojskowego oraz systemy testowania maszyn przemysłowych. Drugą z kategorii są symulacje, w których cały system jest zaprojektowany jako oprogramowanie komputerowe. Wśród nich znajdują się symulacje ze zdarzeniami dyskretnymi, symulacje z czasem dyskretnym oraz symulacje statystyczne/Monte Carlo. Kluczową cechą wyróżniającą metody "w pętli" od pozostałych jest wymaganie odpowiedzi w czasie rzeczywistym.  Systemy "w pętli" muszą odpowiadać w zadanym czasie, aby zewnętrzny obserwator, człowiek lub maszyna, otrzymał odpowiedź na wykonaną akcje. W przeciwieństwie do systemów "W pętli" pozostałe systemy generują wyniki symulacji w dowolnych odstępach czasowych.
 
 W symulacjach ze zdarzeniami dyskretnymi modelowany system jest przedstawiony jako stan i zbiór zdarzeń, które wpływają na niego. Zdarzenia są częściowo uporządkowane wedle czasu, w którym się wydarzyły w modelu. Zdarzenia są przechowywane w uporządkowanej strukturze, jak kolejka, oraz przetwarzane przez algorytm symulacji. Algorytmy oparte o dyskretne zdarzenia implementują pętlę zdarzeń, która przetwarza zdarzenia, dopóki nie zajdzie warunek końcowy. Warunkami stopu może być wyczerpanie kolejki zdarzeń, liczba przetworzonych zdarzeń, upływ czasu w modelu lub warunki opierające się o stan symulacji. Czas jest modelowany jako znacznik ostatnio przetworzonego zdarzenia. W każdym cyklu iteracji pętli zdarzeń najwcześniejsze zdarzenie jest ściągane z kolejki, aby je przetworzyć. W przypadku gdy jest więcej niż jedno zdarzenie z tym samym znacznikiem czasowym, potrzebne jest atomowe przetwarzanie współbieżnych zdarzeń lub mechanizm decyzyjny, który uporządkuje względem siebie zdarzenia. Aby przetworzyć zdarzenie, stan modelu jest modyfikowany na podstawie zawartości zdarzenia. Taka zmiana może mieć również skutki uboczne, które generują kolejne zdarzenia. W symulacji ze zdarzeniami dyskretnymi przedstawiony jest jedynie czas, w którym zdarzenia są generowane, okres pomiędzy może zostać pominięty, aby zredukować moc obliczeniową potrzebną do pokrycia rzadko wypełnionych przedziałów czasowych.
 
-Symulacja z czasem dyskretnym jest modyfikacją symulacji ze zdarzeniami dyskretnymi. Zamiast skokowego postępu czasu wynikającego z czasu zdarzeń, w tym typie symulacji czas posuwa się o stałą wartość. Wszystkie zdarzenia, które pojawiają się w danym okresie, są traktowane tak, jakby wydarzyły się w tym samym momencie. Podejście to ma szereg zalet nad symulacją ze zdarzeniami dyskretnymi. W przypadku dyskretnych zdarzeń, gdy zdarzenia są gęsto rozmieszczone w czasie, symulacja nie może pomijać okresów, co zwiększa zapotrzebowanie na moc obliczeniową. Ten problem nie występuje w symulacji z czasem dyskretnym ze względu na równe odstępy czasu pojawiania się zbioru zdarzeń. Kolejną zaletą wynikającą z tej własności jest brak konieczności utrzymywania globalnej, uporządkowanej struktury danych zdarzeń. Zamiast niej można wykorzystać struktury danych o lepszych właściwościach dostępu do danych, takich jak tablice mieszające. Co więcej, dzięki temu, że w symulacjach z czasem dyskretnym zdarzenia w danym okresie występują jednocześnie, przetwarzanie tego okresu można zrównoleglić. W takim przypadku przetwarzanie można rozdzielić pomiędzy wiele procesów roboczych na zasadzie rozprosz-zbierz (*ang. scatter-gather*).
+Symulacja z czasem dyskretnym jest modyfikacją symulacji ze zdarzeniami dyskretnymi. Zamiast skokowego postępu czasu wynikającego z czasu zdarzeń, w tym typie symulacji czas posuwa się o stałą wartość. Wszystkie zdarzenia, które pojawiają się w danym okresie, są traktowane tak, jakby wydarzyły się w tym samym momencie. Podejście to ma szereg zalet nad symulacją ze zdarzeniami dyskretnymi. W przypadku dyskretnych zdarzeń, gdy zdarzenia są gęsto rozmieszczone w czasie, symulacja nie może pomijać okresów, co zwiększa zapotrzebowanie na moc obliczeniową. Ten problem nie występuje w symulacji z czasem dyskretnym ze względu na równe odstępy czasu pojawiania się zbioru zdarzeń. Kolejną zaletą wynikającą z tej własności jest brak konieczności utrzymywania globalnej, uporządkowanej struktury danych zdarzeń. Zamiast niej można wykorzystać struktury danych o lepszych właściwościach dostępu do danych, takich jak tablice mieszające. Co więcej, dzięki temu, że w symulacjach z czasem dyskretnym zdarzenia w danym okresie występują jednocześnie, przetwarzanie tego okresu można zrównoleglić. W takim przypadku przetwarzanie można rozdzielić pomiędzy wiele procesów roboczych na zasadzie rozprosz-zbierz (
+*ang. scatter-gather*).
 \autocite{Hartmann:simulation:2005} \autocite{hartmann:2015:bigsim} \autocite{banks1998handbook} \autocite{lnuth1997art} \autocite{leemis2006discrete} \autocite{robinson2014simulation}
 
-### Generatory liczb losowych i pseudolosowych
+An important simulation problem is that of multi-agent
+systems (MAS). A MAS “can be defined as a loosely
+coupled network of problem solvers that interact to solve
+problems that are beyond the individual capabilities or
+knowledge of each problem solver. These problem solvers,
+often called agents, are autonomous and can be heteroge-
+neous in nature” \autocite{sycara1998multiagent}. Because the definition of an agent is
+so broad, MAS can model many different situations, such as
+economic, social, and political activity. Of course, creating
+realistic simulations is not easy and requires collaboration
+with economics and/or other social sciences. However, MAS
+provide the technological framework to make such modeling
+possible.
+Implementations of MAS frameworks vary widely, but
+the core parallelization model behind many of them is
+that of threads and shared memory. Although this approach
+can work, it suffers from the hazards of concurrent data
 
-Losowość ma wiele zastosowań. Często sprawdzenie wszystkich możliwych przypadków jest niepraktyczne, a losowa próbka pozwoli zbadać typowe zachowanie. Liczby losowe są również wykorzystywane w programach komputerowych, aby sprawdzać efektywność algorytmów. Ponadto, istnieje cała kategoria algorytmów losowych, zwanych też *Monte Carlo*, które opierają swoje działanie na losowości. Szczególnym przypadkiem programów komputerowych, są gry. W nich losowość jest stosowana, aby świat przedstawiony wydawał się bardziej rzeczywisty. Liczby losowe wykorzystuje się do podobnych celów w symulacjach, w których komputer odwzorowuje zjawiska naturalne. 
+modification and other race conditions. These issues make
+testing and debugging of the frameworks very difficult,
+and solutions to these problems typically incur performance
+penalties and programmer headaches.
+Another approach to parallel programming is the actor
+model \autocite{agha86actors}. An actor can be defined as a lightweight process
+that communicates with other actors through message pass-
+ing. These messages are buffered in the actors’ mailboxes
+for the actor to respond to. Actors do not share any memory
+with other actors, and they all process concurrently. Message
+passing is asynchronous. This model avoids the numerous
+shared memory pitfalls associated with the conventional
+threaded model of concurrency. The best known actor imple-
+mentation is in the language Erlang, a functional language
+designed for efficient fault-tolerant distributed systems \autocite{armstrong2010erlang}.
+A MAS framework based on this actor model would
+avoid many of the concurrency issues afflicting the threaded
+frameworks. In such a framework, it would be natural for
+each agent to be an actor. Communication between agents
+would then be done by the actor’s message passing methods
+and the simulation would be implicitly parallel. While it
+would help eliminate many reliability issues and make
+frameworks much easier to write, this approach is only
+practical if the performance is comparable to that of the
+threaded frameworks
+
+Having described the modelling of the progress of time, the attention now turns to the second aspect that is central to simulation, modelling variability. In this respect the modelling of unpredictable variability presents the key challenge and so much of the discussion that follows focuses on this. There is, however, a brief discussion on the modelling of predictable variability at the end of the section.
+Do tej pory każde uruchomienie jest takie same i jest przewidywalne.
+What if 60% of customers are of type X and only 40% of type Y? This could be represented by taking 10 pieces of paper and writing X on six of them and Y on four. The pieces of paper could then be placed into a hat and every time a customer arrives in the model a piece of paper could be drawn out to determine the customer type. It is important that the paper is replaced each time to maintain the ratio of customers at 60:40. Although the second approach would enable different customer ratios to be modelled, it is only suitable for hand simulations; a computer cannot draw pieces of paper from a hat! In computer simulation a similar principle is adopted based upon the use of random numbers.
+
+## Generatory liczb losowych i pseudolosowych
+
+Dla wielu symulacji naukowych, ekonomicznych lub społecznych liczby losowe są niezbędne. Często sam model, taki obserwacje fizyczne, cechuje się losowością parametrów. Lecz nawet wtedy gdy symulowany system nie jest z natury losowy, to zastosowanie losowości jest praktyczne w przypadkach. Gdy wartości parametrów może być nieskończenie wiele, sprawdzanie wszystkich przypadków jest niepraktyczne lub niemożliwe, a losowa próbka pozwoli zbadać typowe zachowanie. Liczby losowe są również wykorzystywane w programach komputerowych, aby sprawdzać efektywność algorytmów. Ponadto, istnieje cała kategoria algorytmów losowych, zwanych też *Monte Carlo*, które opierają swoje działanie na losowości. Szczególnym przypadkiem programów komputerowych, są gry. W nich losowość jest stosowana, aby świat przedstawiony wydawał się bardziej rzeczywisty. Liczby losowe wykorzystuje się do podobnych celów w symulacjach, w których komputer odwzorowuje zjawiska naturalne. 
 Ciężko określić co jest liczbą losową, bo czy liczba 2 jest losowa? Poprzez losowość rozumiemy *losową sekwencję*.
 
 > Sekwencją losową *a* *n* liczb nazywamy sekwencję liczb, zawierających się w określonym zbiorze, w której nie da się przewidzieć $n_{k+1}$ z żadnej kombinacji poprzedzającej $n_i, i = 0,1,...,k$.
@@ -81,7 +185,8 @@ Zakładamy, że sekwencje losowe istnieją i można znaleźć je w fizycznym św
 
 Niestety, powyższe metody są niepraktyczne do zastosowań naukowych. Z tego powodu powstały specjalistyczne maszyny do mechanicznego generowania losowych sekwencji, bazujące na generatorach szumu lub licznikach Geigera. Początkowo służyły one to produkcji tablic liczb losowych, obliczanych przed przeprowadzeniem eksperymentu. Ze względu na ograniczenia pamięci, długi czas wprowadzania sekwencji oraz jej ograniczoną długość, metoda ta nie znalazła szerokiego zastosowania w programach komputerowych.
 
-Jednakże metody mechaniczne okazały się niewystarczające, ponieważ niemożliwa jest reprodukcja eksperymentu poprzez ponowne przeprowadzenie obliczeń.
+Powszechnie używane komputery są z natury maszynami deterministycznymi. Niemożliwym jest więc bezpośrednie generowanie prawdziwie losowych liczb. Jako źródło entropii można wykorzystać na przykład czas pomiędzy kliknięciami w klawiaturę komputera, który jest prawdziwie losowy. Bardziej praktyczne w zastosowaniu mogą być urządzenia peryferyjne podpięte do komputera, w który zachodzą fizyczne procesy służące jako źródło informacji losowej.
+Jednakże metody te okazały się niewystarczające, ponieważ korzystając z prawdziwej losowości, niemożliwa jest przeprowadzenie stochastycznych symulacji w sposób kontrolowany i powtarzalny.
 
 > Jak wiele razy wspomniano, coś takiego jak liczba losowa nie istnieje - występują jedynie metody tworzenia liczb losowych, a ścisła arytmetyczna procedura taką metodą nie jest. \autocite{vonN51}
 
@@ -119,16 +224,21 @@ Liczby generowane przez taki generator powinny być jednorodnie rozłożone w za
 
 Zadaniem generatora, nie jest symulowanie losowości, a zwrócić poprawne wyniki w symulacji. W związku z tym, do symulacji należy dobrać odpowiedni generator liczb pseudolosowych, co nie jest zadaniem łatwym. Na szczęście z pomocą przychodzą zdefiniowane matematyczne właściwości generatorów, jak długość cyklu lub rozkład i współczynnik korelacji, które zabezpieczają projektantów symulacji przed uzyskaniem nieprawidłowych wyników na skutek nieprawidłowo dobranego generatora.
 
-TODO: przykłady generatorów: LCG
+Przykładem prostego, lecz powszechnie używanego generatora jest liniowy generator kongruencyjny (*ang. \gls{lcg}*).
+Generują one sekwencje $x_1, x_2, ...$ liczb całkowitych, pomiędzy $0$ i $m - 1$ wedle poniższej, rekurencyjnej definicji:
+
+$$
+x_(n+1) = (ax_n + c) \mod m
+$$
 
 \autocite{Ecuyer:rng} \autocite{Hellekalek:rng} \autocite{Ecuyer:simulation:rng} \autocite{Kneusel2018RandomNA} \autocite{Kneusel2018RandomNA} \autocite{lnuth1997art} 
 
 
-## Użyte narzędzia
+# Użyte narzędzia
 
 Przedstawienie użytych narzędzi i motywacja
 
-### Java
+## Java
 
 Simula \autocite{dahl1968simula} jest językiem, który wprowadził podstawowe zagadnienia programowania obiektowego. Przy jego projektowaniu, twórcy położyli nacisk na wykorzystanie języka w symulacjach komputerowych, co wpłynęło na rozwój systemów symulacyjnych. Simula zapoczątkowała połączenie symulacji z programowaniem obiektowym, jako naturalnej reprezentacją symulacji. Związek ten istnieje po dziś dzień w wielu współczesnych narzędziach symulacyjnych zaimplementowanych w popularnych językach obiektowych, jak C++ lub Java. \autocite{urbansim} \autocite{advanced:simulation:library}
 
@@ -138,17 +248,54 @@ Głównym założeniem języka Java jest bezpieczeństwo wykonywanych operacji w
 
 Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie dokonuje się rozróżnienia pomiędzy samym językiem a standardową biblioteką. Zawiera ona moduły szerokiego zastosowania, struktury danych, model współbieżności, lecz brak w niej wsparcia dla programowania aktorowego, który należy uzupełnić biblioteką zewnętrzną.
 
-### Akka
+
+
+## Scala
+
+Scala, as a language very closely related to Java, bor-
+rows much of its syntax; however, it omits semicolons
+and eliminates the need for extensive boilerplate code. The
+most noticeable difference is a type inference system for
+limiting type specification when such specification would be
+redundant. These tweaks make Scala much easier to read and
+feel more like a scripting language even though it actually
+runs on the robust JVM platform. In addition to these simple variations, Scala has many
+more subtle differences and features, including very natural
+support for pattern matching. This is very useful because
+the primary action of an actor is to react to a message with
+an action that varies based on message content. Excellent
+pattern matching syntax makes this a painless process.
+Scala can represent this reaction function as a number of
+case statements. These are matching functions evaluated in
+sequence on the input. These can match on type or value and
+can pull inner values by automatically applying extractors.
+Extractors are present in all standard library collections and
+can be automatically generated for a class by declaring it
+with the case keyword. In the following example, the input
+message is checked to see if it is an Int, the String “foo”, or
+a Bar that contains 5. A default is provided, but since only
+one match can occur, it does not require special syntax.
+
+Scala \autocite{odersky2008scala} jest językiem programowania ogólnego przeznaczenia, łączącym w sobie dwa, uzupełniające się podejścia, programowania obiektowego oraz programowania funkcyjnego, w statycznie typowany język. Jego funkcyjna strona umożliwia budowanie funkcjonalności z prostych elementów składowych. Podejście obiektowe zaś umożliwia porządkowanie złożonych systemów. Nazwa 
+*
+*Scala
+*
+* wywodzi się od 
+*scalable language
+*, aby zaznaczyć jego rozwój wraz z rosnącymi wymaganiami jego użytkowników. Został zaprojektowany do tworzenia zwięzłego kodu w prostych skryptach, jak i rozbudowanych systemach informatycznych. Scala jest kompilowana do kodu bajtowego wirtualnej maszyny Javy, aby zachować kompatybilność pełną z tymże językiem.
+
+//TODO: snippety kodu Scali
+
+## Akka
 
 Akka \autocite{akka:web} \autocite{roestenburg2015akka} jest zewnętrznym zestawem narzędzi, który implementuje aktorowy model programowania i współbieżności. Zestaw ten napisany jest w języku Scala, lecz wspiera również język Java przez kompatybilny interfejs programistyczny. Powstał, aby zredukować koszty wytwarzania zadań asynchronicznych i współbieżnych. W założeniu Akka ma zapewniać sprawdzony zestaw funkcjonalności do budowania skalowalnych oraz niezawodnych rozwiązań programistycznych.
 
-Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania współbieżnego i równoległego jak wątki (*ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *CAS (compare-and-swap)*, aby ograniczyć liczbę blokad do minimum.
+Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania współbieżnego i równoległego jak wątki (
+*ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *CAS (compare-and-swap)*, aby ograniczyć liczbę blokad do minimum.
 
-### Scala
+//TODO: snippet kodu z aktorem
 
-Scala \autocite{odersky2008scala} jest językiem programowania ogólnego przeznaczenia, łączącym w sobie dwa, uzupełniające się podejścia, programowania obiektowego oraz programowania funkcyjnego, w statycznie typowany język. Jego funkcyjna strona umożliwia budowanie funkcjonalności z prostych elementów składowych. Podejście obiektowe zaś umożliwia porządkowanie złożonych systemów. Nazwa **Scala** wywodzi się od *scalable language*, aby zaznaczyć jego rozwój wraz z rosnącymi wymaganiami jego użytkowników. Został zaprojektowany do tworzenia zwięzłego kodu w prostych skryptach, jak i rozbudowanych systemach informatycznych. Scala jest kompilowana do kodu bajtowego wirtualnej maszyny Javy, aby zachować kompatybilność pełną z tymże językiem.
-
-### Model aktorowy \autocite{todd:2012:simulation} \autocite{barat:2017:simulation} \autocite{aceto:2011:simulations} \autocite{Waite2013ScaNSU} \autocite{Harrison:2015:actors}
+### Model aktorowy \autocite{todd:2012:simulation} \autocite{barat:2017:simulation} \autocite{Waite2013ScaNSU} \autocite{Harrison:2015:actors}
 
 TODO: przepisać i uzupełnić
 
@@ -173,21 +320,29 @@ Aktory, w odróżnieniu od modelu współdzielonych zmiennych, nie dzielą międ
 w wyniku przetwarzania nadchodzących wiadomości. Co więcej, komunikacja jest transparentna. Pomimo "świadomości" istnienia innego aktora, nie jest znane jego położenie. Umożliwia to utworzenie systemu aktorów fizycznie rozproszonych pomiędzy wiele maszyn połączonych w sieć oraz dynamiczną rekonfigurację topologii \autocite{karmani2009actor, hewitt1977laws, agha86actors}.
 
 
-### Akka Streams
+## Akka Streams
 
-### Reaktywne strumienie
+## Reaktywne strumienie
 
-### React js
+## React js
 
-### Websocket
+## Websocket
 
-## Symulator wypłat z bankomatów
+# Symulator wypłat z bankomatów
 
 Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat bankomatowych.
 
-### Elementy symulacji
+### Elementy symulacji 
 
-### Karta
+// TODO: opisać model - narysować, jak gadają ze sobą elementy. przedstawić jak działa "biznesowo", nie technicznie
+// TODO: architektura techniczna model C4
+// TODO: opis konfiguracji wejściowej
+// TOOD: opis logu wyników
+// TODO: opis aplikacji - screeny i wyjaśnienia
+// TODO: dlaczego aktory - agent based modeling
+// TODO: dlaczego reactive - backpressure, którego nie mają aktory
+
+## Karta
 
  - jest obiektem, który wypłaca pieniądze z bankomatu
  - posiada datę ważność
@@ -197,12 +352,12 @@ Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat banko
  - może mieć limity
 
 
-#### Bankomaty
+### Bankomaty
 
  - ma maksymalną pojemność
  - przynależy do banku / instytucji finansowej
 
-### Parametry symulacji
+## Parametry symulacji
 
 Symulacja musi być realistyczna, naturalna.
 
@@ -212,7 +367,7 @@ Symulacja musi być realistyczna, naturalna.
 
 Rozkłady muszą pokrywać cały okres symulacji.
 
-## Wizualizacja wypłat na mapie
+# Wizualizacja wypłat na mapie
 
 Wizualizacja przedstawia pozycje bankomatów na mapie, ich stan sejfu oraz natężenie ruchu oraz błędy.
 Udostępnia definiowanie konfiguracji symulacji.
@@ -231,14 +386,19 @@ Wyróżnianie bankomatów:
 
  Po prawej stronie znajdują się awarie, które zaszły w symulacji.
 
+ ## Przebieg symulacji
 
-# Podsumowanie
+ benchmark - jak szybko generuje
 
-## Wnioski
 
-## Problemy
 
-## Rozszerzenia i możliwości rozwoju
+\chapter{Podsumowanie}
+
+# Wnioski
+
+# Problemy
+
+# Rozszerzenia i możliwości rozwoju
 
  - funkcja wpłatomatu
  - sprawdzanie stanu konta

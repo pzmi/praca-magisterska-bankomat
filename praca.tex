@@ -1,21 +1,36 @@
-\documentclass[12pt,twoside]{article}
+\documentclass[12pt,oneside]{report}
 	\include{config}
 	\bibliography{biblio} 
+
+	\makeglossaries
+
+	\include{glossary}
+	
+
 \begin{document}
 	\include{title}
+
 
 	\include{0-abstract}
 
 	\tableofcontents
+	\newpage
 
-	\include{glossary}
+	\printglossary
+	\newpage
+
+	\printglossary[type=\acronymtype]
+	\newpage
 
 	\include{1-introduction}
 
 
-\underline{}
-\printbibliography
-\nocite{*}
-\listoffigures
-\listoftables
+	\newpage
+	\printbibliography
+	% \nocite{*}
+	\newpage
+
+	\listoffigures
+	\newpage
+	\listoftables
 \end{document}
