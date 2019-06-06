@@ -1,13 +1,18 @@
 \chapter{Wstęp}
 
-Simulation models are in everyday use and so simulation is a concept that is not alien to us.
-For instance, weather forecasters daily show us simulations of the weather system, where we
-see the movement of weather fronts over the days ahead. Many of us have game consoles
-that simulate a whole variety of activities, enabling us to test our skills as racing drivers,
-adventurers and city planners. Simulations need not be computer based. Model railways
-and remote control boats are familiar examples of physical simulations.
+Modele symulacyjne są częścią życia codziennego, więc pojęcie symulacji nie jest obcy nikomu. Prognozy pogody codziennie prezentują ludziom wyniki symulacji pogodowych, na których można obserwować ruchy frontów pogodowych na kilka dni do przodu. Gry komputerowe, które stały się częścią kultury masowej, symulują różnorodne zachowania, umożliwiając każdemu sprawdzenie swoich możliwości jako kierowcy rajdowi, podróżnicy czy architekci. Symulacje umożliwiają w szybki sposób zweryfikować hipotezy i przeprowadzać obserwacje procesów, które w świecie rzeczywistym mogą trwać latami. 
 
-Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być może takie nie istnieją, nie są publicznie dostępne ani opisane. 
+Dynamiczny rozwój sprzętu komputerowego umożliwia tworzenie coraz bardziej złożonych algorytmów oraz dokładniejsze modelowanie rzeczywistości.
+
+Symulacje nie muszą opierać się na oprogramowaniu komputerowym. Modele kolei i zdalnie sterowane pojazdy, jak łodzie i samochody, są przykładami symulacji fizycznych spotykanych na co dzień.
+
+Innym codziennym procesem jest bankowość. Większość Polaków posiada rachunek bankowy i korzysta z usług finansowych banków \autocite{nbp:raportpolakow}.
+
+W Polsce tylko w 2018 dokonano prawie 710 milionów transakcji w bankomatach (*ang. \gls{atm}*) na łączną wartość 429 miliardów złotych. \autocite{nbp:bankomaty}.
+
+Na rynku można znaleźć wiele przykładów oprogramowania służącego do symulacji automatów bankomatowych \autocite{oclf:atm:simulation} \autocite{tranzway:atm:simulator}. Udostępniają zbiór interfejsów użytkownika końcowego wielu producentów sprzętu i oprogramowania do bankomatów. Z jego pomocą użytkownik może dokonać szeregu różnych operacji w systemie bankomatowym, jak wypłata gotówki, przelew czy opłata rachunków. Symulatory te umożliwiają również symulację szeregu dostępnych na rynku protokołów komunikacyjnych oraz operacji serwisowych dokonywanych przez operatorów bankomatu.
+
+Są to zaawansowane aplikacje, realistycznie odwzorowujące pracę pojedynczej maszyny. Niestety nie udało się odnaleźć oprogramowania zdolnego do symulowania interakcji ludzi z siecią wielu bankomatów na terenie miasta na podstawie przygotowanej konfiguracji i danych wejściowych.
 
 # Cel pracy
 
@@ -22,7 +27,7 @@ Istniejące dotychczasowe symulatory i wizualizacje, ich możliwości. Być moż
  - baza danych do gry
  - symulacja samochodów z pieniędzmi, wożących pieniądze - optymalizacja
 
-# Instytucje finansowe i bankomaty
+# Bankomaty
 
 \begin{figure}[htbp]
 \centering
@@ -54,26 +59,27 @@ Podstawowe informacje o bankach, instytucjach finansowych, zrzeszeniach finansow
 
 # Symulacja
 
-Imitation implies mimicking or copying something else. For instance, a forger imitates the work of a great artist. The Strip in Las Vegas is full of imitations: the Eiffel Tower, the New York skyline, Venice and so on. In the 2002 soccer world cup, if a player imitated being the recipient of foul play, it was referred to as a ‘‘simulation’’. Computer aided design (CAD) systems provide imitations of production facility designs and a business process map is an imitation of a business organization. All of these can be described as a simulation in its most general sense. There is, however, a key difference between these imitations and those examples described in the first paragraph of this section. The earlier examples involve the passage of time, whether it is the movement of trains on a track or clouds in a weather system. The second set of examples does not involve the passage of time. Hence there is a difference between the concepts of a static simulation, which imitates a system at a point in time, and a dynamic simulation, which imitates a system as it progresses through time (Law and Kelton 2000). The term simulation is mostly used in the context of dynamic simulation. This book is concerned only with dynamic simulations. Further to this, the focus is on computer based simulations rather than physical simulations, although many of the principles that are described would still apply to the latter. Building on the previous definition, computer based dynamic simulation can be defined as follows: An imitation (on a computer) of a system as it progresses through time. Some aspects of this definition need exploring a little further. First, the concept of a system needs to be explained. In general terms a system is a collection of parts organized for some purpose (Coyle 1996). The weather system, for instance, is a collection of parts, including the sun, water and land, that is designed (assuming we believe in a Creator) for the purpose of maintaining life. Checkland (1981) identifies four main classes of system:  
+Imitacja oznacza naśladowanie lub kopiowanie czegoś innego. Przykładowo fałszerz naśladuje pracę wielkich artystów, systemy projektowania wspomaganego komputerowo (*ang. \gls{cad}*) dostarczają imitacji procesów produkcyjnych, mapa procesów biznesowych jest imitacją pracy organizacji, a model kolei jest fizyczną imitacją prawdziwego składu kolejowego. Wszystkie z powyższych przykładów można określić mianem symulacji. Jednakże spośród nich moża wyróżnić dwa zbiory. Pierwszym z nich są przykłady uwzględniające upływ czasu, a drugie nie. Stąd wywodzi się pojęcie symulacji statycznej, która reprezentuje proces w konkretnym momencie czasu, oraz symulacji dynamicznej, która odwzorowuje proces zmieniający się w czasie. Termin symulacja najczęściej odnosi się do symulacji dynamicznej. 
+Bazując na wcześniejszym opisie można zdefiniować pojęcie symulacji komputerowej. Jest to komputerowe odwzorowanie procesu zmieniającego się w czasie. Procesem jest w tym przypadku zbiór elementów działających we wspólnym celu. Przykładowo pogoda jest zbiorem składającym się między innymi ze słońca, wody i lądu, którego celem jest utrzymanie życia. 
+Spośród istniejących procesów możemy wyróżnić:
 
- * Natural systems: systems whose origins lie in the origins of the universe, e.g. the atom, the Earth’s weather system and galactic systems.  
- * Designed physical systems: physical systems that are a result of human design, e.g. a house, a car and a production facility.  
- * Designed abstract systems: abstract systems that are a result of human design, e.g. mathematics and literature.  
- * Human activity systems: systems of human activity that are consciously, or unconsciously, ordered, e.g. a family, a city and political systems. 
+ * procesy naturalne - procesy powstałe wraz z wszechświatem, na przykład: atomy, pogoda, układ słoneczny
+ * zaprojektowane procesy fizyczne - fizyczne procesy stworzone przez człowieka, na przykład: budynki, pojazdy
+ * zaprojektowane abstrakcyjne proesy - abstrakcyjne procesy stworzone przez człowieka, na przykład: matematyka, literatura
+ * procesy interakcji ludzkich - świadome lub nieświadome procesy interakcji ludzkiej, na przykład: rodzina, miasto, polityka \autocite{checkland1981systems}
 
-Why simulate? In order to answer this question, three perspectives are adopted. First, the need to use simulation because of the nature of operations systems is discussed. Secondly, the advantages of simulation over other approaches to understanding and improving a system are described. Finally, the disadvantages of simulation are discussed, on the grounds that it is important to be cognizant of these when determining whether or not to use the approach. 
+Wiele procesów jest podatnych na zmienność. Może być ona przewidywalna, otwieranie więcej kas w supermarkecie w ciągu dnia w reakcji na zmienną liczbę kupujących w ciągu dnia. Zmienność może być również nieprzewidywalna, jak tempo przybywania pacjentów na szpitalny oddział ratunkowy.
 
-Many operations systems are subject to variability. This might be predictable variations, for instance, changing the number of operators in a call centre during the day to meet changing call volumes or planned stoppages in a production facility. It might also be variations that are unpredictable, such as the arrival rate of patients at a hospital emergency department or the breakdown of equipment in a flexible manufacturing cell. Both forms of variability are present in most operations systems.
+Nie tylko zmienność wpływa na stopień skomplikowania procesu. Jego elementy często są połączone ze sobą i wywierają wzajemny wpływ w czasie. 
 
-Many operations systems are interconnected and subject to both variability and complexity (combinatorial and dynamic). Because it is difficult to predict the performance of systems that are subject to any one of variability, interconnectedness and complexity, it is very difficult, if not impossible, to predict the performance of operations systems that are potentially subject to all three. Simulation models, however, are able explicitly to represent the variability, interconnectedness and complexity of a system. As a result, it is possible with a simulation to predict system performance, to compare alternative system designs and to determine the effect of alternative policies on system performance.
+W związku ze zmiennością procesów, skomplikowaniem i zawiłymi zależnościami w nich bardzo trudnym lub wręcz niemożliwym jest przewidywanie ich właściwości. Modele symulacyjne przedstawiają jawnie zmienność, połączenia pomiędzy elementami oraz złożoność procesów. W rezultacie przewidywalność symulacji jest znacznie łatwiejsza, umożliwia porównywanie alternatywnych parametrów.
 
-Simulation is not the only method of analysing and improving operations systems. In particular, it might be possible to experiment with the real system or to use another modelling approach (Pidd 1998). What are the specific advantages of simulation over these approaches?
+Symulacje nie są jedyną metodą analizowania i rozwijania procesów. Innym podejściem jest przeprowadzenie eksperymentów w świecie rzeczywistym. Przykładem może być zmiana układu hali fabrycznej. Modele symulacyjne posiadają szereg zalet i wad, które należy wziąć pod uwagę.
 
-Rather than develop and use a simulation model, experiments could be carried out in the real system. For instance, additional check-in desks could be placed in an airport departure area, or a change in the flow around a factory floor could be implemented. There are some obvious, and less obvious, reasons why simulation is preferable to such direct experimentation. 
+Pierwszą z zalet jest koszt. Eksperymenty w świecie rzeczywistym bywają kosztowne. Modyfikacja codziennej działalności może powodować przerwy w działaniu procesów, prowadzić do spadków wydajności, niezadowolenia lub utraty klientów. W przypadku symulacji, przetestowanie zmiany wiąże się jedynie z kosztem uruchomienia symulacji ze zmodyfikowanymi parametrami, bez przerw w działaniu rzeczywistego systemu. 
 
-Cost. Experimentation with the real system is likely to be costly. It is expensive to interrupt day-to-day operations in order to try out new ideas. Apart from the cost of making changes, it may be necessary to shut the system down for a period while alterations are made. Added to this, if the alterations cause the operation’s performance to worsen, this may be costly in terms of loss of custom and customer dissatisfaction. With a simulation, however, changes can be made at the cost of the time it takes to alter the model and without any interruption to the operation of the real world system.
+Innym aspektem jest czas. Eksperyment może trwać miesiącami lub dłużej aby móc wnioskować na temat jakości wprowadzonych zmian. W zależności od skomplikowania modelu, mocy obliczeniowej komputera symulację można przeprowadzić wiele razy szybciej niż w czasie rzeczywistym. W związku z tym wyniki można otrzymać w ciągu minut lub godzin. Dodatkowo symulację można przeprowadzić na przestrzeni długich okresów, nawet lat.
 
-Time. It is time consuming to experiment with a real system. It may take many weeks or months (possibly more) before a true reflection of the performance of the system can be obtained. Depending on the size of the model and speed of the computer, a simulation can run many times faster than real time. Consequently, results on system performance can be obtained in a matter of minutes, maybe hours. This also has the advantage that results can be obtained over a very long time frame, maybe years of operation, if required. Faster experimentation also enables many ideas to be explored in a short time frame.
 
 The real system does not exist. A most obvious difficulty with real world experimentation is that the real system may not yet exist. Apart from building a series of alternative real world systems, which is unlikely to be practical in any but the most trivial of situations, direct experimentation is impossible in such circumstances. The only alternative is to develop a model.
 
