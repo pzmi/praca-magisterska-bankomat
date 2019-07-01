@@ -275,7 +275,10 @@ Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania wsp
 
 ## Akka Streams
 
-## React js
+## React
+
+React \autocite{react} został stworzony w firmie Facebook przez zespół web deweloperów w 2013 roku do tworzenia widoków stron internetowych. Biblioteka umożliwia na renderowanie komponentów jako widocznych elementów w przeglądarce. Widoki tworzone z wykorzystaniem Reacta składają się z hierarchii złożonych ze sobą komponentów. 
+Jedną z głównych cech wyróżniających Reacta od innych bibliotek oraz technik tworzenia graficznych interfejsów użytkownika w przeglądarce internetowej jest wirtualny \gls{dom}. Model ten pozwala na aktualizację wyświetlanych treści w oderwaniu od wprowadzanych zmian, co umożliwia automatyczną optymalizację zmian. \autocite{wieruch2018road}
 
 ## Websocket
 
