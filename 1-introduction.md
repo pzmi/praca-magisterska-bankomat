@@ -271,16 +271,23 @@ class CustomActor extends Actor with ActorLogging {
 Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania współbieżnego i równoległego jak wątki (
 *ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *CAS (compare-and-swap)*, aby ograniczyć liczbę blokad do minimum.
 
-## Reaktywne strumienie
+## Reaktywne Strumienie
 
-## Akka Streams
+Obliczenia współbieżne oparte o model blokujący, czekając na zakończenie akcji, blokują swoje dalsze przetwarzanie. W ten sposób znaczna część zasobów sprzętowych pozostaje niewykorzystana. Wykorzystując modele nieblokujące, takie jak model aktorowy, te same zasoby można wykorzystać znacznie efektywniej. Jednakże nadmierne zużycie zasobów może prowadzić do niestabilności systemu. Jeżeli producent wykonuje znacznie więcej asychronicznych akcji niż konsument jest w stanie obsłużyć, to konsument ten może zostać przytłoczony nadmiarem pracy. Jeśli taka sytuacja zajdzie w modelu aktorowym, to skrzynka odbiorcza aktora konsumenta może zostać przepełniona, co prowadzi do usunięcia danego aktora, a co za tym idzie utraty postępu przetwarzania danych znajdujących się w kolejce. 
+
+Reaktywne Strumienie (*ang. Reactive Streams*) powstały jako odpowiedź na potrzebę kontroli przepływu danych w systemach o przetwarzaniu asynchronicznym. Jest to inicjatywa, mająca na celu opracowanie standardu przetwarzania strumieniowego z nieblokującym mechanizmem kontroli przepływu. 
+Implementacją tego modelu jest Akka Streams \autocite{akka:web}, czyli rozszerzenie wcześniej wspomnianej implementacji modelu aktorowego o gwarancje niezawodności dostarczane przez Reactive Streams.
+\autocite{whyreactive2016malawski}
 
 ## React
 
 React \autocite{react} został stworzony w firmie Facebook przez zespół web deweloperów w 2013 roku do tworzenia widoków stron internetowych. Biblioteka umożliwia na renderowanie komponentów jako widocznych elementów w przeglądarce. Widoki tworzone z wykorzystaniem Reacta składają się z hierarchii złożonych ze sobą komponentów. 
-Jedną z głównych cech wyróżniających Reacta od innych bibliotek oraz technik tworzenia graficznych interfejsów użytkownika w przeglądarce internetowej jest wirtualny \gls{dom}. Model ten pozwala na aktualizację wyświetlanych treści w oderwaniu od wprowadzanych zmian, co umożliwia automatyczną optymalizację zmian. \autocite{wieruch2018road}
+Jedną z głównych cech wyróżniających Reacta od innych bibliotek oraz technik tworzenia graficznych interfejsów użytkownika w przeglądarce internetowej jest wirtualny *\gls{dom}*. Model ten pozwala na aktualizację wyświetlanych treści w oderwaniu od wprowadzanych zmian, co umożliwia automatyczną optymalizację zmian. \autocite{wieruch2018road}
 
 ## Websocket
+
+Websocket jest komputerowym protokołem komunikacyjnym, umożliwiającym dwukierunkowe połączenie pomiędzy klientem a zdalnym systemem poprzez pojedyncze połączenie *\gls{TCP}* \autocite{RFC7414}. Protokół ten znajduje się w siódmej warstwie modelu *\gls{osi}* \autocite{ISO7498-1}. Umożliwia przesyłanie strumienia wiadomości, gdzie TCP przesyła jedynie bajty, pomiędzy przeglądarką internetową a serwerem.
+\autocite{RFC6455}
 
 \chapter{Projekt}
 
