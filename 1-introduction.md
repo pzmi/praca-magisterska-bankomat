@@ -29,6 +29,12 @@ TODO: plan pracy po zakończeniu
 
 # Bankomaty
 
+Bankomat jest automatycznym urządzeniem, którego główną funkcją jest wypłata gotówki z konta bankowego przez jego właściciela. Obecne bankomaty ponadto umożliwiają między innymi sprawdzanie stanu konta, wpłacanie gotówki, przyjmowanie zleceń przelewu.
+
+Jedna tego typu maszyna, w zależności od rozmiaru, mieści do 6 kaset z gotówką, z których każda ma pojemność do 2500 banknotów. Pomimo dużej pojemności w bankomatach znajduje się zwykle kilkaset tysięcy złotych, które uzupełnia się co kilka dni. Ustalenie poziomu zapełnienia bankomatu oraz częstotliwości uzupełniana jest nietrywialnym zagadnieniem logistycznym, które wchodzi w obowiązki operatora automatu, instytucji bankowej lub specjalistycznych operatorów infrastruktury bankomatowej. \autocite{ncr2019marketing, ncr2019tech}
+
+Bankomaty stanowią niezwykle istotny element infrastruktury bankowej w Polsce. Według danych udostępnianych przez banki oraz operatorów bankomatów, liczba bankomatów w Polsce od 2016 systematycznie zmniejsza się. Pomimo tego Polacy wciąż wykonują ponad 650 milionów transakcji przy użyciu bankomatu, a sumaryczna wartość tych transakcji oraz średnia wartość pojedynczej transakcji rośnie z roku na rok. \autocite{nbp:stats, nbp:bankomaty, firkowicz2018bankomaty}
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/liczba-bankomatow.png}
@@ -53,8 +59,6 @@ TODO: plan pracy po zakończeniu
 \caption{Średnia wartość transakcji bankomatowych w Polsce na przestrzeni lat\autocite{nbp:stats}}
 \end{figure}
 
-Podstawowe informacje o bankach, instytucjach finansowych, zrzeszeniach finansowych i wypłatach bankomatowych.
-
 # Symulacja
 
 Imitacja oznacza naśladowanie lub kopiowanie czegoś innego. Przykładowo fałszerz naśladuje pracę wielkich artystów, systemy projektowania wspomaganego komputerowo (*ang. \gls{cad}*) dostarczają imitacji procesów produkcyjnych, mapa procesów biznesowych jest imitacją pracy organizacji, a model kolei jest fizyczną imitacją prawdziwego składu kolejowego. Wszystkie z powyższych przykładów można określić mianem symulacji. Jednakże spośród nich moża wyróżnić dwa zbiory. Pierwszym z nich są przykłady uwzględniające upływ czasu, a drugą stanowią te, na które czas nie wpływa. Stąd wywodzi się pojęcie symulacji statycznej, która reprezentuje proces w konkretnym momencie czasu, oraz symulacji dynamicznej, która odwzorowuje proces zmieniający się w czasie. Termin symulacja najczęściej odnosi się do symulacji dynamicznej. 
@@ -63,7 +67,7 @@ Spośród istniejących procesów możemy wyróżnić:
 
  * procesy naturalne - procesy powstałe wraz z wszechświatem, na przykład: atomy, pogoda, układ słoneczny
  * zaprojektowane procesy fizyczne - fizyczne procesy stworzone przez człowieka, na przykład: budynki, pojazdy
- * zaprojektowane abstrakcyjne proesy - abstrakcyjne procesy stworzone przez człowieka, na przykład: matematyka, literatura
+ * zaprojektowane abstrakcyjne procesy - abstrakcyjne procesy stworzone przez człowieka, na przykład: matematyka, literatura
  * procesy interakcji ludzkich - świadome lub nieświadome procesy interakcji ludzkiej, na przykład: rodzina, miasto, polityka \autocite{checkland1981systems}
 
 Wiele procesów jest podatnych na zmienność. Może być ona przewidywalna, otwieranie więcej kas w supermarkecie w ciągu dnia w reakcji na zmienną liczbę kupujących w ciągu dnia. Zmienność może być również nieprzewidywalna, jak tempo przybywania pacjentów na szpitalny oddział ratunkowy.
