@@ -297,6 +297,37 @@ Websocket jest komputerowym protokołem komunikacyjnym, umożliwiającym dwukier
 
 # Symulator wypłat z bankomatów
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/usecase.png}
+\caption{Przypadki użycia symulatora}}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/highlevel.png}
+\caption{Wysokopoziomowy diagram architektury symulatora}}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/components.png}
+\caption{Diagram komponentów składowych symulatora}}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/editor.png}
+\caption{Zrzut ekranu edytora symulacji}}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/player.png}
+\caption{Zrzut ekranu odtwarzacza symulacji}}
+\end{figure}
+
+
 Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat bankomatowych.
 
 ## Elementy symulacji 
