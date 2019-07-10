@@ -330,6 +330,45 @@ Websocket jest komputerowym protokołem komunikacyjnym, umożliwiającym dwukier
 
 Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat bankomatowych.
 
+Symulator składa się z 2 niezależnych komponentów: graficznego interfejsu użytkownika oraz symulatora.
+W interfejsie użytkownika można wyróżnić edytor oraz odtwarzacz symulacji.
+Elementy składowe symulatora to generator i serwer danych.
+
+### Edytor
+
+#### Ikonki
+
+ikonki w różnych stanach
+
+### Generator
+
+Generator odpowiedzialny jest za przeprowadzenie symulacji.
+
+Zdarzenia symulacji są generowane na podstawie generatora losowego. X zdarzeń na godzinę, które pchane są do atm actorów. Co godzine wypluwany jest event time passed dla side effect actora. Wszystkie przemielone eventy trafiają do output actora.
+Dane z output actora zapisywane są do dziennika zdarzeń, wśród których są wypłaty, uzupełnienia itp.
+Zdarzenia mogą zawierać też
+
+#### Zdarzenia
+
+wypłata
+
+time passed
+
+out of money
+
+not enough money
+
+completed
+
+started
+
+#### Zdarzenia zapisywane
+
+##### Backpressure
+
+najwolniejszy jest dysk, nieważne jak szybko będziemy generować, trzeba czekać na dysk, bo jebnie
+w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, więc wszystkie zdarzenia zachodzą jednocześnie w godzinie -> nie trzeba sortować dla kolejności.
+
 ## Elementy symulacji 
 
 // TODO: opisać model - narysować, jak gadają ze sobą elementy. przedstawić jak działa "biznesowo", nie technicznie
@@ -340,20 +379,9 @@ Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat banko
 // TODO: dlaczego aktory - agent based modeling
 // TODO: dlaczego reactive - backpressure, którego nie mają aktory
 
-### Karta
-
- - jest obiektem, który wypłaca pieniądze z bankomatu
- - posiada datę ważność
- - jest powiązana z bankiem / instytucją która ją wypuściła
- - może mieć różne waluty
-    - czy karta na pewno może mieć różne waluty? jeśli ma inną walutę niż złotówki to jak przeliczamy? co z limitem wypłat
- - może mieć limity
-
-
 ### Bankomaty
 
  - ma maksymalną pojemność
- - przynależy do banku / instytucji finansowej
 
 ## Parametry symulacji
 
