@@ -295,7 +295,7 @@ Websocket jest komputerowym protokołem komunikacyjnym, umożliwiającym dwukier
 
 \chapter{Projekt}
 
-# Symulator wypłat z bankomatów
+Symulator wypłat z bankomatów, będący tematem tej pracy, umożliwia symulację wypłat z sieci bankomatów rozmieszczonych na terenie miasta. Pierwszą częścią projektu jest symulator, który generuje zachowanie bankomatów, wypłaty oraz sytuacje nietypowe, na podstawie wcześniej przygotowanej konfiguracji. Samo przygotowanie parametrów wejściowych w postaci pliku konfiguracyjnego, to zadanie złożone, dlatego drugą częścią projektu jest graficzny interfejs użytkownika. Jego zadaniem jest ułatwienie użytkownikom przygotowania parametrów oraz uruchomienie symulacji, jak również obejrzenie wyników symulacji w postaci wizualizacji. Gotowy wynik symulacji jest dostępny do wyeksportowania i pobrania z interfejsu.
 
 \begin{figure}[htbp]
 \centering
@@ -303,11 +303,92 @@ Websocket jest komputerowym protokołem komunikacyjnym, umożliwiającym dwukier
 \caption{Przypadki użycia symulatora}}
 \end{figure}
 
+# Symulator wypłat z bankomatów
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/highlevel.png}
 \caption{Wysokopoziomowy diagram architektury symulatora}}
 \end{figure}
+
+Logika symulatora nie jest bezpośrednio dostępna dla użytkownika. Przykrywa ją warstwa infrastruktury pod postacią dwóch komponentów: serwera symulacji oraz serwera danych. Użytkownik, poprzez interfejs graficzny, komunikuje się z tymi dwoma serwerami, a przez nie z samym symulatorem.
+
+## Serwer symulacji
+
+Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje protokół HTTP do komunikacji i został zaimplementowany przy użyciu biblioteki Akka-http. Udostępnia zasób HTTP, `/simulation/{nazwa-symulacji}` wywoływany metodą POST, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
+
+~~~~{ .numberLines caption="Zapytanie HTTP do uruchomienia symulacji"}
+POST /simualtion/simulation-name HTTP/1.1
+Content-Type: application/json
+...konfiguracja
+~~~~
+
+Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
+
+~~~~{ .numberLines .json caption="Uproszczone ciało zapytania"}
+{
+  "startDate": 1558470392042,
+  "endDate": 1559068059000,
+  "eventsPerHour": 100,
+  "randomSeed": 1,
+  "default": {
+    "refillAmount": 10000,
+    "load": 2,
+    "scheduledRefillInterval": 72
+  },
+  "withdrawal": {
+    "min": 10,
+    "max": 10000,
+    "mean": 100,
+    "stddev": 1000,
+    "distribution": "Gaussian"
+  },
+  "atms": [
+    {
+      "name": "bankomat1",
+      "location": [
+        50.0622357,
+        19.9359087
+      ],
+      "refillAmount": 50000,
+      "scheduledRefillInterval": 24,
+      "atmDefaultLoad": 3,
+      "hourly": {
+        "1551611460000": {
+          "load": 5
+        }
+      }
+    }
+  ]
+}
+~~~~
+
+ - **startDate** - liczba całkowita będąca datą i godziną początku symulacji w formacie czasu unixowego
+ - **endDate** - liczba całkowita będąca datą i godziną końca symulacji w formacie czasu unixowego
+ - **eventsPerHour** - liczba całkowita będąca liczbą zdarzeń (wypłat z bankomatów) w symulacji w ciągu godziny
+ - **randomSeed** - liczba całkowita będąca ziarnem generatora liczb losowych symulatora
+ - **default** - struktura parametrów domyślnych bankomatów
+ - **refillAmount** - liczba całkowita będąca wartością zawartości sejfu bankomatu
+ - **load** (w default) - liczba całkowita będąca wagą obciążenia bankomatu
+ - **scheduledRefillInterval** - liczba całkowita będąca odstępem czasu pomiędzy kolejnymi uzupełnieniami sejfu bankomatu, wyrażonym w godzinach
+ - **withdrawal** - struktura parametrów wypłat w symulacji
+ - **distribution** - funkcja rozkładu prawdopodobieństwa, dostępne są:
+    - Uniform - funkcja odpowiadająca rozkładowi jednorodnemu
+    - Gaussian - funkcja odpowiadająca rozkładowi normalnemu (Gaussa)
+ - **min** - liczba całkowita będąca minimalną wartością wypłaty (używana tylko w rozkładzie *Uniform)
+ - **max** - liczba całkowita będąca maksymalną wartością wypłaty (używana tylko w rozkładzie **Uniform**)
+ - **mean** - liczba całkowita będąca średnią wartością wypłaty (używana tylko w rozkładzie **Gaussian**)
+ - **stddev** - liczba całkowita będąca odchyleniem standardowym wartości wypłat (używana tylko w rozkładzie **Gaussian**)
+ - **atms** - lista parametrów bankomatów
+ - **name** - ciąg znaków będący nazwą bankomatu
+ - **location** - dwuelementowa lista będąca lokalizacją bankomatu
+ - **refillAmount** - liczba całkowita będąca wartością zawartości sejfu bankomatu; jeśli nie jest ustawiona, brana jest wartość parametru *refillAmount z sekcji default*
+ - **scheduledRefillInterval** - liczba całkowita będąca odstępem czasu pomiędzy kolejnymi uzupełnieniami sejfu bankomatu, wyrażonym w godzinach; jeśli nie jest ustawiona, brana jest wartość parametru *scheduledRefillInterval* z sekcji *default*
+ - **atmDefaultLoad** - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru load* z sekcji default*
+ - **hourly** - struktura parametrów godzinnych, kluczem jest godzina przedstawiona w formacie czasu unixowego
+ - **load** (w hourly) - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru atmDefaultLoad*
+
+W powyższym przykładzie przestawiono konfigurację z pojedynczym bankomatem, lecz może ich być wiele. Maksymalna liczba bankomatów jest ograniczona pamięcią operacyjną maszyny, na której przeprowadzana jest symulacja.
 
 \begin{figure}[htbp]
 \centering
@@ -315,32 +396,14 @@ Websocket jest komputerowym protokołem komunikacyjnym, umożliwiającym dwukier
 \caption{Diagram komponentów składowych symulatora}}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=160mm]{graphics/editor.png}
-\caption{Zrzut ekranu edytora symulacji}}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=160mm]{graphics/player.png}
-\caption{Zrzut ekranu odtwarzacza symulacji}}
-\end{figure}
 
 
-Cel: symulacja ma reprezentować realistyczne, naturalne rozkłady wypłat bankomatowych.
+// TODO: architektura techniczna model C4
+// TODO: opis konfiguracji wejściowej
+// TOOD: opis logu wyników
+// TODO: dlaczego aktory - agent based modeling
+// TODO: dlaczego reactive - backpressure, którego nie mają aktory
 
-Symulator składa się z 2 niezależnych komponentów: graficznego interfejsu użytkownika oraz symulatora.
-W interfejsie użytkownika można wyróżnić edytor oraz odtwarzacz symulacji.
-Elementy składowe symulatora to generator i serwer danych.
-
-### Edytor
-
-#### Ikonki
-
-ikonki w różnych stanach
-
-### Generator
 
 Generator odpowiedzialny jest za przeprowadzenie symulacji.
 
@@ -348,7 +411,7 @@ Zdarzenia symulacji są generowane na podstawie generatora losowego. X zdarzeń 
 Dane z output actora zapisywane są do dziennika zdarzeń, wśród których są wypłaty, uzupełnienia itp.
 Zdarzenia mogą zawierać też
 
-#### Zdarzenia
+## Zdarzenia
 
 wypłata
 
@@ -371,13 +434,6 @@ w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, 
 
 ## Elementy symulacji 
 
-// TODO: opisać model - narysować, jak gadają ze sobą elementy. przedstawić jak działa "biznesowo", nie technicznie
-// TODO: architektura techniczna model C4
-// TODO: opis konfiguracji wejściowej
-// TOOD: opis logu wyników
-// TODO: opis aplikacji - screeny i wyjaśnienia
-// TODO: dlaczego aktory - agent based modeling
-// TODO: dlaczego reactive - backpressure, którego nie mają aktory
 
 ### Bankomaty
 
@@ -394,6 +450,26 @@ Symulacja musi być realistyczna, naturalna.
 Rozkłady muszą pokrywać cały okres symulacji.
 
 # Wizualizacja wypłat na mapie
+
+// TODO: opis aplikacji - screeny i wyjaśnienia
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/editor.png}
+\caption{Zrzut ekranu edytora symulacji}}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/player.png}
+\caption{Zrzut ekranu odtwarzacza symulacji}}
+\end{figure}
+
+## Edytor
+
+### Ikonki
+
+ikonki w różnych stanach
 
  - długoterminowa symulacja pracy bankomatu
  - wysoka konfigurowalność
