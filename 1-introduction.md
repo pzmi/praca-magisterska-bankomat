@@ -315,12 +315,12 @@ Logika symulatora nie jest bezpośrednio dostępna dla użytkownika. Przykrywa j
 
 ## Serwer symulacji
 
-Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje protokół HTTP do komunikacji i został zaimplementowany przy użyciu biblioteki Akka-http. Udostępnia zasób HTTP, `/simulation/{nazwa-symulacji}` wywoływany metodą POST, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
+Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje protokół HTTP do komunikacji i został zaimplementowany przy użyciu biblioteki Akka-http. Udostępnia zasób *\gls{http}*, `/simulation/{nazwa-symulacji}` wywoływany metodą POST, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
 
 ~~~~{ .numberLines caption="Zapytanie HTTP do uruchomienia symulacji"}
 POST /simualtion/simulation-name HTTP/1.1
 Content-Type: application/json
-...konfiguracja
+{ciało zapytania - konfiguracja}
 ~~~~
 
 Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
@@ -388,7 +388,30 @@ Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
  - **hourly** - struktura parametrów godzinnych, kluczem jest godzina przedstawiona w formacie czasu unixowego
  - **load** (w hourly) - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru atmDefaultLoad*
 
-W powyższym przykładzie przestawiono konfigurację z pojedynczym bankomatem, lecz może ich być wiele. Maksymalna liczba bankomatów jest ograniczona pamięcią operacyjną maszyny, na której przeprowadzana jest symulacja.
+W powyższym przykładzie przestawiono konfigurację z pojedynczym bankomatem, lecz można skonfigurować ich wiele. Maksymalna liczba bankomatów jest ograniczona pamięcią operacyjną maszyny, na której przeprowadzana jest symulacja.
+
+Tak przygotowana konfiguracja trafia, poprzez serwer symulacji, do symulatora. Wykorzystując parametry wejściowe z konfiguracji symulator przeprowadza symulację, której wynik odkłada do dziennika danych.
+
+Następnie dane te mogą zostać odczytane przez serwer danych. Serwer ten udostępnia zarówno wyjściowe informacje o symulacji, jak również jej wejściowe parametry. 
+Serwer danych komunikuje się dwoma protokołami HTTP oraz Websocket.
+Poprzez protokół HTTP udostępniane są parametry wejściowe danej symulacji oraz komplet danych wytworzonych w ramach symulacji.
+
+Konfiguracja z parametrami wejściowymi jest udostępniona pod zasobem `/config/{nazwa-symulacji}` wywołany metodą GET.
+
+~~~~{ .numberLines caption="Zapytanie HTTP do pobrania konfiguracji danej symulacji"}
+GET /config/{nazwa-symulacji} HTTP/1.1
+Accept: application/json
+~~~~
+
+Komplet danych jest udostępniony pod zasobem `/{nazwa-symulacji}/log` wywołany metodą GET.
+
+~~~~{ .numberLines caption="Zapytanie HTTP do pobrania kompletu danych symulacji"}
+GET /{nazwa-symulacji}/log HTTP/1.1
+Accept: application/octet-stream
+~~~~
+
+Protokół Websocket wykorzystywany jest w serwerze danych do strumieniowego udostępniania wyników symulacji. Dzięki temu dowolna aplikacja kliencka może dostosować prędkość pobierania danych do własnych potrzeb.
+Poprzez Websocket serwer wysyła do klienta dane w postaci wpisów dziennika zdarzeń, po 1000 na raz. Dane w dzienniku są uporządkowane chronologicznie, od najstarszych do najnowszych. Po każdym zapytaniu od klienta serwer wysyła koleją partię danych, aż do końca dziennika. 
 
 \begin{figure}[htbp]
 \centering
@@ -396,7 +419,7 @@ W powyższym przykładzie przestawiono konfigurację z pojedynczym bankomatem, l
 \caption{Diagram komponentów składowych symulatora}}
 \end{figure}
 
-
+// TODO: opisać komponenty, później opisać flow, nie mieszać. na końcu opisać interfejs użytkownika ze screenami
 
 // TODO: architektura techniczna model C4
 // TODO: opis konfiguracji wejściowej
