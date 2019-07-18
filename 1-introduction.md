@@ -311,11 +311,28 @@ Symulator wypłat z bankomatów, będący tematem tej pracy, umożliwia symulacj
 \caption{Wysokopoziomowy diagram architektury symulatora}}
 \end{figure}
 
-Logika symulatora nie jest bezpośrednio dostępna dla użytkownika. Przykrywa ją warstwa infrastruktury pod postacią dwóch komponentów: serwera symulacji oraz serwera danych. Użytkownik, poprzez interfejs graficzny, komunikuje się z tymi dwoma serwerami, a przez nie z samym symulatorem.
+Logika symulatora nie jest bezpośrednio dostępna dla użytkownika. Przykrywa ją warstwa infrastruktury pod postacią dwóch komponentów: *serwera symulacji* oraz *serwera danych*. Użytkownik, poprzez *interfejs graficzny*, komunikuje się z wyżej wymienionymi serwerami, a przez nie z samym symulatorem. Używając interfejsu *edytora* użytkownik przygotowuje *konfigurację*. Poprzez protokół *\gls{http}* jest ona wysyłana do serwera symulacji, który odpowiada za komunikacje z symulatorem.
+Wykorzystując parametry wejściowe z konfiguracji symulator przeprowadza symulację, a jaj wynik odkłada do *dziennika danych*.
+Następnie dane te mogą zostać odczytane przez serwer danych, który poza wynikiem symulacji udostępnia również jej wejściowe parametry.
+Gotową symulację można obejrzeć w graficznym interfejsie użytkownika w postaci *wizualizacji*. 
+
+## Edytor symulacji
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/editor.png}
+\caption{Zrzut ekranu edytora symulacji}}
+\end{figure}
 
 ## Serwer symulacji
 
-Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje protokół HTTP do komunikacji i został zaimplementowany przy użyciu biblioteki Akka-http. Udostępnia zasób *\gls{http}*, `/simulation/{nazwa-symulacji}` wywoływany metodą POST, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/components.png}
+\caption{Diagram komponentów składowych symulatora}}
+\end{figure}
+
+Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje on protokół HTTP do komunikacji i został zaimplementowany przy użyciu biblioteki Akka-http. Udostępnia zasób *\gls{http}*, `/simulation/{nazwa-symulacji}` wywoływany metodą *POST*, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
 
 ~~~~{ .numberLines caption="Zapytanie HTTP do uruchomienia symulacji"}
 POST /simualtion/simulation-name HTTP/1.1
@@ -390,13 +407,10 @@ Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
 
 W powyższym przykładzie przestawiono konfigurację z pojedynczym bankomatem, lecz można skonfigurować ich wiele. Maksymalna liczba bankomatów jest ograniczona pamięcią operacyjną maszyny, na której przeprowadzana jest symulacja.
 
-Tak przygotowana konfiguracja trafia, poprzez serwer symulacji, do symulatora. Wykorzystując parametry wejściowe z konfiguracji symulator przeprowadza symulację, której wynik odkłada do dziennika danych.
+## Serwer danych
 
-Następnie dane te mogą zostać odczytane przez serwer danych. Serwer ten udostępnia zarówno wyjściowe informacje o symulacji, jak również jej wejściowe parametry. 
-Serwer danych komunikuje się dwoma protokołami HTTP oraz Websocket.
-Poprzez protokół HTTP udostępniane są parametry wejściowe danej symulacji oraz komplet danych wytworzonych w ramach symulacji.
-
-Konfiguracja z parametrami wejściowymi jest udostępniona pod zasobem `/config/{nazwa-symulacji}` wywołany metodą GET.
+Serwer danych udostępnia zarówno parametry wejściowe symulacji oraz jej wyjściowy wynik. 
+Konfiguracja z parametrami wejściowymi jest udostępniona pod zasobem `/config/{nazwa-symulacji}` wywołany metodą *GET*.
 
 ~~~~{ .numberLines caption="Zapytanie HTTP do pobrania konfiguracji danej symulacji"}
 GET /config/{nazwa-symulacji} HTTP/1.1
@@ -412,12 +426,6 @@ Accept: application/octet-stream
 
 Protokół Websocket wykorzystywany jest w serwerze danych do strumieniowego udostępniania wyników symulacji. Dzięki temu dowolna aplikacja kliencka może dostosować prędkość pobierania danych do własnych potrzeb.
 Poprzez Websocket serwer wysyła do klienta dane w postaci wpisów dziennika zdarzeń, po 1000 na raz. Dane w dzienniku są uporządkowane chronologicznie, od najstarszych do najnowszych. Po każdym zapytaniu od klienta serwer wysyła koleją partię danych, aż do końca dziennika. 
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=160mm]{graphics/components.png}
-\caption{Diagram komponentów składowych symulatora}}
-\end{figure}
 
 // TODO: opisać komponenty, później opisać flow, nie mieszać. na końcu opisać interfejs użytkownika ze screenami
 
