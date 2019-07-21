@@ -332,7 +332,7 @@ Gotową symulację można obejrzeć w graficznym interfejsie użytkownika w post
 \caption{Diagram komponentów składowych symulatora}}
 \end{figure}
 
-Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje on protokół HTTP do komunikacji i został zaimplementowany przy użyciu biblioteki Akka-http. Udostępnia zasób *\gls{http}*, `/simulation/{nazwa-symulacji}` wywoływany metodą *POST*, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
+Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje on protokół HTTP do komunikacji i został zaimplementowany przy użyciu *akka-http*, biblioteki implementującej protokół HTTP, wchodzącej w skład zestawu narzędzi Akka. Udostępnia zasób \gls{http}, `/simulation/{nazwa-symulacji}` wywoływany metodą *POST*, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
 
 ~~~~{ .numberLines caption="Zapytanie HTTP do uruchomienia symulacji"}
 POST /simualtion/simulation-name HTTP/1.1
@@ -379,6 +379,8 @@ Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
   ]
 }
 ~~~~
+
+### Opis parametrów wejściowych
 
  - **startDate** - liczba całkowita będąca datą i godziną początku symulacji w formacie czasu unixowego
  - **endDate** - liczba całkowita będąca datą i godziną końca symulacji w formacie czasu unixowego
@@ -462,23 +464,6 @@ started
 
 najwolniejszy jest dysk, nieważne jak szybko będziemy generować, trzeba czekać na dysk, bo jebnie
 w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, więc wszystkie zdarzenia zachodzą jednocześnie w godzinie -> nie trzeba sortować dla kolejności.
-
-## Elementy symulacji 
-
-
-### Bankomaty
-
- - ma maksymalną pojemność
-
-## Parametry symulacji
-
-Symulacja musi być realistyczna, naturalna.
-
- - ziarnistość symulacji: godzina
- - okres symulacji: rok
- - użytkownik ustala start i stop
-
-Rozkłady muszą pokrywać cały okres symulacji.
 
 # Wizualizacja wypłat na mapie
 
