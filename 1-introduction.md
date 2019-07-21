@@ -324,6 +324,8 @@ Gotową symulację można obejrzeć w graficznym interfejsie użytkownika w post
 \caption{Zrzut ekranu edytora symulacji}}
 \end{figure}
 
+
+
 ## Serwer symulacji
 
 \begin{figure}[htbp]
