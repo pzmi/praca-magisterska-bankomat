@@ -220,15 +220,8 @@ Poprzez staranny dobór parametrów można stworzyć używalną sekwencję liczb
 \caption{Histogram długości ciągów  dla prostego generatora LCG z $m=10$ i wszystkich  możliwych  wartości $a, c$ oraz ziarna\autocite{Kneusel2018RandomNA}}
 \end{figure}
 
-<!-- W przypadku liniowego generatora kongruencyjnego obowiązują trzy reguły ułatwiające dobór wartości parametrów:
-
-1. $m$ i $c$ są względnie pierwsze
-2. $a-1$ jest podzielne przez piersze dzielniki $m$
-3. $a-1$ jest podzielne przez $4$ jeśli $m$ jest podzielne przez 4 -->
 
 # Użyte narzędzia
-
-Przedstawienie użytych narzędzi i motywacja
 
 ## Java
 
@@ -300,7 +293,7 @@ Symulator wypłat z bankomatów, będący tematem tej pracy, umożliwia symulacj
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/usecase.png}
-\caption{Przypadki użycia symulatora}}
+\caption{Przypadki użycia symulatora}
 \end{figure}
 
 # Symulator wypłat z bankomatów
@@ -308,31 +301,35 @@ Symulator wypłat z bankomatów, będący tematem tej pracy, umożliwia symulacj
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/highlevel.png}
-\caption{Wysokopoziomowy diagram architektury symulatora}}
+\caption{Wysokopoziomowy diagram architektury symulatora}
 \end{figure}
 
 Logika symulatora nie jest bezpośrednio dostępna dla użytkownika. Przykrywa ją warstwa infrastruktury pod postacią dwóch komponentów: *serwera symulacji* oraz *serwera danych*. Użytkownik, poprzez *interfejs graficzny*, komunikuje się z wyżej wymienionymi serwerami, a przez nie z samym symulatorem. Używając interfejsu *edytora* użytkownik przygotowuje *konfigurację*. Poprzez protokół *\gls{http}* jest ona wysyłana do serwera symulacji, który odpowiada za komunikacje z symulatorem.
-Wykorzystując parametry wejściowe z konfiguracji symulator przeprowadza symulację, a jaj wynik odkłada do *dziennika danych*.
+Wykorzystując parametry wejściowe z konfiguracji symulator przeprowadza symulację, a jej wynik odkłada do *dziennika danych*.
 Następnie dane te mogą zostać odczytane przez serwer danych, który poza wynikiem symulacji udostępnia również jej wejściowe parametry.
 Gotową symulację można obejrzeć w graficznym interfejsie użytkownika w postaci *wizualizacji*. 
 
-## Edytor symulacji
+## Edytor
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/editor.png}
-\caption{Zrzut ekranu edytora symulacji}}
+\caption{Zrzut ekranu edytora symulacji}
 \end{figure}
 
+Edytor jest częścią graficznego interfejsu użytkownika tego projektu.
+Składa się z trzech głównych elementów:
 
+ 1) mapy
+ 2) edytora parametrów bankomatu
+ 3) edytora parametrów globalnych
+
+Mapa przedstawia rozmieszczenie bankomatów w przestrzeni. Znajdują się na niej ikony reprezentujące bankomaty. Po kliknięciu w ikonę pojawia się okno edycji parametrów bankomatu. Wśród nich znajduje się między innymi 
+
+// aspekty techniczne, przeglądarkowy żeby każdy mógł się dostać, nie potrzeba dodatkowych narzędzi ani instalacji, napisany w reakcie, żeby był dyamiczną aplikacją
+Umożliwia konfigurację parametrów wejściowych symulacji z poziomu przeglądarki.
 
 ## Serwer symulacji
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=160mm]{graphics/components.png}
-\caption{Diagram komponentów składowych symulatora}}
-\end{figure}
 
 Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje on protokół HTTP do komunikacji i został zaimplementowany przy użyciu biblioteki Akka-http. Udostępnia zasób *\gls{http}*, `/simulation/{nazwa-symulacji}` wywoływany metodą *POST*, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
 
@@ -427,7 +424,23 @@ Accept: application/octet-stream
 ~~~~
 
 Protokół Websocket wykorzystywany jest w serwerze danych do strumieniowego udostępniania wyników symulacji. Dzięki temu dowolna aplikacja kliencka może dostosować prędkość pobierania danych do własnych potrzeb.
-Poprzez Websocket serwer wysyła do klienta dane w postaci wpisów dziennika zdarzeń, po 1000 na raz. Dane w dzienniku są uporządkowane chronologicznie, od najstarszych do najnowszych. Po każdym zapytaniu od klienta serwer wysyła koleją partię danych, aż do końca dziennika. 
+Poprzez Websocket serwer wysyła do klienta dane w postaci wpisów dziennika zdarzeń, po 1000 na raz. Dane w dzienniku są uporządkowane chronologicznie, od najstarszych do najnowszych. Po każdym zapytaniu od klienta serwer wysyła koleją partię danych, aż do końca dziennika.
+
+## Wizualizacja
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/player.png}
+\caption{Zrzut ekranu odtwarzacza symulacji}}
+\end{figure}
+
+## Symulator
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/components.png}
+\caption{Diagram komponentów składowych symulatora}}
+\end{figure}
 
 // TODO: opisać komponenty, później opisać flow, nie mieszać. na końcu opisać interfejs użytkownika ze screenami
 
@@ -492,11 +505,7 @@ Rozkłady muszą pokrywać cały okres symulacji.
 \caption{Zrzut ekranu edytora symulacji}}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=160mm]{graphics/player.png}
-\caption{Zrzut ekranu odtwarzacza symulacji}}
-\end{figure}
+
 
 ## Edytor
 
