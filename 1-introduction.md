@@ -59,6 +59,8 @@ Bankomaty stanowią niezwykle istotny element infrastruktury bankowej w Polsce. 
 \caption{Średnia wartość transakcji bankomatowych w Polsce na przestrzeni lat\autocite{nbp:stats}}
 \end{figure}
 
+\newpage
+
 # Symulacja
 
 Imitacja oznacza naśladowanie lub kopiowanie czegoś innego. Przykładowo fałszerz naśladuje pracę wielkich artystów, systemy projektowania wspomaganego komputerowo (*ang. \gls{cad}*) dostarczają imitacji procesów produkcyjnych, mapa procesów biznesowych jest imitacją pracy organizacji, a model kolei jest fizyczną imitacją prawdziwego składu kolejowego. Wszystkie z powyższych przykładów można określić mianem symulacji. Jednakże spośród nich moża wyróżnić dwa zbiory. Pierwszym z nich są przykłady uwzględniające upływ czasu, a drugą stanowią te, na które czas nie wpływa. Stąd wywodzi się pojęcie symulacji statycznej, która reprezentuje proces w konkretnym momencie czasu, oraz symulacji dynamicznej, która odwzorowuje proces zmieniający się w czasie. Termin symulacja najczęściej odnosi się do symulacji dynamicznej. 
@@ -278,7 +280,7 @@ Implementacją tego modelu jest Akka Streams \autocite{akka:web}, czyli rozszerz
 
 ## React
 
-React \autocite{react} został stworzony w firmie Facebook przez zespół web deweloperów w 2013 roku do tworzenia widoków stron internetowych. Biblioteka umożliwia na renderowanie komponentów jako widocznych elementów w przeglądarce. Widoki tworzone z wykorzystaniem Reacta składają się z hierarchii złożonych ze sobą komponentów. 
+React \autocite{react:web} został stworzony w firmie Facebook przez zespół web deweloperów w 2013 roku do tworzenia widoków stron internetowych. Biblioteka umożliwia na renderowanie komponentów jako widocznych elementów w przeglądarce. Widoki tworzone z wykorzystaniem Reacta składają się z hierarchii złożonych ze sobą komponentów. 
 Jedną z głównych cech wyróżniających Reacta od innych bibliotek oraz technik tworzenia graficznych interfejsów użytkownika w przeglądarce internetowej jest wirtualny *\gls{dom}*. Model ten pozwala na aktualizację wyświetlanych treści w oderwaniu od wprowadzanych zmian, co umożliwia automatyczną optymalizację zmian. \autocite{wieruch2018road}
 
 ## Websocket
@@ -309,11 +311,13 @@ Wykorzystując parametry wejściowe z konfiguracji symulator przeprowadza symula
 Następnie dane te mogą zostać odczytane przez serwer danych, który poza wynikiem symulacji udostępnia również jej wejściowe parametry.
 Gotową symulację można obejrzeć w graficznym interfejsie użytkownika w postaci *wizualizacji*. 
 
+\newpage
+
 ## Edytor
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=160mm]{graphics/editor.png}
+\includegraphics[width=120mm]{graphics/editor.png}
 \caption{Zrzut ekranu edytora symulacji}
 \end{figure}
 
@@ -324,10 +328,54 @@ Składa się z trzech głównych elementów:
  2) edytora parametrów bankomatu
  3) edytora parametrów globalnych
 
-Mapa przedstawia rozmieszczenie bankomatów w przestrzeni. Znajdują się na niej ikony reprezentujące bankomaty. Po kliknięciu w ikonę pojawia się okno edycji parametrów bankomatu. Wśród nich znajduje się między innymi 
+Mapa przedstawia rozmieszczenie bankomatów w przestrzeni. Znajdują się na niej ikony reprezentujące bankomaty. Po kliknięciu w ikonę bankomatu pojawia się okno edycji parametrów bankomatu. 
+Wśród nich znajduje się:
 
-// aspekty techniczne, przeglądarkowy żeby każdy mógł się dostać, nie potrzeba dodatkowych narzędzi ani instalacji, napisany w reakcie, żeby był dyamiczną aplikacją
-Umożliwia konfigurację parametrów wejściowych symulacji z poziomu przeglądarki.
+ - identyfikator bankomatu
+ - współrzędne geograficzne
+ - zawartość sejfu bankomatu
+ - odstęp czasu pomiędzy uzupełnieniem sejfu bankomatu
+ - domyślne obciążenie bankomatu
+ - godzinowe obciążenie bankomatu
+
+Po prawej stronie znajduje się edytor parametrów globalnych symulacji. Dzieli się on na trzy sekcje: 
+ 
+ - parametry ogólne
+ - domyślne parametry bankomatu
+ - parametry wypłat
+
+Parametry ogólne składają się z:
+
+ - nazwę symulacji nadawaną przez użytkownika
+ - datę i godzinę rozpoczęcia symulacji
+ - datę i godzinę zakończenia symulacji
+ - ziarno generatora liczb pseudolosowych
+
+Domyślne parametry bankomatu składają się z:
+
+ - zawartość sejfu bankomatu
+ - odstępu czasu pomiędzy uzupełnieniem sejfu bankomatu
+ - obciążenia bankomatu
+
+Zawartość sekcji parametrów wypłat jest zależna od wybranej funkcji rozkładu prawdopodobieństwa wypłat.
+
+W przypadku wybrania funkcji rozkładu jednostajnego są to:
+
+ - liczba wypłat na godzinę
+ - maksymalna wartość wypłaty
+ - minimalna wartość wypłaty
+
+Zaś w przypadku wyboru funkcji rozkładu normalnego są to:
+
+ - liczba wypłat na godzinę
+ - średnia wartość wypłaty
+ - odchylenie standardowe wartości wypłaty
+
+Szczegółowy opis parametrów znajduje się w sekcji \ref{serwer-symulacji}.
+
+Ostatnim elementem edytora parametrów globalnych jest przycisk odpowiadający za rozpoczęcie symulacji. Po jego wciśnięciu konfiguracja przygotowana z użyciem edytora jest przesyłana do serwera symulacji.
+
+Interfejs edytora jest udostępniony w postaci strony internetowej. Dzięki temu można z niego korzystać z dowolnego komputera wyposażonego w przeglądarkę internetową ze wsparciem języka JavaScript, bez potrzeby instalacji żadnego dodatkowego oprogramowania. Aby zapewnić wygodną i interaktywną obsługę aplikacja edytora wykorzystuje JavaScript oraz bibliotekę *React*. Dzięki temu użytkownik może zmieniać parametry symulacji, w tym domyślne oraz globalne, a zmiany automatycznie rozpropagują się do wszystkich komponentów bez udziału serwera symulacji.
 
 ## Serwer symulacji
 
@@ -336,12 +384,12 @@ Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje on protok�
 ~~~~{ .numberLines caption="Zapytanie HTTP do uruchomienia symulacji"}
 POST /simualtion/simulation-name HTTP/1.1
 Content-Type: application/json
-{ciało zapytania - konfiguracja}
+{dane zapytania - konfiguracja}
 ~~~~
 
 Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
 
-~~~~{ .numberLines .json caption="Uproszczone ciało zapytania"}
+~~~~{ .numberLines .json caption="Uproszczone dane zapytania"}
 {
   "startDate": 1558470392042,
   "endDate": 1559068059000,
@@ -393,20 +441,20 @@ Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
  - **distribution** - funkcja rozkładu prawdopodobieństwa, dostępne są:
     - Uniform - funkcja odpowiadająca rozkładowi jednorodnemu
     - Gaussian - funkcja odpowiadająca rozkładowi normalnemu (Gaussa)
- - **min** - liczba całkowita będąca minimalną wartością wypłaty (używana tylko w rozkładzie *Uniform)
+ - **min** - liczba całkowita będąca minimalną wartością wypłaty (używana tylko w rozkładzie **Uniform**)
  - **max** - liczba całkowita będąca maksymalną wartością wypłaty (używana tylko w rozkładzie **Uniform**)
  - **mean** - liczba całkowita będąca średnią wartością wypłaty (używana tylko w rozkładzie **Gaussian**)
  - **stddev** - liczba całkowita będąca odchyleniem standardowym wartości wypłat (używana tylko w rozkładzie **Gaussian**)
  - **atms** - lista parametrów bankomatów
  - **name** - ciąg znaków będący nazwą bankomatu
  - **location** - dwuelementowa lista będąca lokalizacją bankomatu
- - **refillAmount** - liczba całkowita będąca wartością zawartości sejfu bankomatu; jeśli nie jest ustawiona, brana jest wartość parametru *refillAmount z sekcji default*
+ - **refillAmount** - liczba całkowita będąca wartością zawartości sejfu bankomatu; jeśli nie jest ustawiona, brana jest wartość parametru *refillAmount* z sekcji *default*
  - **scheduledRefillInterval** - liczba całkowita będąca odstępem czasu pomiędzy kolejnymi uzupełnieniami sejfu bankomatu, wyrażonym w godzinach; jeśli nie jest ustawiona, brana jest wartość parametru *scheduledRefillInterval* z sekcji *default*
  - **atmDefaultLoad** - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru load* z sekcji default*
  - **hourly** - struktura parametrów godzinnych, kluczem jest godzina przedstawiona w formacie czasu unixowego
- - **load** (w hourly) - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru atmDefaultLoad*
+ - **load** (w hourly) - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru *atmDefaultLoad*
 
-W powyższym przykładzie przestawiono konfigurację z pojedynczym bankomatem, lecz można skonfigurować ich wiele. Maksymalna liczba bankomatów jest ograniczona pamięcią operacyjną maszyny, na której przeprowadzana jest symulacja.
+W powyższym przykładzie przestawiono konfigurację z pojedynczym bankomatem, lecz można skonfigurować ich wiele. Maksymalna liczba bankomatów jest ograniczona pamięcią operacyjną maszyny, na której przeprowadzana jest symulacja. 
 
 ## Serwer danych
 
@@ -428,20 +476,45 @@ Accept: application/octet-stream
 Protokół Websocket wykorzystywany jest w serwerze danych do strumieniowego udostępniania wyników symulacji. Dzięki temu dowolna aplikacja kliencka może dostosować prędkość pobierania danych do własnych potrzeb.
 Poprzez Websocket serwer wysyła do klienta dane w postaci wpisów dziennika zdarzeń, po 1000 na raz. Dane w dzienniku są uporządkowane chronologicznie, od najstarszych do najnowszych. Po każdym zapytaniu od klienta serwer wysyła koleją partię danych, aż do końca dziennika.
 
-## Wizualizacja
-
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=160mm]{graphics/player.png}
-\caption{Zrzut ekranu odtwarzacza symulacji}}
+\includegraphics[width=120mm]{graphics/player.png}
+\caption{Zrzut ekranu wizualizacji symulacji}
 \end{figure}
+
+\newpage
+
+## Wizualizacja
+
+Wizualizacja jest drugą, po edytorze, częścią graficznego interfejsu użytkownika. Można na nim obejrzeć przebieg symulacji w czasie, od początku do końca. Odtwarzanie danych symulacji może zostać zatrzymane oraz wznowione przy użyciu przycisków sterującym. Poza zatrzymywaniem czasu symulacji można go również przyspieszyć, co jest przydatne w przypadku długoterminowych symulacji, oraz spowolnić go, aby szczegółowo obserwować zmiany stanu. 
+Widok okna jest analogiczny do tego z edytora. 
+Składa się on z czterech głównych elementów:
+
+ 1) mapy
+ 2) panelu kontrolnego wizualizacji
+ 3) panelu zdarzeń
+ 4) okna podglądu parametrów bankomatu
+
+Mapa, podobnie jak w przypadku edytora, przedstawia rozmieszczenie bankomatów w przestrzeni. Ikony, poza położeniem bankomatu, przedstawiają również jego stan, do którego należą:
+
+ - \includegraphics[height=15mm]{atm-green.png} - bankomat jest sprawny, a jego sejf jest pełny
+ - \includegraphics[height=15mm]{atm-blue.png} - bankomat jest sprawny, a jego sejf jest zapełniony powyżej 50% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-yellow.png} - bankomat jest sprawny, a jego sejf jest zapełniony powyżej 10% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-red.png} - bankomat jest sprawny, a jego sejf jest pusty
+
+ - \includegraphics[height=15mm]{atm-green-alert.png} - bankomat napotkał problem, a jego sejf jest pełny
+ - \includegraphics[height=15mm]{atm-blue-alert.png} - bankomat napotkał problem, a jego sejf jest zapełniony powyżej 50% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-yellow-alert.png} - bankomat napotkał problem, a jego sejf jest zapełniony powyżej 10% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-red-alert.png} - bankomat napotkał problem, a jego sejf jest pusty
+
+// TODO: skończyć
 
 ## Symulator
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/components.png}
-\caption{Diagram komponentów składowych symulatora}}
+\caption{Diagram komponentów składowych symulatora}
 \end{figure}
 
 // TODO: opisać komponenty, później opisać flow, nie mieszać. na końcu opisać interfejs użytkownika ze screenami
@@ -486,8 +559,8 @@ w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, 
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=160mm]{graphics/editor.png}
-\caption{Zrzut ekranu edytora symulacji}}
+\includegraphics[width=120mm]{graphics/editor.png}
+\caption{Zrzut ekranu edytora symulacji}
 \end{figure}
 
 
