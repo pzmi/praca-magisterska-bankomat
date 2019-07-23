@@ -491,9 +491,9 @@ Widok okna jest analogiczny do tego z edytora.
 Składa się on z czterech głównych elementów:
 
  1) mapy
- 2) panelu kontrolnego wizualizacji
- 3) panelu zdarzeń
- 4) okna podglądu parametrów bankomatu
+ 2) okna podglądu parametrów bankomatu
+ 3) panelu kontrolnego wizualizacji
+ 4) panelu zdarzeń
 
 Mapa, podobnie jak w przypadku edytora, przedstawia rozmieszczenie bankomatów w przestrzeni. Ikony, poza położeniem bankomatu, przedstawiają również jego stan, do którego należą:
 
@@ -507,7 +507,19 @@ Mapa, podobnie jak w przypadku edytora, przedstawia rozmieszczenie bankomatów w
  - \includegraphics[height=15mm]{atm-yellow-alert.png} - bankomat napotkał problem, a jego sejf jest zapełniony powyżej 10% zaplanowanej pojemności
  - \includegraphics[height=15mm]{atm-red-alert.png} - bankomat napotkał problem, a jego sejf jest pusty
 
-// TODO: skończyć
+Po kliknięciu w ikonę bankomatu pojawia się okno parametrów bankomatu,  analogicznie do widoku edytora, lecz są w trybie tylko do odczytu. Wśród nich znajduje się parametr przedstawiający bieżącą zawartość sejfu bankomatu, która jest aktualizowana na bieżąco, wraz z postępem symulacji.
+
+Na prawej części ekranu znajduje się panel zdarzeń oraz panel kontrolny wizualizacji oraz panel zdarzeń.
+Na górze panelu kontrolnego wyświetlany jest aktualny czas symulacji. Format daty i godziny jest zależny od ustawień regionalnych systemu operacyjnego użytkownika.
+Pod wyświetlaczem czasu symulacji umiejscowione są trzy przyciski sterujące symulacją:
+
+ - minus - spowalnia działanie wizualizacji
+ - plus - przyspiesza działanie wizualizacji
+ - pionowe linie / trójkąt - zatrzymanie / wznowienie działania wizualizacji
+
+Ostatnim elementem panelu kontrolnego jest przycisk eksportu danych symulacji do pobrania.
+
+Poniżej panelu kontrolnego znajduje się panel zdarzeń symulacji. W czasie postępu symulacji umieszczane są znaczące zdarzenia cyklu życia bankomatu, jak opróżnienie lub uzupełnienie zawartości sejfu. Szczegółowy opis zdarzeń w symulacji znajduje się w sekcji \ref{symulator}.
 
 ## Symulator
 
