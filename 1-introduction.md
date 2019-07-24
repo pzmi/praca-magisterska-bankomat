@@ -529,20 +529,37 @@ Poniżej panelu kontrolnego znajduje się panel zdarzeń symulacji. W czasie pos
 \caption{Diagram komponentów składowych symulatora}
 \end{figure}
 
-// TODO: opisać komponenty, później opisać flow, nie mieszać. na końcu opisać interfejs użytkownika ze screenami
+Symulator jest kluczowym elementem projektu. Z edytora, poprzez serwer symulacji, przyjmuje konfigurację, na podstawie której przeprowadza symulację wypłat z sieci bankomatów. Wygenerowane dane są zapisywane do dziennika danych, a następnie udostępnione przez serwer danych na potrzeby wizualizacji.
 
-// TODO: architektura techniczna model C4
-// TODO: opis konfiguracji wejściowej
-// TOOD: opis logu wyników
-// TODO: dlaczego aktory - agent based modeling
-// TODO: dlaczego reactive - backpressure, którego nie mają aktory
+Symulator składa się z pięciu głównych elementów:
 
+ - aktora generatora
+ - aktora bankomatu
+ - aktowa wyjścia
+ - aktora efektów ubocznych
+ - dziennika danych
 
-Generator odpowiedzialny jest za przeprowadzenie symulacji.
+### Aktor generatora
 
-Zdarzenia symulacji są generowane na podstawie generatora losowego. X zdarzeń na godzinę, które pchane są do atm actorów. Co godzine wypluwany jest event time passed dla side effect actora. Wszystkie przemielone eventy trafiają do output actora.
-Dane z output actora zapisywane są do dziennika zdarzeń, wśród których są wypłaty, uzupełnienia itp.
-Zdarzenia mogą zawierać też
+Aktor generatora jest kluczowym elementem symulacji. Zawiera generator liczb pseudolosowych, na podstawie którego przygotowuje zdarzenia wejściowe symulacji. Użyty generator jest standardowym generatorem liczb pseudolosowych dostarczanym wraz ze standardową biblioteką języka Java. Należy on do rodziny liniowych generatorów kongruencyjnych o 48 bitowym ziarnie \autocite{random:javadoc:web}. 
+
+Do obowiązków aktora należy przygotowanie rozkładów prawdopodobieństwa dla bankomatów na podstawie obciążenia, robi stream zdarzeń wybrania pieniędzy i postępu czasu. Wybrania pieniędzy lecą do aktorów atm, którzy są wybrani na podstawie rozkładu i jednorodnego generatora liczb losowych. 
+Zdarzenia postępu czasu lądują u aktora efektów ubocznych. 
+Zdarzenie są generowane w modelu **czasu dyskretnego - sprwadzić jak to nazwałem wcześnij** co godzinę leci time passed, a za nim tyle eventów ile było skonfigurowanych w konfiguracji
+Wartość wybrania pieniędzy jest ustalona na podstawie parametrów konfiguracji.
+Używa reactive steams, aby wysyłać do aktorów asynchronicznie, ale dba o to, żeby ich nie zawalić pracą i nie zakłócić symulacji, używa patterna ask.
+
+## Aktor generatora
+
+## Aktor bankomatu
+
+## Aktor wyjścia
+
+## Aktor efektów ubocznych
+
+## Dziennik danych
+
+// opis wpisu dziennika - opis dziennika
 
 ## Zdarzenia
 
@@ -565,56 +582,11 @@ started
 najwolniejszy jest dysk, nieważne jak szybko będziemy generować, trzeba czekać na dysk, bo jebnie
 w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, więc wszystkie zdarzenia zachodzą jednocześnie w godzinie -> nie trzeba sortować dla kolejności.
 
-# Wizualizacja wypłat na mapie
+## Struktura projektu
 
-// TODO: opis aplikacji - screeny i wyjaśnienia
+// liczba linii kodu, układ folderów i plików, itp
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=120mm]{graphics/editor.png}
-\caption{Zrzut ekranu edytora symulacji}
-\end{figure}
-
-
-
-## Edytor
-
-### Ikonki
-
-ikonki w różnych stanach
-
- - długoterminowa symulacja pracy bankomatu
- - wysoka konfigurowalność
-   - drobnoziarnistość godzinowa 
-   - definiowanie rozkładów wypłat
-   - zapełnienie bankomatu
-   - o jaką kwotę jest uzupełniany
-   - jak często jest uzupełniany
-   - ile po alarmie o braku pieniędzy zostanie uzupełniony
- - symulacja wypłat ze zbioru bankomatów w terenie
- - wizualizacja powyższych na mapie terenowej
- - interfejs do konfiguracji parametrów symulacji
-
-## Edytor
-
-## Wizualizacja symulacji
-
-Wizualizacja przedstawia pozycje bankomatów na mapie, ich stan sejfu oraz natężenie ruchu oraz błędy.
-Udostępnia definiowanie konfiguracji symulacji.
-
-Wyróżnianie bankomatów:
-
- - wielkość kropki / kolor kropki - obciążenie bankomatu
- - stos pieniędzy, który maleje w miarę upływania pieniędzy w sejfie bankomatu
-
- Po kliknięciu w bankomat na mapie pojawiają się szczegółowe informacje o stanie bankomatu:
-
- - aktualne obciążenie bankomatu
- - zapasy pieniędzy
- - stan bankomatu - czy działa poprawnie, czy zaszła awaria
-  - parametry symulacji danego bankomatu
-
- Po prawej stronie znajdują się awarie, które zaszły w symulacji.
+## Benchmark
 
 # Przebieg symulacji
 
