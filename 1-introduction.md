@@ -531,11 +531,12 @@ Poniżej panelu kontrolnego znajduje się panel zdarzeń symulacji. W czasie pos
 
 Symulator jest kluczowym elementem projektu. Z edytora, poprzez serwer symulacji, przyjmuje konfigurację, na podstawie której przeprowadza symulację wypłat z sieci bankomatów. Wygenerowane dane są zapisywane do dziennika danych, a następnie udostępnione przez serwer danych na potrzeby wizualizacji.
 
+Symulator został zaprojektowany jako system wieloagentowy wykorzystując model aktorowy.
 Symulator składa się z pięciu głównych elementów:
 
  - aktora generatora
  - aktora bankomatu
- - aktowa wyjścia
+ - aktora wyjścia
  - aktora efektów ubocznych
  - dziennika danych
 
@@ -543,25 +544,24 @@ Symulator składa się z pięciu głównych elementów:
 
 Aktor generatora jest kluczowym elementem symulacji. Zawiera generator liczb pseudolosowych, na podstawie którego przygotowuje zdarzenia wejściowe symulacji. Użyty generator jest standardowym generatorem liczb pseudolosowych dostarczanym wraz ze standardową biblioteką języka Java. Należy on do rodziny liniowych generatorów kongruencyjnych o 48 bitowym ziarnie \autocite{random:javadoc:web}. 
 
-Do obowiązków aktora należy przygotowanie rozkładów prawdopodobieństwa dla bankomatów na podstawie obciążenia, robi stream zdarzeń wybrania pieniędzy i postępu czasu. Wybrania pieniędzy lecą do aktorów atm, którzy są wybrani na podstawie rozkładu i jednorodnego generatora liczb losowych. 
-Zdarzenia postępu czasu lądują u aktora efektów ubocznych. 
-Zdarzenie są generowane w modelu **czasu dyskretnego - sprwadzić jak to nazwałem wcześnij** co godzinę leci time passed, a za nim tyle eventów ile było skonfigurowanych w konfiguracji
-Wartość wybrania pieniędzy jest ustalona na podstawie parametrów konfiguracji.
-Używa reactive steams, aby wysyłać do aktorów asynchronicznie, ale dba o to, żeby ich nie zawalić pracą i nie zakłócić symulacji, używa patterna ask.
+Zdarzenia generowane są w modelu czasu dyskretnego. Na każdą godzinę czasu symulacji aktor generatora przygotowuje godzinny rozkład prawdopodobieństwa obciążenia każdego z bankomatów na podstawie dostarczonej przez użytkownika konfiguracji. W każdej godzinie generowane są zdarzenia upływu czasu oraz wypłat pieniędzy. Zdarzenie upływu czasu jest wysyłane do aktora efektów ubocznych o upływie czasu.
+Ilość wypłat na godzinę oraz ich wysokość jest definiowana na podstawie konfiguracji. Zdarzenia wypłat są wysyłane do aktorów bankomatów, wybranych na podstawie przygotowanych rozkładów prawdopodobieństwa.
 
-## Aktor generatora
+Aktor generatora może wytwarzać dane, a następnie przesyłać je do obsługi w krótszym czasie niż sam czas obsługi. Przeciążone procesy przetwarzające zdarzenia mogą doprowadzić do zakłóceń symulacji. Jeżeli ich skrzynki na wiadomości zostaną przepełnione, otrzymane zdarzenia zostaną odrzucone. Nawet jeśli przepełnienie nie nastąpi, to w przypadku znacznej ilości obciążonych aktorów bankomatów zostanie wysycona pamięć operacyjna maszyny, na której przeprowadzana jest symulacja. Aby do tego nie dopuścić aktor generatora używa reaktywnych strumieni, które dostosowują prędkość produkcji danych do możliwości odbiorców. W symulatorze aby połączyć świat reaktywnych strumieni z modelem aktorowym wykorzystywany jest wzorzec *zapytaj (ang. ask pattern)*. Wzorzec ten do asynchronicznego wysyłania wiadomości pomiędzy aktorami dodaje, również asynchroniczne, oczekiwanie odpowiedzi zwrotnej od odbiorcy. Takie połączenie umożliwia dostosowanie tempo produkcji wiadomości do odbiorców tychże.
 
 ## Aktor bankomatu
 
+Każdemu skonfigurowanemu bankomatowi odpowiada aktor bankomatu. 
+
+Jest on maszyną stanów ze stanami operational i out of money. W tych stanach ma balance. Obsługuje zdarzenia wejściowe wybranie oraz uzupełnienie. Intuicyjnie wybranie zmniejsza pieniądze w bankomacie, a uzupełnienie zwiększa. Jeśli wypłata przekracza pieniądze w sejfie, to generuje zdarzenie notenoughmoney. Jeśli sejf jest pusty, to zmienia stan na out of money i generuje zdarzenie outof money. Jeśli był w stanie out of money i przyszedł refill to zmienia stan na operational. Jeśli jest wystarczająco pieniędzy w sejfie, to generuje wiadomość withdrawal. Eventy mają stan bankomatu - maszyny stanów i balance oraz jego nazwę. 
+
+Wygenerowane eventy przesyłąne są do aktora wyjścia.
+
 ## Aktor wyjścia
 
-## Aktor efektów ubocznych
+Aktor wyjścia odpowiada za trasowanie wiadomości z bankomatów. Buforuje wiadomości - backpressure. Przesyła wiadomości do dziennika zdarzeń i aktora efektów ubocznych. 
 
-## Dziennik danych
-
-// opis wpisu dziennika - opis dziennika
-
-## Zdarzenia
+### Zdarzenia
 
 wypłata
 
@@ -575,9 +575,15 @@ completed
 
 started
 
-#### Zdarzenia zapisywane
+## Aktor efektów ubocznych
 
-##### Backpressure
+Aktor efektów ubocznych przechowuje zdarzenia, na które trzeba zareagować na podstawie upływu czasu, w przyszłości. Głównie robi refille na podstawie time pased. Wie kiedy trzeba refilować bankomaty. 
+Utrzymuje kolejkę prioryterową zdarzeń którą opróżnia d odpowiednim momencie do odpowiedniego poziomu - czasu. 
+
+## Dziennik danych
+
+// opis wpisu dziennika - opis dziennika
+
 
 najwolniejszy jest dysk, nieważne jak szybko będziemy generować, trzeba czekać na dysk, bo jebnie
 w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, więc wszystkie zdarzenia zachodzą jednocześnie w godzinie -> nie trzeba sortować dla kolejności.
