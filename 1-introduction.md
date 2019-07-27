@@ -551,15 +551,23 @@ Aktor generatora może wytwarzać dane, a następnie przesyłać je do obsługi 
 
 ## Aktor bankomatu
 
-Każdemu skonfigurowanemu bankomatowi odpowiada aktor bankomatu. 
-
-Jest on maszyną stanów ze stanami operational i out of money. W tych stanach ma balance. Obsługuje zdarzenia wejściowe wybranie oraz uzupełnienie. Intuicyjnie wybranie zmniejsza pieniądze w bankomacie, a uzupełnienie zwiększa. Jeśli wypłata przekracza pieniądze w sejfie, to generuje zdarzenie notenoughmoney. Jeśli sejf jest pusty, to zmienia stan na out of money i generuje zdarzenie outof money. Jeśli był w stanie out of money i przyszedł refill to zmienia stan na operational. Jeśli jest wystarczająco pieniędzy w sejfie, to generuje wiadomość withdrawal. Eventy mają stan bankomatu - maszyny stanów i balance oraz jego nazwę. 
-
-Wygenerowane eventy przesyłąne są do aktora wyjścia.
+Każdemu skonfigurowanemu bankomatowi odpowiada aktor bankomatu. Jego główną odpowiedzialnością jest reagowanie na zdarzenia wypłat pieniędzy otrzymanych od aktora generatora. Reakcja jest zależna od aktualnego stanu bankomatu.
+Poza wypłatami, istotnym zdarzeniem w cyklu życia bankomatu jest uzupełnienie sejfu. Stan został on zamodelowany w postaci maszyny stanów obsługujących dwa główne stany, *działający* oraz *brak pieniędzy*. Elementami stanu bankomatu jest jego nazwa (identyfikator) oraz zawartość sejfu.
+Intuicyjnie zdarzenie wypłaty gotówki zmniejsza zawartość sejfu bankomatu, a uzupełnienie zwiększa. Jeśli wartość wypłaty przekracza bieżącą zawartość sejfu, aktor generuje zdarzenie informujące o niewystarczającej ilości gotówki w bankomacie. W sytuacji gdy wypłata opróżni sejf, bankomat przechodzi w stan *brak pieniędzy* oraz generuje zdarzenie o braku pieniędzy. Powrót do stanu *działający* jest możliwe jedynie w wyniku otrzymania zdarzenia uzupełnienia sejfu.
+Poza zmianą stanu wewnętrznego w reakcji na nadchodzące zdarzenia aktor bankomatu przesyła własne zmiany stanu do aktora wyjścia.
 
 ## Aktor wyjścia
 
-Aktor wyjścia odpowiada za trasowanie wiadomości z bankomatów. Buforuje wiadomości - backpressure. Przesyła wiadomości do dziennika zdarzeń i aktora efektów ubocznych. 
+Aktor wyjścia odpowiada za trasowanie wiadomości z innych aktorów. Trafiają one *dziennika danych* oraz *aktora efektów ubocznych*. Aktor wyjścia, podobnie jak aktor generatora, łączy reaktywne strumienie z aktorowym modelem przetwarzania. Sam będąc aktorem przetwarzając otrzymane wiadomości wkłada je do reaktywnego bufora, którego konsumentem jest dziennik danych. Jeśli czas obsługi dziennika danych jest większy niż tempo napływających wiadomości, bufor, to aktora wyjścia przechowuje je w kolejce. Aby nie dopuścić do przepełnienia kolejki wprowadzono w niej mechanizm *przeciwciśnienia*. Jego działanie polega na informowaniu producentów o ilości dostępnych zasobów konsumenta. W tym przypadku zasobem jest dostępne miejsc w kolejce. Aktory niestety, komunikując się jedynie asynchronicznie, z natury nie wspierają przeciwciśnienia. W celu obsługi tego mechanizmu wykorzystano wzorzec *zapytaj*, który opisano w sekcji \ref{aktor-generatora}.
+
+## Dziennik danych
+
+// opis wpisu dziennika - opis dziennika
+po co backpressure w aktorze wyjścia? bo dysk wolny
+
+najwolniejszy jest dysk, nieważne jak szybko będziemy generować, trzeba czekać na dysk, bo jebnie
+w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, więc wszystkie zdarzenia zachodzą jednocześnie w godzinie -> nie trzeba sortować dla kolejności.
+
 
 ### Zdarzenia
 
@@ -580,13 +588,6 @@ started
 Aktor efektów ubocznych przechowuje zdarzenia, na które trzeba zareagować na podstawie upływu czasu, w przyszłości. Głównie robi refille na podstawie time pased. Wie kiedy trzeba refilować bankomaty. 
 Utrzymuje kolejkę prioryterową zdarzeń którą opróżnia d odpowiednim momencie do odpowiedniego poziomu - czasu. 
 
-## Dziennik danych
-
-// opis wpisu dziennika - opis dziennika
-
-
-najwolniejszy jest dysk, nieważne jak szybko będziemy generować, trzeba czekać na dysk, bo jebnie
-w pierwszej wersji były sortowane, no ale teraz są po buforowane co godzinę, więc wszystkie zdarzenia zachodzą jednocześnie w godzinie -> nie trzeba sortować dla kolejności.
 
 ## Struktura projektu
 
