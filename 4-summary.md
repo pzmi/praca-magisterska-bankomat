@@ -10,3 +10,6 @@
  - sprawdzanie stanu konta
  - transakcja anulowana - klient rozpoczął transakcje, ale nie wypłacił pieniędzy
  - testowanie modelu
+ - awarie losowe
+    - zacięcia banknotów
+    - zużycie sprzętu

@@ -39,7 +39,7 @@ Składa się z trzech głównych elementów:
  2) edytora parametrów bankomatu
  3) edytora parametrów globalnych
 
-Mapa przedstawia rozmieszczenie bankomatów w przestrzeni. Znajdują się na niej ikony reprezentujące bankomaty. Po kliknięciu w ikonę bankomatu pojawia się okno edycji parametrów bankomatu. 
+Mapa przedstawia rozmieszczenie bankomatów w przestrzeni. Dane mapowe są dostarczane dzięki wykorzystaniu projektu społecznościowego OpenStreetMap \autocite{openstreetmap:web}. Znajdują się na niej ikony reprezentujące bankomaty. Ich rozmieszczenie przedstawia rzeczywiste położenie bankomatów w okolicy krakowskiego Rynku Głównego. Ich lokalizacja, podobnie jak mapy, uzyskano za pośrednictwem projektu OpenStreetMap. Po kliknięciu w ikonę bankomatu pojawia się okno edycji parametrów bankomatu. 
 Wśród nich znajduje się:
 
  - identyfikator bankomatu
@@ -309,17 +309,55 @@ Analogiczne do powyższych parametrów zawiera zdarzenie uzupełnienia sejfu ban
 
 ## Aktor efektów ubocznych
 
-Aktor efektów ubocznych przechowuje zdarzenia, na które trzeba zareagować na podstawie upływu czasu, w przyszłości. Głównie robi refille na podstawie time pased. Wie kiedy trzeba refilować bankomaty. 
-Utrzymuje kolejkę prioryterową zdarzeń którą opróżnia d odpowiednim momencie do odpowiedniego poziomu - czasu. 
+Znacząca część zachowań zachodzących w symulacji jest wynikiem reakcji na akcję symulowanej populacji, jak wypłata gotówki z bankomatu. Jednakże istnieją aktywności, których zajście nie wynika z zachowania człowieka (lub innego aktora symulacji), a ze środowiska, jak upływ czasu, lub efektów ubocznych akcji. 
 
+Aktor efektów ubocznych jest odpowiedzialny za tego typu zdarzenia. Otrzymuje on informacje o przebiegu symulacji od aktora wyjścia. Na ich podstawie planuje zajście zdarzenia będącego wynikiem innego zdarzenia.
+
+Wiadomości przychodzące są dzielone na trzy kategorie:
+
+ - **bodźce** - których wynikiem jest zaplanowanie zdarzenia
+ - **wykonawcy** - na ich podstawie podejmowana jest decyzja o wykonaniu zaplanowanych zdarzeń
+ - inne - ignorowane przez aktora efektów ubocznych
+
+Zaplanowane zdarzenia są przechowywane w kolejce priorytetowej, posortowanej po czasie planowanej emisji.
+
+Aktor efektów ubocznych na początku swojego działania wysyła wiadomości do samego siebie, w których znajdują się informacje niezbędne do zaplanowania uzupełnienia sejfu bankomatu dla każdego bankomatu skonfigurowanego w symulacji. Wiadomości te są bodźcem do umieszczenia zdarzeń uzupełnienia w kolejce, gdzie oczekują na odpowiednie zdarzenie *upływu czasu*.
+
+Zdarzenie upływu czasu jest podstawową wiadomością wykonawcy. W skutek otrzymania zdarzenia tego typu aktor efektów ubocznych opróżnia kolejkę oczekujących zdarzeń, aż natrafi na takie, którego czas planowanego zajścia jest późniejszy niż obecnie obsługiwanego zdarzenia upływu czasu.
+
+Jeśli zdarzenie wyciągnięte z kolejki oznacza uzupełnienie sejfu bankomatu, to aktor efektów ubocznych planuje kolejne takie zdarzenie dla danego bankomatu z datą wystąpienia przesuniętą w przyszłość o wartość zdefiniowaną w konfiguracji bankomatu.
 
 ## Struktura projektu
 
-// liczba linii kodu, układ folderów i plików, itp
+Katalog projektu składa się z dwóch głównych podkatalogów: 
+ 
+ - **webapp** - zawierającym kod źródłowy warstwy prezentacji
+ - **src** -  zawierającym pozostały kod źródłowy warstw komunikacji, konfiguracji i symulacji
+
+Poza nimi w projekcie znajdują się narzędzia oraz pliki konfiguracyjne niezbędne do zbudowania aplikacji z kodu źródłowego, konfiguracji kompilatora oraz zarządzania zależnościami zewnętrznymi i bibliotekami.
+
+Katalog webapp jest podzielony na podkatalogi:
+
+ - **config** - z konfiguracją kompilatora
+ - **node_modules** - z modułami bibliotecznymi
+ - **scripts** - ze skryptami uruchamiania projektu
+ - **public** - ze statycznymi plikami serwera, jak kod HTML strony startowej
+ - **src** - z kodem źródłowym aplikacji przeglądarkowej
+
+Podkatalog src mieści w sobie dziesięć plików zawierających:
+
+ - 915 linii kodu w języku *JavaScript* warstwy wizualizacji
+ - 69 linii *\gls{css}* odpowiadających za stylowanie aplikacji
+
+Katalog src znajdujący się w katalogu głównym składa się z zagnieżdżonych podkatalogów:
+
+ - main/resources - z konfiguracją aplikacji serwerowej oraz stanem początkowym i konfiguracją wejściową symulacji
+ - main/scala/io.github.pzmi.atmsim - z kodem źródłowym aplikacji serwerowej
+
+Podstawowa konfiguracja wejściowa jest plikiem \gls{json} zawierającym 1261 linii.
+Zaś kod aplikacji stanowi 568 linii kodu w języku Scala. 
 
 ## Benchmark
-
-# Przebieg symulacji
 
 benchmark - jak szybko generuje w zależności od:
  - liczby bankomatów
