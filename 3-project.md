@@ -359,7 +359,79 @@ Zaś kod aplikacji stanowi 568 linii kodu w języku Scala.
 
 ## Benchmark
 
+| Liczba bankomatów | Czas przetwarzania (s) |
+|-------------------|------------------------|
+| 0                 | 0,018585814            |
+| 1                 | 3,218749338            |
+| 10                | 3,308612662            |
+| 100               | 2,592305945            |
+| 1000              | 2,176936267            |
+| 10000             | 7,171100241            |
+| 100000            | 67,38502417            |
+
+Table: Czas przetwarzania w zależności od liczby bankomatów
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/benchmark-atms-direct.png}
+\caption{Wykres czasu przetwarzania w zależności od liczby bankomatów}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/benchmark-atms-log.png}
+\caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby bankomatów}
+\end{figure}
+
+| Liczba zdarzeń na godzinę symulacji | Czas przetwarzania (s) |
+|-------------------------------------|------------------------|
+| 0                                   | 0,250330537            |
+| 1                                   | 0,264598115            |
+| 10                                  | 0,3894714              |
+| 100                                 | 2,658253438            |
+| 1000                                | 30,12316105            |
+| 10000                               | 295,2026618            |
+
+Table: Czas przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/benchmark-events-direct.png}
+\caption{Wykres czasu przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/benchmark-events-log.png}
+\caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji}
+\end{figure}
+
+| Zakres symulacji (h)  | Czas (s)     |
+|-----------------------|--------------|
+| 0                     | 0,04884319   |
+| 1                     | 0,04296004   |
+| 10                    | 0,07900505   |
+| 100                   | 0,20033556   |
+| 1000                  | 1,34298085   |
+| 10000                 | 12,16457639  |
+| 100000                | 106,68885781 |
+
+Table: Czas przetwarzania w zależności od zakresu symulacji
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/benchmark-length-direct.png}
+\caption{Wykres czasu przetwarzania w zależności od zakresu symulacji}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=160mm]{graphics/benchmark-length-log.png}
+\caption{Logarytmiczny wykres czasu przetwarzania w zależności od zakresu symulacji}
+\end{figure}
+
 benchmark - jak szybko generuje w zależności od:
  - liczby bankomatów
  - liczby zdarzeń na godzinę
  - długości okresu czasu symulacji
+
