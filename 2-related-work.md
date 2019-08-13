@@ -195,7 +195,6 @@ Poprzez staranny dobór parametrów można stworzyć używalną sekwencję liczb
 \caption{Histogram długości ciągów  dla prostego generatora LCG z $m=10$ i wszystkich  możliwych  wartości $a, c$ oraz ziarna\autocite{Kneusel2018RandomNA}}
 \end{figure}
 
-
 # Użyte narzędzia
 
 ## Java

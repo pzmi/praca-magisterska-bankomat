@@ -357,7 +357,43 @@ Katalog src znajdujący się w katalogu głównym składa się z zagnieżdżonyc
 Podstawowa konfiguracja wejściowa jest plikiem \gls{json} zawierającym 1261 linii.
 Zaś kod aplikacji stanowi 568 linii kodu w języku Scala. 
 
-## Benchmark
+## Wydajność symulatora
+
+Oprogramowanie symulacyjne można opisać przyjętym modelem symulacji, charakterystyką jego parametrów wejściowych, typem oraz własnościami generatora liczb losowych. Niewątpliwie istotną cechą symulatora jest jego wydajność. 
+
+Celem pracy jest stworzenie symulatora, który jest w stanie przeprowadzić symulację długich okresów w rozsądnym czasie używając sprzętu porównywalnego z komputerem domowym.
+
+Na potrzeby tej pracy wydajność symulatora definiujemy prędkość z jaką może on zasymulować zadany okres.
+
+### Warunki eksperymentu
+
+Przeprowadzono trzy testy wydajności w zależności od:
+
+ - liczby bankomatów
+ - liczby zdarzeń na godzinę czasu symulacji
+ - okresu symulacji
+
+Parametry poza zmiennymi poszczególnych testów są stałe i wynoszą:
+
+ - okres symulacji: 10 godzin
+ - liczba bankomatów: 100
+ - ziarno generatora liczb losowych: 1
+ - poziom uzupełnienie sejfu bankomatu: 10000
+ - poziom obciążenia bankomatu: niski
+ - odstęp czasu pomiędzy uzupełnieniami sejfu bankomatu: 72 godziny
+ - rozkład wypłat gotówki: rozkład Gaussa
+ - średnia wysokość wypłaty gotówki: 100
+ - odchylenie standardowe wysokości wypłaty gotówki: 10000
+
+Pomiary zostały przeprowadzone na następującym sprzęcie komputerowym:
+
+ - system operacyjny: macOS Mojave 10.14.6 18G84 x86_64
+ - jądro systemowe: 18.7.0
+ - procesor: Intel i7-8559U (8) @ 2.70GHz
+ - karta graficzna: Intel Iris Plus Graphics 655
+ - pamięć operacyjna: 16384MiB
+
+ ### Zależność liczby bankomatów
 
 | Liczba bankomatów | Czas przetwarzania (s) |
 |-------------------|------------------------|
@@ -383,14 +419,16 @@ Table: Czas przetwarzania w zależności od liczby bankomatów
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby bankomatów}
 \end{figure}
 
-| Liczba zdarzeń na godzinę symulacji | Czas przetwarzania (s) |
-|-------------------------------------|------------------------|
-| 0                                   | 0,250330537            |
-| 1                                   | 0,264598115            |
-| 10                                  | 0,3894714              |
-| 100                                 | 2,658253438            |
-| 1000                                | 30,12316105            |
-| 10000                               | 295,2026618            |
+### Zależność zdarzeń na godzinę symulacji
+
+| Liczba zdarzeń na godzinę czasu symulacji | Czas przetwarzania (s) |
+|-------------------------------------------|------------------------|
+| 0                                         | 0,250330537            |
+| 1                                         | 0,264598115            |
+| 10                                        | 0,3894714              |
+| 100                                       | 2,658253438            |
+| 1000                                      | 30,12316105            |
+| 10000                                     | 295,2026618            |
 
 Table: Czas przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji
 
@@ -406,32 +444,28 @@ Table: Czas przetwarzania w zależności od liczby zdarzeń na godzinę czasu sy
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji}
 \end{figure}
 
-| Zakres symulacji (h)  | Czas (s)     |
-|-----------------------|--------------|
-| 0                     | 0,04884319   |
-| 1                     | 0,04296004   |
-| 10                    | 0,07900505   |
-| 100                   | 0,20033556   |
-| 1000                  | 1,34298085   |
-| 10000                 | 12,16457639  |
-| 100000                | 106,68885781 |
+### Zależność okresu symulacji
 
-Table: Czas przetwarzania w zależności od zakresu symulacji
+| Okres symulacji (h)   | Czas przetwarzania (s)     |
+|-----------------------|----------------------------|
+| 0                     | 0,04884319                 |
+| 1                     | 0,04296004                 |
+| 10                    | 0,07900505                 |
+| 100                   | 0,20033556                 |
+| 1000                  | 1,34298085                 |
+| 10000                 | 12,16457639                |
+| 100000                | 106,68885781               |
+
+Table: Czas przetwarzania w zależności od okresu symulacji
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-length-direct.png}
-\caption{Wykres czasu przetwarzania w zależności od zakresu symulacji}
+\caption{Wykres czasu przetwarzania w zależności od okresu symulacji}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-length-log.png}
-\caption{Logarytmiczny wykres czasu przetwarzania w zależności od zakresu symulacji}
+\caption{Logarytmiczny wykres czasu przetwarzania w zależności od okresu symulacji}
 \end{figure}
-
-benchmark - jak szybko generuje w zależności od:
- - liczby bankomatów
- - liczby zdarzeń na godzinę
- - długości okresu czasu symulacji
-
