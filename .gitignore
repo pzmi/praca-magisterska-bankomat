@@ -34,3 +34,4 @@
 *.lot
 *.lof
 .vscode
+.DS_Store

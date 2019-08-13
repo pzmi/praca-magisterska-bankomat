@@ -393,17 +393,21 @@ Pomiary zostały przeprowadzone na następującym sprzęcie komputerowym:
  - karta graficzna: Intel Iris Plus Graphics 655
  - pamięć operacyjna: 16384MiB
 
- ### Zależność liczby bankomatów
+ Wszystkie warianty, w których zapisano wynik, dla każdego eksperymentu poprzedzono ponownym uruchomieniem symulatora oraz dwoma rozruchowymi uruchomieniami symulatora z parametrami identycznymi z tymi z danego wariantu.
+
+ ### Zmienna liczba bankomatów
+
+Eksperyment zależności liczy bankomatów przeprowadzono w siedmiu wariantach zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
 
 | Liczba bankomatów | Czas przetwarzania (s) |
 |-------------------|------------------------|
-| 0                 | 0,018585814            |
-| 1                 | 3,218749338            |
-| 10                | 3,308612662            |
-| 100               | 2,592305945            |
-| 1000              | 2,176936267            |
-| 10000             | 7,171100241            |
-| 100000            | 67,38502417            |
+| 0                 | 0.018585814            |
+| 1                 | 3.218749338            |
+| 10                | 3.308612662            |
+| 100               | 2.592305945            |
+| 1000              | 2.176936267            |
+| 10000             | 7.171100241            |
+| 100000            | 67.38502417            |
 
 Table: Czas przetwarzania w zależności od liczby bankomatów
 
@@ -419,16 +423,26 @@ Table: Czas przetwarzania w zależności od liczby bankomatów
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby bankomatów}
 \end{figure}
 
-### Zależność zdarzeń na godzinę symulacji
+Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. 
+Warianty z liczbą bankomatów od 1 do 1000 włącznie zwróciły zbliżone czasy przetwarzania, które oscylują pomiędzy 2.17 sekund a 3.3 sekund, przy czym warianty z liczbą bankomatów 100 i 1000 uzyskały lepszy wynik (krótszy czas przetwarzania) niż te z 1 i 10.
+Wariant z liczbą bankomatów równą 10000 już odstaje do poprzednich wyników osiągając czas przetwarzania ponad dwukrotnie większy od najwyższego wyniku z poprzedzających prób.
+Czas przetwarzania ostatniego z wariantów, z liczbą bankomatów równą 100000, uzyskał czas niemalże dziesięć razy większy niż próba poprzednia.
+
+Pierwszą znaczącą różnicę wynikach można zaobserwować po przekroczeniu 1000 bankomatów. Zmiana ta wynika z maksymalnej liczby wątków skonfigurowanej dla procesu symulatora, który wynosi dokładnie 1000.
+Obserwując zrzut wątków procesu symulatora, który przedstawia wiele wątków oczekujących w kodzie aktora bankomatu na uzyskanie odpowiedzi zwrotnej od aktora wyjścia. Oczekiwanie to wynika z zastosowania wzorca *zapytaj*. Aktory wyjścia oraz efektów ubocznych wyposażone, każdy wyposażony w jedną kolejkę skrzynki odbiorczej muszą obsłużyć wiadomości przychodzące od dużej liczby aktorów bankomatów wykonująca obliczenia w sposób współbieżny. Dodatkowo aktor wyjścia jest obciążony operacjami wejścia wyjścia na dysku.
+
+Zachowanie to można zinterpretować jako przypadek zastosowania *prawa Amdhala* \autocite{amdahl1967validity} lub *prawa Gustafsona* \autocite{gustafson1988reevaluating}, które w mówi, że maksymalne przyspieszenie przetwarzania jest ograniczone przez jego część, której nie da się zrównoleglić. W tym przypadku ścieżka wykorzystująca wzorzec zapytaj, zastosowana w celu zabezpieczenia przetwarzania, zachowuje się jak nierównoległe wykonywanie programu blokując obliczenia w aktorach bankomatów.
+
+### Zmienna liczba zdarzeń na godzinę symulacji
 
 | Liczba zdarzeń na godzinę czasu symulacji | Czas przetwarzania (s) |
 |-------------------------------------------|------------------------|
-| 0                                         | 0,250330537            |
-| 1                                         | 0,264598115            |
-| 10                                        | 0,3894714              |
-| 100                                       | 2,658253438            |
-| 1000                                      | 30,12316105            |
-| 10000                                     | 295,2026618            |
+| 0                                         | 0.250330537            |
+| 1                                         | 0.264598115            |
+| 10                                        | 0.389471400            |
+| 100                                       | 2.658253438            |
+| 1000                                      | 30.12316105            |
+| 10000                                     | 295.2026618            |
 
 Table: Czas przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji
 
@@ -444,17 +458,19 @@ Table: Czas przetwarzania w zależności od liczby zdarzeń na godzinę czasu sy
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji}
 \end{figure}
 
-### Zależność okresu symulacji
+Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń dziesięciokrotnie czas przetwarzania również rośnie dziesięciokrotnie.
+
+### Zmienny okres symulacji
 
 | Okres symulacji (h)   | Czas przetwarzania (s)     |
 |-----------------------|----------------------------|
-| 0                     | 0,04884319                 |
-| 1                     | 0,04296004                 |
-| 10                    | 0,07900505                 |
-| 100                   | 0,20033556                 |
-| 1000                  | 1,34298085                 |
-| 10000                 | 12,16457639                |
-| 100000                | 106,68885781               |
+| 0                     | 0.04884319                 |
+| 1                     | 0.04296004                 |
+| 10                    | 0.07900505                 |
+| 100                   | 0.20033556                 |
+| 1000                  | 1.34298085                 |
+| 10000                 | 12.16457639                |
+| 100000                | 106.68885781               |
 
 Table: Czas przetwarzania w zależności od okresu symulacji
 
@@ -469,3 +485,5 @@ Table: Czas przetwarzania w zależności od okresu symulacji
 \includegraphics[width=160mm]{graphics/benchmark-length-log.png}
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od okresu symulacji}
 \end{figure}
+
+Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji.
