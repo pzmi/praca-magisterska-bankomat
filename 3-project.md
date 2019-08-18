@@ -435,27 +435,27 @@ Zachowanie to można zinterpretować jako przypadek zastosowania *prawa Amdhala*
 
 ### Zmienna liczba zdarzeń na godzinę symulacji
 
-| Liczba zdarzeń na godzinę czasu symulacji | Czas przetwarzania (s) |
-|-------------------------------------------|------------------------|
-| 0                                         | 0.250330537            |
-| 1                                         | 0.264598115            |
-| 10                                        | 0.389471400            |
-| 100                                       | 2.658253438            |
-| 1000                                      | 30.12316105            |
-| 10000                                     | 295.2026618            |
+| Liczba wypłat gotówki na godzinę czasu symulacji | Czas przetwarzania (s) |
+|--------------------------------------------------|------------------------|
+| 0                                                | 0.250330537            |
+| 1                                                | 0.264598115            |
+| 10                                               | 0.389471400            |
+| 100                                              | 2.658253438            |
+| 1000                                             | 30.12316105            |
+| 10000                                            | 295.2026618            |
 
-Table: Czas przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji
+Table: Czas przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-events-direct.png}
-\caption{Wykres czasu przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji}
+\caption{Wykres czasu przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-events-log.png}
-\caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby zdarzeń na godzinę czasu symulacji}
+\caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji}
 \end{figure}
 
 Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń dziesięciokrotnie czas przetwarzania również rośnie dziesięciokrotnie.
@@ -486,4 +486,6 @@ Table: Czas przetwarzania w zależności od okresu symulacji
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od okresu symulacji}
 \end{figure}
 
-Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji.
+Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji. 
+Zgodnie z założeniami projektu symulator powinien symulować długie okresy czasu w rozsądnym czasie. Biorąc pod uwagę, że rok nieprzestępny składa się 8760 godzin, wariantem najbliższym tej liczbie jest wariant numer 6 z okresem symulacji równym 10000 godzin, którego czas przetwarzania wyniósł 12 sekund. Jednakże należy zwrócić uwagę na fakt, że tej konfiguracji wykonywane jest jedynie 100 wypłat gotówki na godzinę ze 100 bankomatów. Analizując dane statystyczne wypłat z bankomatów w Polsce \autocite{nbp:stats} można obliczyć, że średnia liczba wypłat dla pojedynczego bankomatu wynosi 3 na godzinę, zaś w opisywanym wariancie liczba ta wynosi jedną wypłatę na godzinę. Patrząc na wyniki poprzednich wariantów można wywnioskować, że czas przetwarzania symulacji jest liniowo zależny od liczby wypłat na godzinę symulacji.
+W świetle powyższych danych można wywnioskować, że zwiększając trzykrotnie liczbę wypłat z bankomatów, tak aby średnia odpowiadała średniej w Polsce, czas przetwarzania wydłuży się trzykrotnie do czasu przetwarzania 36 sekund. 
