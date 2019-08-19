@@ -13,7 +13,7 @@ Są to zaawansowane aplikacje, realistycznie odwzorowujące pracę pojedynczej m
 # Cel pracy
 
 Celem pracy jest stworzenie symulatora wypłat z sieci bankomatów na terenie miasta oraz narzędzi niezbędnych do konfiguracji i obserwacji wyników symulacji. 
-Kluczowymi cechami zaprojektowanego symulatora są: symulowanie długich okresów w rozsądnym czasie przy użyciu sprzętu porównywalnego z komputerem domowym oraz wysoka i łatwa konfigurowalność modelu.
+Kluczowymi cechami zaprojektowanego symulatora są: symulowanie długich okresów, jak rok, w rozsądnym czasie przy użyciu sprzętu porównywalnego z komputerem domowym oraz wysoka i łatwa konfigurowalność modelu.
 
 W skład stworzonych narzędzi wchodzi interfejs graficzny do wizualizacji wyników symulacji na mapie, w czasie. Interfejs graficzny umożliwia również konfigurację parametrów wejściowych modelu symulacyjnego.
 
