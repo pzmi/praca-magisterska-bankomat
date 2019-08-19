@@ -100,6 +100,8 @@ Content-Type: application/json
 
 Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
 
+\newpage
+
 ~~~~{ .numberLines .json caption="Uproszczone dane zapytania"}
 {
   "startDate": 1558470392042,
@@ -251,7 +253,7 @@ Symulator składa się z pięciu głównych elementów:
  - aktora efektów ubocznych
  - dziennika danych
 
-### Aktor generatora
+## Aktor generatora
 
 Aktor generatora jest kluczowym elementem symulacji. Zawiera generator liczb pseudolosowych, na podstawie którego przygotowuje zdarzenia wejściowe symulacji. Użyty generator jest standardowym generatorem liczb pseudolosowych dostarczanym wraz ze standardową biblioteką języka Java. Należy on do rodziny liniowych generatorów kongruencyjnych o 48 bitowym ziarnie \autocite{random:javadoc:web}. 
 
@@ -273,7 +275,7 @@ Aktor wyjścia odpowiada za trasowanie wiadomości z innych aktorów. Trafiają 
 
 ## Dziennik danych
 
-Wszystkie dane wytwarzane w trakcie działania symulacji są odkładane w formie dziennika (*ang. log*). Dziennik danych przechowuje zdarzenia otrzymane z aktora wyjścia. Ze względu na fakt, że aktor wyjścia otrzymuje każde zdarzenie, które zaszło w trakcie działania symulacji, dziennik danych również je zawiera. Jego zadaniem jest utrwalenie otrzymanych informacji na dysku twardym maszyny przeprowadzającej symulacje. Spośród rodzajów dostępnej pamięci konwencjonalnego komputera, dysk twardy charakteryzuje się najdłuższym czasem zapisu. Z tego względu dziennik danych jest komponentem symulatora najbardziej narażonym na przeciążenie. Przed takimi sytuacjami chronią go mechanizmy buforowania oraz przeciwciśnienia aktora wyjścia wspomniane w sekcji \ref{aktor-wyjscia}.
+Wszystkie dane wytwarzane w trakcie działania symulacji są odkładane w formie dziennika (*ang. log*). Dziennik danych przechowuje zdarzenia otrzymane z aktora wyjścia. Ze względu na fakt, że aktor wyjścia otrzymuje każde zdarzenie, które zaszło w trakcie działania symulacji, dziennik danych również je zawiera. Jego zadaniem jest utrwalenie otrzymanych informacji na dysku twardym maszyny przeprowadzającej symulacje. Spośród rodzajów dostępnej pamięci konwencjonalnego komputera, dysk twardy charakteryzuje się najdłuższym czasem zapisu. Z tego względu dziennik danych jest komponentem symulatora najbardziej narażonym na przeciążenie. Przed takimi sytuacjami chronią go mechanizmy buforowania oraz przeciwciśnienia aktora wyjścia wspomniane w sekcji \ref{aktor-wyjux15bcia}.
 W pierwotnej wersji dziennik danych odpowiadał również za kolejność przechowywanych danych. W tym celu wykorzystano algorytm sortowania, który porządkował nadchodzące zdarzenia według ich czasu wystąpienia. Mechanizm ten zajmował znaczną część czasu procesora w symulacji. Dzięki zmianie metody generowania zdarzeń wejściowych, opisanej w sekcji \ref{aktor-generatora}, mechanizm sortowania jest zbędny, ponieważ zdarzenia wejściowe już są posortowane.
 
 ~~~~{ .numberLines .json caption="Przykładowe wpisy w pliku dziennika danych"}
@@ -327,7 +329,7 @@ Zdarzenie upływu czasu jest podstawową wiadomością wykonawcy. W skutek otrzy
 
 Jeśli zdarzenie wyciągnięte z kolejki oznacza uzupełnienie sejfu bankomatu, to aktor efektów ubocznych planuje kolejne takie zdarzenie dla danego bankomatu z datą wystąpienia przesuniętą w przyszłość o wartość zdefiniowaną w konfiguracji bankomatu.
 
-## Struktura projektu
+# Struktura projektu
 
 Katalog projektu składa się z dwóch głównych podkatalogów: 
  
@@ -357,7 +359,7 @@ Katalog src znajdujący się w katalogu głównym składa się z zagnieżdżonyc
 Podstawowa konfiguracja wejściowa jest plikiem \gls{json} zawierającym 1261 linii.
 Zaś kod aplikacji stanowi 568 linii kodu w języku Scala. 
 
-## Wydajność symulatora
+# Wydajność symulatora
 
 Oprogramowanie symulacyjne można opisać przyjętym modelem symulacji, charakterystyką jego parametrów wejściowych, typem oraz własnościami generatora liczb losowych. Niewątpliwie istotną cechą symulatora jest jego wydajność. 
 
@@ -395,7 +397,7 @@ Pomiary zostały przeprowadzone na następującym sprzęcie komputerowym:
 
  Wszystkie warianty, w których zapisano wynik, dla każdego eksperymentu poprzedzono ponownym uruchomieniem symulatora oraz dwoma rozruchowymi uruchomieniami symulatora z parametrami identycznymi z tymi z danego wariantu.
 
- ### Zmienna liczba bankomatów
+### Zmienna liczba bankomatów
 
 Eksperyment zależności liczy bankomatów przeprowadzono w siedmiu wariantach zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
 

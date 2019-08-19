@@ -171,6 +171,8 @@ $$x_(n+1) = (ax_n + c) \mod m$$
 
 Jest to algebraiczna metoda wykorzystująca arytmetykę modularną, na bazie wartości zwanej ziarnem ($x_0$). W powyższym wzorze $a \in \mathbb{Z}, 0<a<m$ jest mnożnikiem, $c \in \mathbb{Z} , 0<= c < m$ jest inkrementem, a $m \in \mathbb{Z}$ jest modułem.
 
+\newpage
+
 ~~~~{.Java .numberLines caption="Implementacja i przykład użyca LCG w języku Java"}
 class Lcg {
     public static void main(String[] args) {
@@ -195,6 +197,8 @@ Poprzez staranny dobór parametrów można stworzyć używalną sekwencję liczb
 \caption{Histogram długości ciągów  dla prostego generatora LCG z $m=10$ i wszystkich  możliwych  wartości $a, c$ oraz ziarna\autocite{Kneusel2018RandomNA}}
 \end{figure}
 
+\newpage
+
 # Użyte narzędzia
 
 ## Java
@@ -210,6 +214,8 @@ Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie 
 ## Scala
 
 Scala \autocite{odersky2008scala} jest językiem programowania bardzo bliskim Javie, kompilowany do kodu bajtowego wirtualnej maszyny Javy, aby zachować kompatybilność pełną z tymże językiem i korzystać z bogactwa platformy. Jest to język ogólnego przeznaczenia, łączącym w sobie dwa, uzupełniające się podejścia, programowania obiektowego oraz programowania funkcyjnego, w statycznie typowany język. Jego funkcyjna strona umożliwia budowanie funkcjonalności z prostych elementów składowych. Podejście obiektowe zaś umożliwia porządkowanie złożonych systemów. Nazwa **Scala** wywodzi się od *scalable language*, aby zaznaczyć jego rozwój wraz z rosnącymi wymaganiami jego użytkowników. Został zaprojektowany do tworzenia zwięzłego kodu w prostych skryptach, jak i rozbudowanych systemach informatycznych.
+
+\newpage
 
 ~~~~{.Scala .numberLines caption="Przykład kodu w języku Scala"}
 private  calculateBalance(currentBalance: Int, amount: Int, e: Event): Int =

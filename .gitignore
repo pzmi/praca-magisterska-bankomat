@@ -15,6 +15,9 @@
 2-technology.tex
 4-performance.tex
 6-productivity.tex
+2-related-work.tex
+3-project.tex
+4-summary.tex
 *.out
 *.svg
 *.pdf_tex
@@ -35,4 +38,4 @@
 *.lof
 .vscode
 .DS_Store
-.DS_Store
+.vscode/*
