@@ -67,6 +67,8 @@ Domyślne parametry bankomatu składają się z:
  - odstępu czasu pomiędzy uzupełnieniem sejfu bankomatu
  - obciążenia bankomatu
 
+\newpage
+
 Zawartość sekcji parametrów wypłat jest zależna od wybranej funkcji rozkładu prawdopodobieństwa wypłat.
 
 W przypadku wybrania funkcji rozkładu jednostajnego są to:
@@ -92,7 +94,7 @@ Interfejs edytora jest udostępniony w postaci strony internetowej. Dzięki temu
 Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje on protokół HTTP do komunikacji i został zaimplementowany przy użyciu *akka-http*, biblioteki implementującej protokół HTTP, wchodzącej w skład zestawu narzędzi Akka. Udostępnia zasób \gls{http}, `/simulation/{nazwa-symulacji}` wywoływany metodą *POST*, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
 
 ~~~~{ .numberLines caption="Zapytanie HTTP do uruchomienia symulacji"}
-POST /simualtion/simulation-name HTTP/1.1
+POST /simualtion/{nazwa-symulacji} HTTP/1.1
 Content-Type: application/json
 {dane zapytania - konfiguracja}
 ~~~~
@@ -162,7 +164,7 @@ Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
  - **location** - dwuelementowa lista będąca lokalizacją bankomatu
  - **refillAmount** - liczba całkowita będąca wartością zawartości sejfu bankomatu; jeśli nie jest ustawiona, brana jest wartość parametru *refillAmount* z sekcji *default*
  - **scheduledRefillInterval** - liczba całkowita będąca odstępem czasu pomiędzy kolejnymi uzupełnieniami sejfu bankomatu, wyrażonym w godzinach; jeśli nie jest ustawiona, brana jest wartość parametru *scheduledRefillInterval* z sekcji *default*
- - **atmDefaultLoad** - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru load* z sekcji default*
+ - **atmDefaultLoad** - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru *load* z sekcji *default*
  - **hourly** - struktura parametrów godzinnych, kluczem jest godzina przedstawiona w formacie czasu unixowego
  - **load** (w hourly) - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru *atmDefaultLoad*
 
@@ -323,9 +325,7 @@ Wiadomości przychodzące są dzielone na trzy kategorie:
 Zaplanowane zdarzenia są przechowywane w kolejce priorytetowej, posortowanej po czasie planowanej emisji.
 
 Aktor efektów ubocznych na początku swojego działania wysyła wiadomości do samego siebie, w których znajdują się informacje niezbędne do zaplanowania uzupełnienia sejfu bankomatu dla każdego bankomatu skonfigurowanego w symulacji. Wiadomości te są bodźcem do umieszczenia zdarzeń uzupełnienia w kolejce, gdzie oczekują na odpowiednie zdarzenie *upływu czasu*.
-
 Zdarzenie upływu czasu jest podstawową wiadomością wykonawcy. W skutek otrzymania zdarzenia tego typu aktor efektów ubocznych opróżnia kolejkę oczekujących zdarzeń, aż natrafi na takie, którego czas planowanego zajścia jest późniejszy niż obecnie obsługiwanego zdarzenia upływu czasu.
-
 Jeśli zdarzenie wyciągnięte z kolejki oznacza uzupełnienie sejfu bankomatu, to aktor efektów ubocznych planuje kolejne takie zdarzenie dla danego bankomatu z datą wystąpienia przesuniętą w przyszłość o wartość zdefiniowaną w konfiguracji bankomatu.
 
 # Struktura projektu
@@ -362,8 +362,7 @@ Zaś kod aplikacji stanowi 568 linii kodu w języku Scala.
 
 Oprogramowanie symulacyjne można opisać przyjętym modelem symulacji, charakterystyką jego parametrów wejściowych, typem oraz własnościami generatora liczb losowych. Niewątpliwie istotną cechą symulatora jest jego wydajność. 
 
-Celem pracy jest stworzenie symulatora, który jest w stanie przeprowadzić symulację długich okresów w rozsądnym, czasie używając sprzętu porównywalnego z komputerem domowym.
-
+Celem pracy jest stworzenie symulatora, który jest w stanie przeprowadzić symulację długich okresów, takich jak rok, w rozsądnym czasie, używając sprzętu porównywalnego z komputerem domowym.
 Na potrzeby tej pracy wydajność symulatora definiujemy prędkość, z jaką może on zasymulować zadany okres.
 
 ### Warunki eksperymentu

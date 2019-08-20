@@ -46,17 +46,14 @@ Spośród istniejących procesów możemy wyróżnić:
  * procesy interakcji ludzkich - świadome lub nieświadome procesy interakcji ludzkiej, na przykład: rodzina, miasto, polityka \autocite{checkland1981systems}
 
 Wiele procesów jest podatnych na zmienność. Może być ona przewidywalna, otwieranie więcej kas w supermarkecie w ciągu dnia w reakcji na zmienną liczbę kupujących w ciągu dnia. Zmienność może być również nieprzewidywalna, jak tempo przybywania pacjentów na szpitalny oddział ratunkowy.
-
 Nie tylko zmienność wpływa na stopień skomplikowania procesu. Jego elementy często są połączone ze sobą i wywierają wzajemny wpływ w czasie. 
-
 W związku ze zmiennością procesów, skomplikowaniem i zawiłymi zależnościami w nich bardzo trudnye lub wręcz niemożliwe jest przewidywanie ich właściwości. Modele symulacyjne przedstawiają jawnie zmienność, połączenia pomiędzy elementami oraz złożoność procesów. W rezultacie przewidywalność symulacji jest znacznie łatwiejsza, pozwala na porównywanie alternatywnych parametrów.
 
 Symulacje nie są jedyną metodą analizowania i rozwijania procesów. Innym podejściem jest przeprowadzenie eksperymentów w świecie rzeczywistym. Przykładem może być zmiana układu hali fabrycznej. Modele symulacyjne posiadają szereg zalet i wad, które należy wziąć pod uwagę.
-
 Pierwszą z zalet jest koszt. Eksperymenty w świecie rzeczywistym bywają kosztowne. Modyfikacja codziennej działalności może powodować przerwy w działaniu procesów, prowadzić do spadków wydajności, niezadowolenia lub utraty klientów. W przypadku symulacji przetestowanie zmiany wiąże się jedynie z kosztem uruchomienia symulacji ze zmodyfikowanymi parametrami, bez przerw w działaniu rzeczywistego systemu. 
 Innym aspektem jest czas. Eksperyment może trwać miesiącami lub dłużej, aby móc wnioskować na temat jakości wprowadzonych zmian. W zależności od skomplikowania modelu, mocy obliczeniowej komputera symulację można przeprowadzić wiele razy szybciej niż w czasie rzeczywistym. W związku z tym wyniki można otrzymać w ciągu minut lub godzin. Dodatkowo symulację można przeprowadzić na przestrzeni długich okresów, nawet lat.
-Kolejną zaletą jest fakt, że symulację można przeprowadzić bez istniejącego systemy. W przypadkach wielu modele symulacyjne powstają przed rzeczywistym systemem. 
-W przypadku rozważania kilku alternatywnych możliwości kontrola nad warunkami eksperymentu jest niezwykle przydatna. Jest to trudne do osiągnięcia, eksperymentując z rzeczywistym procesem. 
+Kolejną zaletą jest fakt, że symulację można przeprowadzić bez istniejącego systemy. W wielu przypadkach modele symulacyjne powstają przed rzeczywistym systemem. 
+Kiedy rozważanych jest kilka alternatywnych możliwości, kontrola nad warunkami eksperymentu jest niezwykle przydatna. Jest to trudne do osiągnięcia, eksperymentując z rzeczywistym procesem. 
 Symulacja nie jest jedyną istniejącą metodą modelowania rzeczywistości. Do innych należą między innymi programowanie liniowe, programowanie dynamiczne oraz metody heurystyczne jak symulowane wyżarzanie lub algorytmy genetyczne. 
 Symulacja może być atrakcyjniejsza od pozostałych metod ze względu na łatwość modelowania zmienności, co w niektórych przypadkach jest niemożliwe przy zastosowaniu metod alternatywnych.
 
@@ -69,7 +66,7 @@ Największa zaleta symulacji jest także jej największą wadą. Możliwość pr
 
 Eksperymenty, fizyczne, ekonomiczne lub socjologiczne, w świecie rzeczywistym bywają skomplikowane lub niemożliwe do przeprowadzenia. Symulacja jest procesem ułatwiającym takie eksperymenty poprzez reprezentację świata rzeczywistego jako uproszczonego, abstrakcyjnego modelu. Aby wprowadzić element różnorodności do symulacji, w wielu przypadkach wykorzystywana jest losowość. Daje to naukowcom możliwość wykorzystania statystycznych obserwacji do uzupełnienia szczegółów uproszczonego modelu, których nie da się przedstawić w modelu matematycznym lub czynniki ten nie mają bezpośredniego wpływu na badanie. Połączenie losowości ze sterowaniem warunkami modelu daje możliwość generowania wyników poprzez zapis cyklu uruchomień modelu i statystyczną ich analizę. Obiektem dyskusji w tej pracy są symulacje komputerowe, chociaż historia symulacji sięga daleko przed powstaniem komputerów. Przed komputerami, dużą rolę w symulacjach odgrywało modelowanie matematyczne. W tej dziedzinie cały system jest przedstawiony w postaci zbioru równań, obliczanych dla zadanych parametrów. W kontraście symulacje opierają się na uruchomieniach modelu, dla których dwa wyniki z tymi samymi warunkami początkowymi mogą być inne. 
 
-Symulacje komputerowe dzielą się na dwie kategorie. Pierwszą z nich stanowią modele, w których aktorzy, ludzie lub inne elementy świata rzeczywistego, wchodzą w interakcję z systemem w czasie symulacji. Systemy te są często nazywane systemami "w pętli" lub symulacją z "ludźmi w pętli". Sztandarowymi przykładem tego typu symulacji są gry komputerowe, interaktywne systemy treningu wojskowego oraz systemy testowania maszyn przemysłowych. Drugą z kategorii są symulacje, w których cały system jest zaprojektowany jako oprogramowanie komputerowe. Wśród nich znajdują się symulacje ze zdarzeniami dyskretnymi, symulacje z czasem dyskretnym oraz symulacje statystyczne/Monte Carlo. Kluczową cechą wyróżniającą metody "w pętli" od pozostałych jest wymaganie odpowiedzi w czasie rzeczywistym.  Systemy "w pętli" muszą odpowiadać w zadanym czasie, aby zewnętrzny obserwator, człowiek lub maszyna, otrzymał odpowiedź na wykonaną akcje. W przeciwieństwie do systemów "W pętli" pozostałe systemy generują wyniki symulacji w dowolnych odstępach czasowych.
+Symulacje komputerowe dzielą się na dwie kategorie. Pierwszą z nich stanowią modele, w których aktorzy, ludzie lub inne elementy świata rzeczywistego, wchodzą w interakcję z systemem w czasie symulacji. Systemy te są często nazywane systemami *w pętli (ang. in the loop)* lub symulacją z *ludźmi w pętli*. Sztandarowymi przykładem tego typu symulacji są gry komputerowe, interaktywne systemy treningu wojskowego oraz systemy testowania maszyn przemysłowych. Drugą z kategorii są symulacje, w których cały system jest zaprojektowany jako oprogramowanie komputerowe. Wśród nich znajdują się symulacje ze zdarzeniami dyskretnymi, symulacje z czasem dyskretnym oraz symulacje statystyczne (Monte Carlo). Kluczową cechą wyróżniającą metody w pętli od pozostałych jest wymaganie odpowiedzi w czasie rzeczywistym.  Systemy w pętli muszą odpowiadać w zadanym czasie, aby zewnętrzny obserwator, człowiek lub maszyna, otrzymał odpowiedź na wykonaną akcje. W przeciwieństwie do systemów w pętli pozostałe systemy generują wyniki symulacji w dowolnych odstępach czasowych.
 
 W symulacjach ze zdarzeniami dyskretnymi modelowany system jest przedstawiony jako stan i zbiór zdarzeń, które wpływają na niego. Zdarzenia są częściowo uporządkowane wedle czasu, w którym się wydarzyły w modelu. Zdarzenia są przechowywane w uporządkowanej strukturze, jak kolejka, oraz przetwarzane przez algorytm symulacji. Algorytmy oparte o dyskretne zdarzenia implementują pętlę zdarzeń, która przetwarza zdarzenia, dopóki nie zajdzie warunek końcowy. Warunkami stopu może być wyczerpanie kolejki zdarzeń, liczba przetworzonych zdarzeń, upływ czasu w modelu lub warunki opierające się o stan symulacji. Czas jest modelowany jako znacznik ostatnio przetworzonego zdarzenia. W każdym cyklu iteracji pętli zdarzeń najwcześniejsze zdarzenie jest ściągane z kolejki, aby je przetworzyć. W przypadku gdy jest więcej niż jedno zdarzenie z tym samym znacznikiem czasowym, potrzebne jest atomowe przetwarzanie współbieżnych zdarzeń lub mechanizm decyzyjny, który uporządkuje względem siebie zdarzenia. Aby przetworzyć zdarzenie, stan modelu jest modyfikowany na podstawie zawartości zdarzenia. Taka zmiana może mieć również skutki uboczne, które generują kolejne zdarzenia. W symulacji ze zdarzeniami dyskretnymi przedstawiony jest jedynie czas, w którym zdarzenia są generowane, okres pomiędzy może zostać pominięty, aby zredukować moc obliczeniową potrzebną do pokrycia rzadko wypełnionych przedziałów czasowych.
 
@@ -142,7 +139,7 @@ Tak zdefiniowany generator liczb całkowitych można przekształcić do przeskal
 
 $$f = \frac{P}{m}, f \in [0, 1)$$
 
-$$\omega = a + (b - a) * f, \omega \in [a,b)$$
+$$\omega = a + (b - a) \cdot f, \omega \in [a,b)$$
 
 Generatory liczb pseudolosowych można podzielić na dwie główne kategorie: generatory bazowe oraz generatory dystrybucyjne.
 Najczęściej generator bazowy jest generatorem liczb pseudolosowych, który skupia się na wytwarzaniu ciągów o rozkładzie jednorodnym. Generator dystrybucyjny jest procedurą, która biorąc wkład z generatora bazowego, przekształca go na wartości odpowiadające zadanym rozkładom, takim jak jednorodne, normalne (Gaussa) lub gamma. 
@@ -167,7 +164,7 @@ Zadaniem generatora, nie jest symulowanie losowości, a zwrócić poprawne wynik
 Przykładem prostego, lecz powszechnie używanego generatora jest liniowy generator kongruencyjny (*ang. \gls{lcg}*).
 Generują one sekwencje $x_1, x_2, ...$ liczb całkowitych, pomiędzy $0$ i $m - 1$ wedle poniższej, rekurencyjnej definicji:
 
-$$x_(n+1) = (ax_n + c) \mod m$$
+$$x_{n+1} = (ax_n + c) \mod m$$
 
 Jest to algebraiczna metoda wykorzystująca arytmetykę modularną, na bazie wartości zwanej ziarnem ($x_0$). W powyższym wzorze $a \in \mathbb{Z}, 0<a<m$ jest mnożnikiem, $c \in \mathbb{Z} , 0<= c < m$ jest inkrementem, a $m \in \mathbb{Z}$ jest modułem.
 
@@ -203,7 +200,7 @@ Poprzez staranny dobór parametrów można stworzyć używalną sekwencję liczb
 
 ## Java
 
-Simula \autocite{dahl1968simula} jest językiem, który wprowadził podstawowe zagadnienia programowania obiektowego. Przy jego projektowaniu, twórcy położyli nacisk na wykorzystanie języka w symulacjach komputerowych, co wpłynęło na rozwój systemów symulacyjnych. Simula zapoczątkowała połączenie symulacji z programowaniem obiektowym, jako naturalnej reprezentacją symulacji. Związek ten istnieje po dziś dzień w wielu współczesnych narzędziach symulacyjnych zaimplementowanych w popularnych językach obiektowych, jak C++ lub Java. \autocite{urbansim} \autocite{advanced:simulation:library}
+Simula \autocite{dahl1968simula} jest językiem, który wprowadził podstawowe zagadnienia programowania obiektowego. Przy jego projektowaniu, twórcy położyli nacisk na wykorzystanie języka w symulacjach komputerowych, co wpłynęło na rozwój systemów symulacyjnych. Simula zapoczątkowała połączenie symulacji z programowaniem obiektowym, jako naturalnej reprezentacją symulacji. Związek ten istnieje po dziś dzień w wielu współczesnych narzędziach symulacyjnych zaimplementowanych w popularnych językach obiektowych, jak C++ lub Java. \autocite{urbansim, advanced:simulation:library}
 
 Java \autocite{gosling1995java} jest językiem programowania zaprojektowanym w latach 90. Wywodzi się z rodziny języka C i wspiera programowanie obiektowe. Obecnie Java zawiera pojęcia z wielu różnych paradygmatów programowania, lecz centralnym punktem tego języka są klasy. Pieczę nad rozwojem języka oraz środowiska uruchomieniowego trzyma Java Community Proces, komisja obradująca nad propozycjami rozwoju Javy. 
 
@@ -213,12 +210,14 @@ Standardowa biblioteka Javy jest mocno związana z językiem, więc często nie 
 
 ## Scala
 
-Scala \autocite{odersky2008scala} jest językiem programowania bardzo bliskim Javie, kompilowany do kodu bajtowego wirtualnej maszyny Javy, aby zachować kompatybilność pełną z tymże językiem i korzystać z bogactwa platformy. Jest to język ogólnego przeznaczenia, łączącym w sobie dwa, uzupełniające się podejścia, programowania obiektowego oraz programowania funkcyjnego, w statycznie typowany język. Jego funkcyjna strona sprzyja budowaniu funkcjonalności z prostych elementów składowych. Podejście obiektowe zaś ułatwia porządkowanie złożonych systemów. Nazwa **Scala** wywodzi się od *scalable language*, aby zaznaczyć jego rozwój wraz z rosnącymi wymaganiami jego użytkowników. Został zaprojektowany do tworzenia zwięzłego kodu w prostych skryptach, jak i rozbudowanych systemach informatycznych.
+Scala \autocite{odersky2008scala} jest językiem programowania bardzo bliskim Javie, kompilowany do kodu bajtowego wirtualnej maszyny Javy, aby zachować kompatybilność pełną z tymże językiem i korzystać z bogactwa platformy. Jest to język ogólnego przeznaczenia, łączącym w sobie dwa, uzupełniające się podejścia, programowania obiektowego oraz programowania funkcyjnego, w statycznie typowany język. Jego funkcyjna strona sprzyja budowaniu funkcjonalności z prostych elementów składowych. Podejście obiektowe zaś ułatwia porządkowanie złożonych systemów. Nazwa *Scala* wywodzi się od *scalable language*, aby zaznaczyć jego rozwój wraz z rosnącymi wymaganiami jego użytkowników. Został zaprojektowany do tworzenia zwięzłego kodu w prostych skryptach, jak i rozbudowanych systemach informatycznych.
 
 \newpage
 
 ~~~~{.Scala .numberLines caption="Przykład kodu w języku Scala"}
-private  calculateBalance(currentBalance: Int, amount: Int, e: Event): Int =
+private calculateBalance(currentBalance: Int,
+                          amount: Int,
+                          e: Event): Int =
     currentBalance + amount match {
       case newBalance if newBalance < 0 => sendToOutputAndAck(currentBalance, NotEnoughMoney(e.time))
         currentBalance
@@ -233,7 +232,7 @@ private  calculateBalance(currentBalance: Int, amount: Int, e: Event): Int =
 
 ## Akka
 
-Akka \autocite{akka:web} \autocite{roestenburg2015akka} jest zewnętrznym zestawem narzędzi, który implementuje aktorowy model programowania i współbieżności. Zestaw ten napisany jest w języku Scala, lecz wspiera również język Java przez kompatybilny interfejs programistyczny.
+Akka \autocite{akka:web, roestenburg2015akka} jest zewnętrznym zestawem narzędzi, który implementuje aktorowy model programowania i współbieżności. Zestaw ten napisany jest w języku Scala, lecz wspiera również język Java przez kompatybilny interfejs programistyczny.
 Pomimo tego, że model aktorowy zaimplementowany w Erlangu różni się nieco od tego w narzędziach Akka, to miał on znaczący wpływ na ich rozwój i współdzielą ze sobą wiele cech.
 Powstał, aby zredukować koszty wytwarzania zadań asynchronicznych i współbieżnych. W założeniu Akka ma zapewniać sprawdzony zestaw funkcjonalności do budowania skalowalnych oraz niezawodnych rozwiązań programistycznych.
 
@@ -245,8 +244,7 @@ class CustomActor extends Actor with ActorLogging {
 }
 ~~~~
 
-Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania współbieżnego i równoległego jak wątki (
-*ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *CAS (compare-and-swap)*, aby ograniczyć liczbę blokad do minimum.
+Akka tworzy warstwę abstrakcji nad niskopoziomowymi aspektami programowania współbieżnego i równoległego jak wątki (*ang. thread*) i blokady (*ang. lock*). Wykorzystuje nieblokujące struktury danych i algorytmy oraz techniki *\gls{cas}*, aby ograniczyć liczbę blokad do minimum.
 
 ## Reaktywne Strumienie
 
