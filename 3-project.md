@@ -328,6 +328,8 @@ Aktor efektów ubocznych na początku swojego działania wysyła wiadomości do 
 Zdarzenie upływu czasu jest podstawową wiadomością wykonawcy. W skutek otrzymania zdarzenia tego typu aktor efektów ubocznych opróżnia kolejkę oczekujących zdarzeń, aż natrafi na takie, którego czas planowanego zajścia jest późniejszy niż obecnie obsługiwanego zdarzenia upływu czasu.
 Jeśli zdarzenie wyciągnięte z kolejki oznacza uzupełnienie sejfu bankomatu, to aktor efektów ubocznych planuje kolejne takie zdarzenie dla danego bankomatu z datą wystąpienia przesuniętą w przyszłość o wartość zdefiniowaną w konfiguracji bankomatu.
 
+\newpage
+
 # Struktura projektu
 
 Katalog projektu składa się z dwóch głównych podkatalogów: 
@@ -357,6 +359,8 @@ Katalog src znajdujący się w katalogu głównym składa się z zagnieżdżonyc
 
 Podstawowa konfiguracja wejściowa jest plikiem \gls{json} zawierającym 1261 linii.
 Zaś kod aplikacji stanowi 568 linii kodu w języku Scala. 
+
+\newpage
 
 # Wydajność symulatora
 
@@ -395,6 +399,8 @@ Pomiary zostały przeprowadzone na następującym sprzęcie komputerowym:
 
  Wszystkie warianty, w których zapisano wynik, dla każdego eksperymentu poprzedzono ponownym uruchomieniem symulatora oraz dwoma rozruchowymi uruchomieniami symulatora z parametrami identycznymi z tymi z danego wariantu.
 
+\newpage
+
 ### Zmienna liczba bankomatów
 
 Eksperyment zależności liczby bankomatów przeprowadzono w siedmiu wariantach, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
@@ -423,6 +429,8 @@ Table: Czas przetwarzania w zależności od liczby bankomatów
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby bankomatów}
 \end{figure}
 
+\pagebreak
+
 Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. 
 Warianty z liczbą bankomatów od 1 do 1000 włącznie zwróciły zbliżone czasy przetwarzania, które oscylują pomiędzy 2.17 sekund a 3.3 sekund, przy czym warianty z liczbą bankomatów 100 i 1000 uzyskały lepszy wynik (krótszy czas przetwarzania) niż te z 1 i 10.
 Wariant z liczbą bankomatów równą 10000 już odstaje do poprzednich wyników osiągając czas przetwarzania ponad dwukrotnie większy od najwyższego wyniku z poprzedzających prób.
@@ -431,9 +439,13 @@ Czas przetwarzania ostatniego z wariantów, z liczbą bankomatów równą 100000
 Pierwszą znaczącą różnicę wynikach można zaobserwować po przekroczeniu 1000 bankomatów. Zmiana ta wynika z maksymalnej liczby wątków skonfigurowanej dla procesu symulatora, który wynosi dokładnie 1000.
 Zrzut wątków procesu symulatora przedstawia wiele wątków oczekujących w kodzie aktora bankomatu na uzyskanie odpowiedzi zwrotnej od aktora wyjścia. Oczekiwanie to wynika z zastosowania wzorca *zapytaj*. Aktory wyjścia oraz efektów ubocznych wyposażone, każdy wyposażony w jedną kolejkę skrzynki odbiorczej muszą obsłużyć wiadomości przychodzące od dużej liczby aktorów bankomatów wykonująca obliczenia w sposób współbieżny. Dodatkowo aktor wyjścia jest obciążony operacjami wejścia wyjścia na dysku.
 
+\pagebreak
+
 Zachowanie to można zinterpretować jako przypadek zastosowania *prawa Amdhala* \autocite{amdahl1967validity} lub *prawa Gustafsona* \autocite{gustafson1988reevaluating}, które w mówi, że maksymalne przyspieszenie przetwarzania jest ograniczone przez jego część, której nie da się zrównoleglić. W tym przypadku ścieżka wykorzystująca wzorzec zapytaj, zastosowana w celu zabezpieczenia przetwarzania, zachowuje się jak nierównoległe wykonywanie programu, blokując obliczenia w aktorach bankomatów.
 
 ### Zmienna liczba zdarzeń na godzinę symulacji
+
+Eksperyment zależności liczby zdarzeń na godzinę symulacji przeprowadzono w sześciu wariantach, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000.
 
 | Liczba wypłat gotówki na godzinę czasu symulacji | Czas przetwarzania (s) |
 |--------------------------------------------------|------------------------|
@@ -458,9 +470,13 @@ Table: Czas przetwarzania w zależności od liczby wypłat gotówki na godzinę 
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji}
 \end{figure}
 
+\pagebreak
+
 Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń dziesięciokrotnie, czas przetwarzania również rośnie dziesięciokrotnie.
 
 ### Zmienny okres symulacji
+
+Eksperyment zależności okresu symulacji przeprowadzono w siedmiu wariantach, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
 
 | Okres symulacji (h)   | Czas przetwarzania (s)     |
 |-----------------------|----------------------------|
@@ -485,6 +501,8 @@ Table: Czas przetwarzania w zależności od okresu symulacji
 \includegraphics[width=160mm]{graphics/benchmark-length-log.png}
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od okresu symulacji}
 \end{figure}
+
+\newpage
 
 Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości, czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność, jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji. 
 Zgodnie z założeniami projektu symulator powinien symulować długie okresy czasu w rozsądnym czasie. Biorąc pod uwagę, że rok nieprzestępny składa się 8760 godzin, wariantem najbliższym tej liczbie jest wariant numer 6 z okresem symulacji równym 10000 godzin, którego czas przetwarzania wyniósł 12 sekund. Jednakże należy zwrócić uwagę na fakt, że tej konfiguracji wykonywane jest jedynie 100 wypłat gotówki na godzinę ze 100 bankomatów. Analizując dane statystyczne wypłat z bankomatów w Polsce \autocite{nbp:stats} można obliczyć, że średnia liczba wypłat dla pojedynczego bankomatu wynosi 3 na godzinę, a w opisywanym wariancie liczba ta wynosi jedną wypłatę na godzinę. Analizując poprzednich wariantów, można wywnioskować, że czas przetwarzania symulacji jest liniowo zależny od liczby wypłat na godzinę symulacji.
