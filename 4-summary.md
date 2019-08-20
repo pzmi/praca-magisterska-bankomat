@@ -1,7 +1,7 @@
 \chapter{Podsumowanie}
 
 Założeniem tej pracy było stworzenie projektu składającego się z symulatora wypłat z sieci bankomatów, narzędzia konfiguracyjnego oraz wizualizacji gotowego wyniku.
-Symulator miał zapewnić szybkie symulowanie długich okresów na komputerze domowym. Biorąc pod uwagę wyniki testów wydajnościowych przedstawionych w sekcji \ref{wydajnosc-symulatora} można wywnioskować, że ten cel został osiągnięty. Łatwość konfiguracji modelu uzyskano dzięki graficznemu interfejsowi użytkownika edytora, niewymagającą znajomości programowania, ani złożonego formatu wejściowego pliku konfiguracyjnego. Wizualizacja na pozwala obejrzeć wyniki symulacji realnej mapie.
+Symulator miał zapewnić szybkie symulowanie długich okresów na komputerze domowym. Biorąc pod uwagę wyniki testów wydajnościowych przedstawionych w sekcji \ref{wydajnoux15bux107-symulatora} można wywnioskować, że ten cel został osiągnięty. Łatwość konfiguracji modelu uzyskano dzięki graficznemu interfejsowi użytkownika edytora, niewymagającą znajomości programowania, ani złożonego formatu wejściowego pliku konfiguracyjnego. Wizualizacja na pozwala obejrzeć wyniki symulacji realnej mapie.
 
 Tekstowy format \gls{json} w formie dziennika pliku wyjściowy symulacji jest prosty i elastyczny. Pomimo że taki plik zajmuje więcej przestrzeni dyskowej niż formaty binarne, to można go łatwo przetwarzać, używając większości używanych języków programowania, a także przekonwertować do formatów obsługiwanych przez bazy danych.
 
