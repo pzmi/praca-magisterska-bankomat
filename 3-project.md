@@ -1,4 +1,3 @@
-
 \chapter{Projekt}
 
 Symulator wypłat z bankomatów, będący tematem tej pracy, daje możliwość symulacji wypłat z sieci bankomatów rozmieszczonych na terenie miasta. Pierwszą częścią projektu jest symulator, który generuje zachowanie bankomatów, wypłaty oraz sytuacje nietypowe, na podstawie wcześniej przygotowanej konfiguracji. Samo przygotowanie parametrów wejściowych w postaci pliku konfiguracyjnego, to zadanie złożone, dlatego drugą częścią projektu jest graficzny interfejs użytkownika. Jego zadaniem jest ułatwienie użytkownikom przygotowania parametrów oraz uruchomienie symulacji, jak również obejrzenie wyników symulacji w postaci wizualizacji. Gotowy wynik symulacji jest dostępny do wyeksportowania i pobrania z interfejsu.
@@ -68,6 +67,8 @@ Domyślne parametry bankomatu składają się z:
  - odstępu czasu pomiędzy uzupełnieniem sejfu bankomatu
  - obciążenia bankomatu
 
+\newpage
+
 Zawartość sekcji parametrów wypłat jest zależna od wybranej funkcji rozkładu prawdopodobieństwa wypłat.
 
 W przypadku wybrania funkcji rozkładu jednostajnego są to:
@@ -93,7 +94,7 @@ Interfejs edytora jest udostępniony w postaci strony internetowej. Dzięki temu
 Serwer symulacji odpowiada za komunikacje z symulatorem. Wykorzystuje on protokół HTTP do komunikacji i został zaimplementowany przy użyciu *akka-http*, biblioteki implementującej protokół HTTP, wchodzącej w skład zestawu narzędzi Akka. Udostępnia zasób \gls{http}, `/simulation/{nazwa-symulacji}` wywoływany metodą *POST*, który dla zadanych parametrów uruchamia symulację. Ostatni człon ścieżki jest wybraną przez użytkownika nazwą nowo utworzonej symulacji.
 
 ~~~~{ .numberLines caption="Zapytanie HTTP do uruchomienia symulacji"}
-POST /simualtion/simulation-name HTTP/1.1
+POST /simualtion/{nazwa-symulacji} HTTP/1.1
 Content-Type: application/json
 {dane zapytania - konfiguracja}
 ~~~~
@@ -163,7 +164,7 @@ Parametry zapytania są przekazywane w jego ciele w formacie *\gls{json}*.
  - **location** - dwuelementowa lista będąca lokalizacją bankomatu
  - **refillAmount** - liczba całkowita będąca wartością zawartości sejfu bankomatu; jeśli nie jest ustawiona, brana jest wartość parametru *refillAmount* z sekcji *default*
  - **scheduledRefillInterval** - liczba całkowita będąca odstępem czasu pomiędzy kolejnymi uzupełnieniami sejfu bankomatu, wyrażonym w godzinach; jeśli nie jest ustawiona, brana jest wartość parametru *scheduledRefillInterval* z sekcji *default*
- - **atmDefaultLoad** - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru load* z sekcji default*
+ - **atmDefaultLoad** - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru *load* z sekcji *default*
  - **hourly** - struktura parametrów godzinnych, kluczem jest godzina przedstawiona w formacie czasu unixowego
  - **load** (w hourly) - liczba całkowita będąca wagą obciążenia danego bankomatu w danej godzinie; jeśli nie jest ustawiona, brana jest wartość parametru *atmDefaultLoad*
 
@@ -255,23 +256,23 @@ Symulator składa się z pięciu głównych elementów:
 
 ## Aktor generatora
 
-Aktor generatora jest kluczowym elementem symulacji. Zawiera generator liczb pseudolosowych, na podstawie którego przygotowuje zdarzenia wejściowe symulacji. Użyty generator jest standardowym generatorem liczb pseudolosowych dostarczanym wraz ze standardową biblioteką języka Java. Należy on do rodziny liniowych generatorów kongruencyjnych o 48 bitowym ziarnie \autocite{random:javadoc:web}. 
+Aktor generatora jest kluczowym elementem symulacji. Zawiera generator liczb pseudolosowych, na podstawie którego przygotowuje zdarzenia wejściowe symulacji. Użyty generator jest standardowym generatorem liczb pseudolosowych dostarczanym wraz ze standardową biblioteką języka Java. Należy on do rodziny liniowych generatorów kongruencyjnych o 48-bitowym ziarnie \autocite{random:javadoc:web}. 
 
 Zdarzenia generowane są w modelu czasu dyskretnego. Na każdą godzinę czasu symulacji aktor generatora przygotowuje godzinny rozkład prawdopodobieństwa obciążenia każdego z bankomatów na podstawie dostarczonej przez użytkownika konfiguracji. W każdej godzinie generowane są zdarzenia upływu czasu oraz wypłat pieniędzy. Zdarzenie upływu czasu jest wysyłane do aktora efektów ubocznych o upływie czasu.
 Ilość wypłat na godzinę oraz ich wysokość jest definiowana na podstawie konfiguracji. Zdarzenia wypłat są wysyłane do aktorów bankomatów, wybranych na podstawie przygotowanych rozkładów prawdopodobieństwa.
 
-Aktor generatora może wytwarzać dane, a następnie przesyłać je do obsługi w krótszym czasie niż sam czas obsługi. Przeciążone procesy przetwarzające zdarzenia mogą doprowadzić do zakłóceń symulacji. Jeżeli ich skrzynki na wiadomości zostaną przepełnione, otrzymane zdarzenia zostaną odrzucone. Nawet jeśli przepełnienie nie nastąpi, to w przypadku znacznej ilości obciążonych aktorów bankomatów zostanie wysycona pamięć operacyjna maszyny, na której przeprowadzana jest symulacja. Aby do tego nie dopuścić aktor generatora używa reaktywnych strumieni, które dostosowują prędkość produkcji danych do możliwości odbiorców. W symulatorze aby połączyć świat reaktywnych strumieni z modelem aktorowym wykorzystywany jest wzorzec *zapytaj (ang. ask pattern)*. Wzorzec ten do asynchronicznego wysyłania wiadomości pomiędzy aktorami dodaje, również asynchroniczne, oczekiwanie odpowiedzi zwrotnej od odbiorcy. Takie połączenie sprzyja dostosowaniu tempa produkcji wiadomości do odbiorców tychże.
+Aktor generatora może wytwarzać dane, a następnie przesyłać je do obsługi w krótszym czasie niż sam czas obsługi. Przeciążone procesy przetwarzające zdarzenia mogą doprowadzić do zakłóceń symulacji. Jeżeli ich skrzynki na wiadomości zostaną przepełnione, otrzymane zdarzenia zostaną odrzucone. Nawet jeśli przepełnienie nie nastąpi, to w przypadku znacznej ilości obciążonych aktorów bankomatów zostanie wysycona pamięć operacyjna maszyny, na której przeprowadzana jest symulacja. Aby do tego nie dopuścić, aktor generatora używa reaktywnych strumieni, które dostosowują prędkość produkcji danych do możliwości odbiorców. W symulatorze, aby połączyć świat reaktywnych strumieni z modelem aktorowym wykorzystywany jest wzorzec *zapytaj (ang. ask pattern)*. Wzorzec ten do asynchronicznego wysyłania wiadomości pomiędzy aktorami dodaje, również asynchroniczne, oczekiwanie odpowiedzi zwrotnej od odbiorcy. Takie połączenie sprzyja dostosowaniu tempa produkcji wiadomości do odbiorców tychże.
 
 ## Aktor bankomatu
 
 Każdemu skonfigurowanemu bankomatowi odpowiada aktor bankomatu. Jego główną odpowiedzialnością jest reagowanie na zdarzenia wypłat pieniędzy otrzymanych od aktora generatora. Reakcja jest zależna od aktualnego stanu bankomatu.
 Poza wypłatami, istotnym zdarzeniem w cyklu życia bankomatu jest uzupełnienie sejfu. Stan został on zamodelowany w postaci maszyny stanów obsługujących dwa główne stany, *działający* oraz *brak pieniędzy*. Elementami stanu bankomatu jest jego nazwa (identyfikator) oraz zawartość sejfu.
-Intuicyjnie zdarzenie wypłaty gotówki zmniejsza zawartość sejfu bankomatu, a uzupełnienie zwiększa. Jeśli wartość wypłaty przekracza bieżącą zawartość sejfu, aktor generuje zdarzenie informujące o niewystarczającej ilości gotówki w bankomacie. W sytuacji gdy wypłata opróżni sejf, bankomat przechodzi w stan *brak pieniędzy* oraz generuje zdarzenie o braku pieniędzy. Powrót do stanu *działający* jest możliwe jedynie w wyniku otrzymania zdarzenia uzupełnienia sejfu.
+Intuicyjnie zdarzenie wypłaty gotówki zmniejsza zawartość sejfu bankomatu, a uzupełnienie zwiększa. Jeśli wartość wypłaty przekracza bieżącą zawartość sejfu, aktor generuje zdarzenie informujące o niewystarczającej ilości gotówki w bankomacie. W sytuacji, gdy wypłata opróżni sejf, bankomat przechodzi w stan *brak pieniędzy* oraz generuje zdarzenie o braku pieniędzy. Powrót do stanu *działający* jest możliwe jedynie w wyniku otrzymania zdarzenia uzupełnienia sejfu.
 Poza zmianą stanu wewnętrznego w reakcji na nadchodzące zdarzenia aktor bankomatu przesyła własne zmiany stanu do aktora wyjścia.
 
 ## Aktor wyjścia
 
-Aktor wyjścia odpowiada za trasowanie wiadomości z innych aktorów. Trafiają one *dziennika danych* oraz *aktora efektów ubocznych*. Aktor wyjścia, podobnie jak aktor generatora, łączy reaktywne strumienie z aktorowym modelem przetwarzania. Sam będąc aktorem przetwarzając otrzymane wiadomości wkłada je do reaktywnego bufora, którego konsumentem jest dziennik danych. Jeśli czas obsługi dziennika danych jest większy niż tempo napływających wiadomości, bufor, to aktora wyjścia przechowuje je w kolejce. Aby nie dopuścić do przepełnienia kolejki wprowadzono w niej mechanizm *przeciwciśnienia*. Jego działanie polega na informowaniu producentów o ilości dostępnych zasobów konsumenta. W tym przypadku zasobem jest dostępne miejsc w kolejce. Aktory niestety, komunikując się jedynie asynchronicznie, z natury nie wspierają przeciwciśnienia. W celu obsługi tego mechanizmu wykorzystano wzorzec *zapytaj*, który opisano w sekcji \ref{aktor-generatora}.
+Aktor wyjścia odpowiada za trasowanie wiadomości z innych aktorów. Trafiają one *dziennika danych* oraz *aktora efektów ubocznych*. Aktor wyjścia, podobnie jak aktor generatora, łączy reaktywne strumienie z aktorowym modelem przetwarzania. Sam będąc aktorem, przetwarzając otrzymane wiadomości, wkłada je do reaktywnego bufora, którego konsumentem jest dziennik danych. Jeśli czas obsługi dziennika danych jest większy niż tempo napływających wiadomości, bufor, to aktora wyjścia przechowuje je w kolejce. Aby nie dopuścić do przepełnienia kolejki, wprowadzono w niej mechanizm *przeciwciśnienia*. Jego działanie polega na informowaniu producentów o ilości dostępnych zasobów konsumenta. W tym przypadku zasobem jest dostępne miejsc w kolejce. Aktory niestety, komunikując się jedynie asynchronicznie, z natury nie wspierają przeciwciśnienia. W celu obsługi tego mechanizmu wykorzystano wzorzec *zapytaj*, który opisano w sekcji \ref{aktor-generatora}.
 
 ## Dziennik danych
 
@@ -299,7 +300,7 @@ Dla zdarzenia wypłaty gotówki z bankomatu (**withdrawal**) są nimi:
 
  - **amount** - kwota wypłaty
  - **balance** - stan sejfu bankomatu po wypłacie
- - **state** - stan w jakim znajduje się bankomat na skutek wypłaty, wśród nich są:
+ - **state** - stan, w jakim znajduje się bankomat na skutek wypłaty, wśród nich są:
     - **Operational** - bankomat gotowy do użytku
     - **OutOfMoney** - bankomat niezdatny do użytku, brak pieniędzy w sejfie
 
@@ -324,9 +325,7 @@ Wiadomości przychodzące są dzielone na trzy kategorie:
 Zaplanowane zdarzenia są przechowywane w kolejce priorytetowej, posortowanej po czasie planowanej emisji.
 
 Aktor efektów ubocznych na początku swojego działania wysyła wiadomości do samego siebie, w których znajdują się informacje niezbędne do zaplanowania uzupełnienia sejfu bankomatu dla każdego bankomatu skonfigurowanego w symulacji. Wiadomości te są bodźcem do umieszczenia zdarzeń uzupełnienia w kolejce, gdzie oczekują na odpowiednie zdarzenie *upływu czasu*.
-
 Zdarzenie upływu czasu jest podstawową wiadomością wykonawcy. W skutek otrzymania zdarzenia tego typu aktor efektów ubocznych opróżnia kolejkę oczekujących zdarzeń, aż natrafi na takie, którego czas planowanego zajścia jest późniejszy niż obecnie obsługiwanego zdarzenia upływu czasu.
-
 Jeśli zdarzenie wyciągnięte z kolejki oznacza uzupełnienie sejfu bankomatu, to aktor efektów ubocznych planuje kolejne takie zdarzenie dla danego bankomatu z datą wystąpienia przesuniętą w przyszłość o wartość zdefiniowaną w konfiguracji bankomatu.
 
 # Struktura projektu
@@ -363,9 +362,8 @@ Zaś kod aplikacji stanowi 568 linii kodu w języku Scala.
 
 Oprogramowanie symulacyjne można opisać przyjętym modelem symulacji, charakterystyką jego parametrów wejściowych, typem oraz własnościami generatora liczb losowych. Niewątpliwie istotną cechą symulatora jest jego wydajność. 
 
-Celem pracy jest stworzenie symulatora, który jest w stanie przeprowadzić symulację długich okresów w rozsądnym czasie używając sprzętu porównywalnego z komputerem domowym.
-
-Na potrzeby tej pracy wydajność symulatora definiujemy prędkość z jaką może on zasymulować zadany okres.
+Celem pracy jest stworzenie symulatora, który jest w stanie przeprowadzić symulację długich okresów, takich jak rok, w rozsądnym czasie, używając sprzętu porównywalnego z komputerem domowym.
+Na potrzeby tej pracy wydajność symulatora definiujemy prędkość, z jaką może on zasymulować zadany okres.
 
 ### Warunki eksperymentu
 
@@ -399,7 +397,7 @@ Pomiary zostały przeprowadzone na następującym sprzęcie komputerowym:
 
 ### Zmienna liczba bankomatów
 
-Eksperyment zależności liczy bankomatów przeprowadzono w siedmiu wariantach zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
+Eksperyment zależności liczby bankomatów przeprowadzono w siedmiu wariantach, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
 
 | Liczba bankomatów | Czas przetwarzania (s) |
 |-------------------|------------------------|
@@ -431,9 +429,9 @@ Wariant z liczbą bankomatów równą 10000 już odstaje do poprzednich wyników
 Czas przetwarzania ostatniego z wariantów, z liczbą bankomatów równą 100000, uzyskał czas niemalże dziesięć razy większy niż próba poprzednia.
 
 Pierwszą znaczącą różnicę wynikach można zaobserwować po przekroczeniu 1000 bankomatów. Zmiana ta wynika z maksymalnej liczby wątków skonfigurowanej dla procesu symulatora, który wynosi dokładnie 1000.
-Obserwując zrzut wątków procesu symulatora, który przedstawia wiele wątków oczekujących w kodzie aktora bankomatu na uzyskanie odpowiedzi zwrotnej od aktora wyjścia. Oczekiwanie to wynika z zastosowania wzorca *zapytaj*. Aktory wyjścia oraz efektów ubocznych wyposażone, każdy wyposażony w jedną kolejkę skrzynki odbiorczej muszą obsłużyć wiadomości przychodzące od dużej liczby aktorów bankomatów wykonująca obliczenia w sposób współbieżny. Dodatkowo aktor wyjścia jest obciążony operacjami wejścia wyjścia na dysku.
+Zrzut wątków procesu symulatora przedstawia wiele wątków oczekujących w kodzie aktora bankomatu na uzyskanie odpowiedzi zwrotnej od aktora wyjścia. Oczekiwanie to wynika z zastosowania wzorca *zapytaj*. Aktory wyjścia oraz efektów ubocznych wyposażone, każdy wyposażony w jedną kolejkę skrzynki odbiorczej muszą obsłużyć wiadomości przychodzące od dużej liczby aktorów bankomatów wykonująca obliczenia w sposób współbieżny. Dodatkowo aktor wyjścia jest obciążony operacjami wejścia wyjścia na dysku.
 
-Zachowanie to można zinterpretować jako przypadek zastosowania *prawa Amdhala* \autocite{amdahl1967validity} lub *prawa Gustafsona* \autocite{gustafson1988reevaluating}, które w mówi, że maksymalne przyspieszenie przetwarzania jest ograniczone przez jego część, której nie da się zrównoleglić. W tym przypadku ścieżka wykorzystująca wzorzec zapytaj, zastosowana w celu zabezpieczenia przetwarzania, zachowuje się jak nierównoległe wykonywanie programu blokując obliczenia w aktorach bankomatów.
+Zachowanie to można zinterpretować jako przypadek zastosowania *prawa Amdhala* \autocite{amdahl1967validity} lub *prawa Gustafsona* \autocite{gustafson1988reevaluating}, które w mówi, że maksymalne przyspieszenie przetwarzania jest ograniczone przez jego część, której nie da się zrównoleglić. W tym przypadku ścieżka wykorzystująca wzorzec zapytaj, zastosowana w celu zabezpieczenia przetwarzania, zachowuje się jak nierównoległe wykonywanie programu, blokując obliczenia w aktorach bankomatów.
 
 ### Zmienna liczba zdarzeń na godzinę symulacji
 
@@ -460,7 +458,7 @@ Table: Czas przetwarzania w zależności od liczby wypłat gotówki na godzinę 
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji}
 \end{figure}
 
-Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń dziesięciokrotnie czas przetwarzania również rośnie dziesięciokrotnie.
+Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń dziesięciokrotnie, czas przetwarzania również rośnie dziesięciokrotnie.
 
 ### Zmienny okres symulacji
 
@@ -488,6 +486,6 @@ Table: Czas przetwarzania w zależności od okresu symulacji
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od okresu symulacji}
 \end{figure}
 
-Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji. 
-Zgodnie z założeniami projektu symulator powinien symulować długie okresy czasu w rozsądnym czasie. Biorąc pod uwagę, że rok nieprzestępny składa się 8760 godzin, wariantem najbliższym tej liczbie jest wariant numer 6 z okresem symulacji równym 10000 godzin, którego czas przetwarzania wyniósł 12 sekund. Jednakże należy zwrócić uwagę na fakt, że tej konfiguracji wykonywane jest jedynie 100 wypłat gotówki na godzinę ze 100 bankomatów. Analizując dane statystyczne wypłat z bankomatów w Polsce \autocite{nbp:stats} można obliczyć, że średnia liczba wypłat dla pojedynczego bankomatu wynosi 3 na godzinę, zaś w opisywanym wariancie liczba ta wynosi jedną wypłatę na godzinę. Patrząc na wyniki poprzednich wariantów można wywnioskować, że czas przetwarzania symulacji jest liniowo zależny od liczby wypłat na godzinę symulacji.
+Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości, czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność, jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji. 
+Zgodnie z założeniami projektu symulator powinien symulować długie okresy czasu w rozsądnym czasie. Biorąc pod uwagę, że rok nieprzestępny składa się 8760 godzin, wariantem najbliższym tej liczbie jest wariant numer 6 z okresem symulacji równym 10000 godzin, którego czas przetwarzania wyniósł 12 sekund. Jednakże należy zwrócić uwagę na fakt, że tej konfiguracji wykonywane jest jedynie 100 wypłat gotówki na godzinę ze 100 bankomatów. Analizując dane statystyczne wypłat z bankomatów w Polsce \autocite{nbp:stats} można obliczyć, że średnia liczba wypłat dla pojedynczego bankomatu wynosi 3 na godzinę, a w opisywanym wariancie liczba ta wynosi jedną wypłatę na godzinę. Analizując poprzednich wariantów, można wywnioskować, że czas przetwarzania symulacji jest liniowo zależny od liczby wypłat na godzinę symulacji.
 W świetle powyższych danych można wywnioskować, że zwiększając trzykrotnie liczbę wypłat z bankomatów, tak aby średnia odpowiadała średniej w Polsce, czas przetwarzania wydłuży się trzykrotnie do czasu przetwarzania 36 sekund. 
