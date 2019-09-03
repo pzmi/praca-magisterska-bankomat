@@ -15,5 +15,3 @@ Wizualizacja na rzeczywistej mapie może być atrakcyjnie wyglądającym element
 Separacja odpowiedzialności i enkapsulacja logik w niezależnych aktorach pozwala na łatwą rozbudowę modelu symulacji. Co więcej, aktorowa reprezentacja bankomatów oraz pozostałych aktorów intuicyjnie odzwierciedla model wieloagentowy.
 
 Zastosowana architektura rozwiązania, klient-serwer, pomimo znacznie wyższego stopnia skomplikowania od aplikacji lokalnych, daje użytkownikom do dyspozycji system wielodostępowy, osiągalny przez sieć. Aktorowy model współbieżności zakłada przezroczystą komunikację pomiędzy pojedynczymi aktorami, co oznacza, że może się ona odbywać lokalnie, przez pamięć operacyjną, jak również przez sieć. Co za tym idzie, możliwe jest przekształcenie obecnego serwera symulacji w system rozproszony, działający na wielu maszynach, nie tylko lokalnie na komputerze domowym.
-
-Pomimo kilku mankamentów projekt otwiera szerokie perspektywy rozwoju.

@@ -211,15 +211,15 @@ Składa się on z czterech głównych elementów:
 
 Mapa, podobnie jak w przypadku edytora, przedstawia rozmieszczenie bankomatów w przestrzeni. Ikony, poza położeniem bankomatu, przedstawiają również jego stan, do którego należą:
 
- - \includegraphics[height=15mm]{atm-green.png} - bankomat jest sprawny, a jego sejf jest pełny
- - \includegraphics[height=15mm]{atm-blue.png} - bankomat jest sprawny, a jego sejf jest zapełniony powyżej 50% zaplanowanej pojemności
- - \includegraphics[height=15mm]{atm-yellow.png} - bankomat jest sprawny, a jego sejf jest zapełniony powyżej 10% zaplanowanej pojemności
- - \includegraphics[height=15mm]{atm-red.png} - bankomat jest sprawny, a jego sejf jest pusty
+ - \includegraphics[height=15mm]{atm-green.png} - bankomat jest sprawny, a jego sejf jest zapełniony w 90% do 100%
+ - \includegraphics[height=15mm]{atm-blue.png} - bankomat jest sprawny, a jego sejf jest zapełniony w 50% do 90% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-yellow.png} - bankomat jest sprawny, a jego sejf jest zapełniony w 10% do 50% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-red.png} - bankomat jest sprawny, a jego sejf jest zapełniony w 0% do 10% zaplanowanej pojemności
 
- - \includegraphics[height=15mm]{atm-green-alert.png} - bankomat napotkał problem, a jego sejf jest pełny
- - \includegraphics[height=15mm]{atm-blue-alert.png} - bankomat napotkał problem, a jego sejf jest zapełniony powyżej 50% zaplanowanej pojemności
- - \includegraphics[height=15mm]{atm-yellow-alert.png} - bankomat napotkał problem, a jego sejf jest zapełniony powyżej 10% zaplanowanej pojemności
- - \includegraphics[height=15mm]{atm-red-alert.png} - bankomat napotkał problem, a jego sejf jest pusty
+ - \includegraphics[height=15mm]{atm-green-alert.png} - bankomat jest niesprawny, a jego sejf jest zapełniony w 90% do 100%
+ - \includegraphics[height=15mm]{atm-blue-alert.png} - bankomat jest niesprawny, a jego sejf jest zapełniony w 50% do 90% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-yellow-alert.png} - bankomat jest niesprawny, a jego sejf jest zapełniony w 10% do 50% zaplanowanej pojemności
+ - \includegraphics[height=15mm]{atm-red-alert.png} - bankomat jest niesprawny, a jego sejf jest zapełniony w 0% do 10% zaplanowanej pojemności
 
 Po kliknięciu w ikonę bankomatu pojawia się okno parametrów bankomatu,  analogicznie do widoku edytora, lecz są w trybie tylko do odczytu. Wśród nich znajduje się parametr przedstawiający bieżącą zawartość sejfu bankomatu, która jest aktualizowana na bieżąco, wraz z postępem symulacji.
 
@@ -397,6 +397,8 @@ Pomiary zostały przeprowadzone na następującym sprzęcie komputerowym:
  - karta graficzna: Intel Iris Plus Graphics 655
  - pamięć operacyjna: 16384MiB
 
+używając środowiska uruchomieniowego Java wydaniu OpenJDK Runtime Environment AdoptOpenJDK (build 11.0.4+11).
+
  Wszystkie warianty, w których zapisano wynik, dla każdego eksperymentu poprzedzono ponownym uruchomieniem symulatora oraz dwoma rozruchowymi uruchomieniami symulatora z parametrami identycznymi z tymi z danego wariantu.
 
 \newpage
@@ -443,9 +445,9 @@ Zrzut wątków procesu symulatora przedstawia wiele wątków oczekujących w kod
 
 Zachowanie to można zinterpretować jako przypadek zastosowania *prawa Amdhala* \autocite{amdahl1967validity} lub *prawa Gustafsona* \autocite{gustafson1988reevaluating}, które w mówi, że maksymalne przyspieszenie przetwarzania jest ograniczone przez jego część, której nie da się zrównoleglić. W tym przypadku ścieżka wykorzystująca wzorzec zapytaj, zastosowana w celu zabezpieczenia przetwarzania, zachowuje się jak nierównoległe wykonywanie programu, blokując obliczenia w aktorach bankomatów.
 
-### Zmienna liczba zdarzeń na godzinę symulacji
+### Zmienna liczba wypłat gotówki na godzinę symulacji
 
-Eksperyment zależności liczby zdarzeń na godzinę symulacji przeprowadzono w sześciu wariantach, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000.
+Eksperyment zależności liczby wypłat gotówki na godzinę symulacji przeprowadzono w sześciu wariantach, zmieniając wypłat gotówki na godzinę czasu symulacji 0, 1, 10, 100, 1000, 10000.
 
 | Liczba wypłat gotówki na godzinę czasu symulacji | Czas przetwarzania (s) |
 |--------------------------------------------------|------------------------|
@@ -472,11 +474,11 @@ Table: Czas przetwarzania w zależności od liczby wypłat gotówki na godzinę 
 
 \pagebreak
 
-Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń dziesięciokrotnie, czas przetwarzania również rośnie dziesięciokrotnie.
+Wariant z liczbą wypłat gotówki równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby gotówki na godzinę symulacji. Zwiększając liczbę wypłat dziesięciokrotnie, czas przetwarzania również rośnie dziesięciokrotnie.
 
 ### Zmienny okres symulacji
 
-Eksperyment zależności okresu symulacji przeprowadzono w siedmiu wariantach, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
+Eksperyment zależności okresu symulacji przeprowadzono w siedmiu wariantach, zmieniając okres symulacji: 0, 1, 10, 100, 1000, 10000, 100000.
 
 | Okres symulacji (h)   | Czas przetwarzania (s)     |
 |-----------------------|----------------------------|
