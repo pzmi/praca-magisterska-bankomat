@@ -1,11 +1,11 @@
 \chapter{Podsumowanie}
 
-Założeniem tej pracy było stworzenie projektu składającego się z symulatora wypłat z sieci bankomatów, narzędzia konfiguracyjnego oraz wizualizacji gotowego wyniku.
-Symulator miał zapewnić szybkie symulowanie długich okresów na komputerze domowym. Biorąc pod uwagę wyniki testów wydajnościowych przedstawionych w sekcji \ref{wydajnoux15bux107-symulatora} można wywnioskować, że ten cel został osiągnięty. Łatwość konfiguracji modelu uzyskano dzięki graficznemu interfejsowi użytkownika edytora, niewymagającą znajomości programowania, ani złożonego formatu wejściowego pliku konfiguracyjnego. Wizualizacja na pozwala obejrzeć wyniki symulacji realnej mapie.
+Założeniem tej pracy było stworzenie projektu składającego się z symulatora wypłat z sieci bankomatów, narzędzia konfiguracyjnego oraz wizualizacji procesu symulacji.
+Symulator miał zapewnić szybkie symulowanie długich okresów na serwerze klasy komputera PC. Biorąc pod uwagę wyniki testów wydajnościowych przedstawionych w sekcji \ref{wydajnoux15bux107-symulatora} można uznać, że ten cel został osiągnięty. Łatwość konfiguracji modelu uzyskano dzięki graficznemu interfejsowi użytkownika edytora. Nie jest wymagana znajomość programowania, ani złożonego formatu wejściowego pliku konfiguracyjnego. Wizualizacja na pozwala obejrzeć wyniki symulacji realnej mapie.
 
-Tekstowy format \gls{json} w formie dziennika pliku wyjściowy symulacji jest prosty i elastyczny. Pomimo że taki plik zajmuje więcej przestrzeni dyskowej niż formaty binarne, to można go łatwo przetwarzać, używając większości używanych języków programowania, a także przekonwertować do formatów obsługiwanych przez bazy danych.
+Tekstowy format \gls{json} w formie dziennika procesu symulacji symulacji jest prosty i elastyczny. Pomimo że taki plik zajmuje więcej przestrzeni dyskowej niż formaty binarne, to można go łatwo przetwarzać, używając większości używanych języków programowania, a także przekonwertować do formatów obsługiwanych przez bazy danych.
 
-Jednakże stworzenie realistycznego symulatora to nie lada wyzwanie, w szczególności odpowiednie dobranie stopnia uproszczenia modelu w stosunku do świata rzeczywistego. Bankomaty w Polsce, pomimo że powoli tracą na znaczeniu, to wciąż są jednym z głównych metod operowania gotówką. Ponadto ich funkcjonalność sięga znacznie dalej niż same wypłaty.
+Stworzenie realistycznego symulatora to nie lada wyzwanie. Najwiekszą trudność stanowi odpowiednie dobranie stopnia uproszczenia modelu w stosunku do świata rzeczywistego.
 Bankomaty w symulatorze zostały odwzorowane w mocno uproszczonym modelu. Z drugiej strony biorąc pod uwagę ich liczbę oraz zakres czasu symulacji, otrzymane wyniki wciąż mogę być użyteczne do celów badawczych lub edukacyjnych.
 
 Pomimo tego, że osiągnięto zakładaną wydajność, wciąż pozostaje miejsce na usprawnienia. Znaczącym przykładem mogą być synchroniczne fragmenty symulacji, które w znaczny sposób ograniczają wykorzystanie zasobów sprzętowych komputera.

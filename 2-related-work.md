@@ -6,30 +6,34 @@ Bankomat jest automatycznym urządzeniem, którego główną funkcją jest wypł
 
 Jedna tego typu maszyna, w zależności od rozmiaru, mieści do 6 kaset z gotówką, z których każda ma pojemność do 2500 banknotów. Pomimo dużej pojemności w bankomatach znajduje się zwykle kilkaset tysięcy złotych, które uzupełnia się co kilka dni. Ustalenie poziomu zapełnienia bankomatu oraz częstotliwości uzupełniana jest nietrywialnym zagadnieniem logistycznym, które wchodzi w obowiązki operatora automatu, instytucji bankowej lub specjalistycznych operatorów infrastruktury bankomatowej \autocite{ncr2019marketing, ncr2019tech}.
 
-Bankomaty stanowią niezwykle istotny element infrastruktury bankowej w Polsce. Według danych udostępnianych przez banki oraz operatorów bankomatów liczba bankomatów w Polsce od 2016 systematycznie zmniejsza się. Pomimo tego Polacy wciąż wykonują ponad 650 milionów wypłat przy użyciu bankomatu, a sumaryczna wartość tych wypłat oraz średnia wartość pojedynczej wypłaty rośnie z roku na rok \autocite{nbp:stats, nbp:bankomaty, firkowicz2018bankomaty}.
+Bankomaty stanowią niezwykle istotny element infrastruktury bankowej w Polsce. Według danych udostępnianych przez banki oraz operatorów bankomatów, przedstawionych na rysunkach \ref{fig:liczba-bankomatów}, \ref{fig:liczba-transakcji}, \ref{fig:wartosc-wyplat}, \ref{fig:srednia-transakcji}, liczba bankomatów w Polsce od 2016 systematycznie zmniejsza się. Pomimo tego Polacy wciąż wykonują ponad 650 milionów wypłat przy użyciu bankomatu, a sumaryczna wartość tych wypłat oraz średnia wartość pojedynczej wypłaty rośnie z roku na rok \autocite{nbp:stats, nbp:bankomaty, firkowicz2018bankomaty}.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/liczba-bankomatow.png}
 \caption{Liczba bankomatów w Polsce na przestrzeni lat\autocite{nbp:stats}}
+\label{fig:liczba-bankomatów}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/liczba-transakcji.png}
 \caption{Liczba wypłat bankomatowych w Polsce na przestrzeni lat\autocite{nbp:stats}}
+\label{fig:liczba-transakcji}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/wartosc-transakcji.png}
 \caption{Wartość wypłat bankomatowych w Polsce na przestrzeni lat\autocite{nbp:stats}}
+\label{fig:wartosc-wyplat}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/srednia-wartosc-transakcji.png}
 \caption{Średnia wartość wypłat bankomatowych w Polsce na przestrzeni lat\autocite{nbp:stats}}
+\label{fig:srednia-transakcji}
 \end{figure}
 
 \newpage
@@ -81,12 +85,13 @@ Interesującym zagadnieniem symulacji są systemy wieloagentowe (*ang. \gls{mas}
 
 W 1973 roku kilku pracowników firmy Ericsson, Carl Hewitt, Peter Bishop oraz Richard Steiger, przedstawiło projekt funkcyjnego języka programowania, zaprojektowanego dla wydajnych, wysoce niezawodnych systemów rozproszonych dużej skali, takich jak centrale telefoniczne. Język ten nazwano Erlang \autocite{armstrong2010erlang}. W obecnych czasach powyższe cechy są niezwykle trudne do zapewnienia w oprogramowaniu, a co dopiero prawie 50 lat temu. Aby to osiągnąć, autorzy Erlanga zaproponowali nowy model wspóbieżności, który miał ominąć problemy konwencjonalnego modelu wielowątkowego ze wspólną pamięcią operacyjną, model aktorowy. 
 
-Podstawową jednostką wykonawczą modelu aktorowego jest *\gls{gls-aktor}*. Można go zdefiniować jako lekki proces, który enkapsuluje funkcjonalną część systemu i odpowiada za jego kontrol. Aktory komunikują się z innym aktorem poprzez przekazywanie wiadomości, a ich zachowanie jest sterowane odbieraniem i reakcją na te wiadomości. Każda taka wiadomość jest wysyłana asynchronicznie i trafia do skrzynki odbiorczej, gdzie czeka w kolejce na przetworzenie przez odbiorcę.
+Podstawową jednostką wykonawczą modelu aktorowego jest *\gls{gls-aktor}*. Można go zdefiniować jako lekki proces, który enkapsuluje funkcjonalną część systemu i odpowiada za jego kontrol. Jak przedstawiono na rysunku \ref{fig:actors}, aktory mogą stworzyć kolejnego aktora lub komunikować się z innym aktorem poprzez przekazywanie wiadomości, a ich zachowanie jest sterowane odbieraniem i reakcją na te wiadomości. Każda taka wiadomość jest wysyłana asynchronicznie i trafia do skrzynki odbiorczej, gdzie czeka w kolejce na przetworzenie przez odbiorcę.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=140mm]{graphics/actor-messages.png}
 \caption{Akcje w modelu aktorowym \autocite{karmani2009actor}}
+\label{fig:actors}
 \end{figure}
 
 W odróżnieniu od modelu wielowątkowego ze współdzieloną pamięcią, aktory są zupełnie niezależne od siebie i nie współdzielą niczego. Model ze współdzieloną pamięcią nie dostarcza mechanizmów przekazywania informacji pomiędzy wątkami. Aby stwierdzić, że jeden z nich zmodyfikował współdzielone zasoby, niezbędne jest stworzenie protokołu. Nie można również stwierdzić czy inny obiekt otrzymał dostęp lub wykonał niedozwoloną akcję na wspólnych danych. Jednym ze sposobów radzenia sobie z sytuacjami tego typu jest zastosowanie blokad i synchronizacji. Synchronizacja nie występuje w modelu aktorowym, cała komunikacja jest asynchroniczna i zakłada częściowy porządek wiadomości. Zabiegi te mają służyć zmniejszeniu ryzyka wystąpienia błędu, a w szczególności nie dopuścić do zakleszczeń (*ang. \gls{gls-deadlock}*).
@@ -105,12 +110,13 @@ Ciężko określić co jest liczbą losową, bo czy liczba 2 jest losowa? Poprze
 > Sekwencją losową *a* *n* liczb nazywamy sekwencję liczb, zawierających się w określonym zbiorze, w której nie da się przewidzieć $n_{k+1}$ z żadnej kombinacji poprzedzającej $n_i, i = 0,1,...,k$.
 
 Można postrzegać losową sekwencję jako generator, który produkuje wartość, kiedy jest o to poproszony, której nie da się przewidzieć na podstawie żadnej z poprzednich wartości.
-Procesy losowe są często przedstawiane jako próbkowanie z funkcji rozkładu prawdopodobieństwa. W związku z tym, pomimo faktu, że da się przewidzieć $n_k$, można stworzyć przybliżenie rozkładu, zbudowanego na podstawie histogramu z wartości próbek pobranych z generatora.
+Procesy losowe są często przedstawiane jako próbkowanie z funkcji rozkładu prawdopodobieństwa. Wizualną reprezentację przykładowych rozkładów procesów losowych przedstawia rysunek \ref{fig:distributions} W związku z tym, pomimo faktu, że da się przewidzieć $n_k$, można stworzyć przybliżenie rozkładu, zbudowanego na podstawie histogramu z wartości próbek pobranych z generatora.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=140mm]{graphics/distributions.png}
 \caption{Przykładowe rozkłady przedstawiające procesy losowe \autocite{Kneusel2018RandomNA}}
+\label{fig:distributions}
 \end{figure}
 
 Zakładamy, że sekwencje losowe istnieją i można znaleźć je w fizycznym świecie. Przykładami procesów losowych, które można użyć do wygenerowania losowej sekwencji, są:
@@ -186,12 +192,13 @@ class Lcg {
 }
 ~~~~
 
-Poprzez staranny dobór parametrów można stworzyć używalną sekwencję liczb całkowitych. Górną granicą długości ciągu jest moduł $m$, lecz w zależności od parametrów może być ona krótsza od $m$ \autocite{Ecuyer:rng, Hellekalek:rng, Ecuyer:simulation:rng, lnuth1997art}.
+Poprzez staranny dobór parametrów można stworzyć używalną sekwencję liczb całkowitych. Wizualizację wpływu parametrów generatora LCG na długość ciągu obrazuje rysunek \ref{fig:lcg-histogram}. Górną granicą długości ciągu jest moduł $m$, lecz w zależności od parametrów może być ona krótsza od $m$ \autocite{Ecuyer:rng, Hellekalek:rng, Ecuyer:simulation:rng, lnuth1997art}.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/lcg-histogram.png}
 \caption{Histogram długości ciągów  dla prostego generatora LCG z $m=10$ i wszystkich  możliwych  wartości $a, c$ oraz ziarna\autocite{Kneusel2018RandomNA}}
+\label{fig:lcg-histogram}
 \end{figure}
 
 \newpage

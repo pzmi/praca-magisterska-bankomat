@@ -1,11 +1,13 @@
 \chapter{Projekt}
 
-Symulator wypłat z bankomatów, będący tematem tej pracy, daje możliwość symulacji wypłat z sieci bankomatów rozmieszczonych na terenie miasta. Pierwszą częścią projektu jest symulator, który generuje zachowanie bankomatów, wypłaty oraz sytuacje nietypowe, na podstawie wcześniej przygotowanej konfiguracji. Samo przygotowanie parametrów wejściowych w postaci pliku konfiguracyjnego, to zadanie złożone, dlatego drugą częścią projektu jest graficzny interfejs użytkownika. Jego zadaniem jest ułatwienie użytkownikom przygotowania parametrów oraz uruchomienie symulacji, jak również obejrzenie wyników symulacji w postaci wizualizacji. Gotowy wynik symulacji jest dostępny do wyeksportowania i pobrania z interfejsu.
+Symulator wypłat z bankomatów, będący tematem tej pracy, daje możliwość symulacji wypłat z sieci bankomatów rozmieszczonych na terenie miasta. 
+Przypadki użycia symualtora przedstawia rysunek \ref{fig:usecase}. Pierwszą częścią projektu jest symulator, który generuje zachowanie bankomatów, wypłaty oraz sytuacje nietypowe, na podstawie wcześniej przygotowanej konfiguracji. Samo przygotowanie parametrów wejściowych w postaci pliku konfiguracyjnego, to zadanie złożone, dlatego drugą częścią projektu jest graficzny interfejs użytkownika. Jego zadaniem jest ułatwienie użytkownikom przygotowania parametrów oraz uruchomienie symulacji, jak również obejrzenie wyników symulacji w postaci wizualizacji. Gotowy wynik symulacji jest dostępny do wyeksportowania i pobrania z interfejsu.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/usecase.png}
 \caption{Przypadki użycia symulatora}
+\label{fig:usecase}
 \end{figure}
 
 # Symulator wypłat z bankomatów
@@ -14,9 +16,10 @@ Symulator wypłat z bankomatów, będący tematem tej pracy, daje możliwość s
 \centering
 \includegraphics[width=160mm]{graphics/highlevel.png}
 \caption{Wysokopoziomowy diagram architektury symulatora}
+\label{fig:highlevel}
 \end{figure}
 
-Logika symulatora nie jest bezpośrednio dostępna dla użytkownika. Przykrywa ją warstwa infrastruktury pod postacią dwóch komponentów: *serwera symulacji* oraz *serwera danych*. Użytkownik, poprzez *interfejs graficzny*, komunikuje się z wyżej wymienionymi serwerami, a przez nie z samym symulatorem. Używając interfejsu *edytora* użytkownik przygotowuje *konfigurację*. Poprzez protokół *\gls{http}* jest ona wysyłana do serwera symulacji, który odpowiada za komunikacje z symulatorem.
+Na rysunku \ref{fig:highlevel} przedstawiono wysokopoziomową architekturę projektu. Logika symulatora nie jest bezpośrednio dostępna dla użytkownika. Przykrywa ją warstwa infrastruktury pod postacią dwóch komponentów: *serwera symulacji* oraz *serwera danych*. Użytkownik, poprzez *interfejs graficzny*, komunikuje się z wyżej wymienionymi serwerami, a przez nie z samym symulatorem. Używając interfejsu *edytora* użytkownik przygotowuje *konfigurację*. Poprzez protokół *\gls{http}* jest ona wysyłana do serwera symulacji, który odpowiada za komunikacje z symulatorem.
 Wykorzystując parametry wejściowe z konfiguracji symulator przeprowadza symulację, a jej wynik odkłada do *dziennika danych*.
 Następnie dane te mogą zostać odczytane przez serwer danych, który poza wynikiem symulacji udostępnia również jej wejściowe parametry.
 Gotową symulację można obejrzeć w graficznym interfejsie użytkownika w postaci *wizualizacji*. 
@@ -29,10 +32,11 @@ Gotową symulację można obejrzeć w graficznym interfejsie użytkownika w post
 \centering
 \includegraphics[width=120mm]{graphics/editor.png}
 \caption{Zrzut ekranu edytora symulacji}
+\label{fig:editor}
 \end{figure}
 
 Edytor jest częścią graficznego interfejsu użytkownika tego projektu.
-Składa się z trzech głównych elementów:
+Składa się z trzech głównych elementów, przedstawionych na rysunku \ref{fig:editor}:
 
  1) mapy
  2) edytora parametrów bankomatu
@@ -194,6 +198,7 @@ Poprzez Websocket serwer wysyła do klienta dane w postaci wpisów dziennika zda
 \centering
 \includegraphics[width=120mm]{graphics/player.png}
 \caption{Zrzut ekranu wizualizacji symulacji}
+\label{fig:player}
 \end{figure}
 
 \newpage
@@ -202,7 +207,7 @@ Poprzez Websocket serwer wysyła do klienta dane w postaci wpisów dziennika zda
 
 Wizualizacja jest drugą, po edytorze, częścią graficznego interfejsu użytkownika. Można na nim obejrzeć przebieg symulacji w czasie, od początku do końca. Odtwarzanie danych symulacji może zostać zatrzymane oraz wznowione przy użyciu przycisków sterującym. Poza zatrzymywaniem czasu symulacji można go również przyspieszyć, co jest przydatne w przypadku długoterminowych symulacji, oraz spowolnić go, aby szczegółowo obserwować zmiany stanu. 
 Widok okna jest analogiczny do tego z edytora. 
-Składa się on z czterech głównych elementów:
+Składa się on z czterech głównych elementów, przedstawionych na rysunku \ref{fig:player}:
 
  1) mapy
  2) okna podglądu parametrów bankomatu
@@ -220,6 +225,8 @@ Mapa, podobnie jak w przypadku edytora, przedstawia rozmieszczenie bankomatów w
  - \includegraphics[height=15mm]{atm-blue-alert.png} - bankomat jest niesprawny, a jego sejf jest zapełniony w 50% do 90% zaplanowanej pojemności
  - \includegraphics[height=15mm]{atm-yellow-alert.png} - bankomat jest niesprawny, a jego sejf jest zapełniony w 10% do 50% zaplanowanej pojemności
  - \includegraphics[height=15mm]{atm-red-alert.png} - bankomat jest niesprawny, a jego sejf jest zapełniony w 0% do 10% zaplanowanej pojemności
+
+Bankomatem, który jest niesprawny określamy taki bankomat, który wymaga ingerencji zewnętrznej. Wizualizacja umożliwia przedstawienie takiego bankomatu w każdym z czterech poziomów zapełnienia jego sejfu. Jedyną taką sytuacją generowaną przez obecną implementację symulatora jest stan oczekiwania na uzupełnienie sejfu bankomatu.
 
 Po kliknięciu w ikonę bankomatu pojawia się okno parametrów bankomatu,  analogicznie do widoku edytora, lecz są w trybie tylko do odczytu. Wśród nich znajduje się parametr przedstawiający bieżącą zawartość sejfu bankomatu, która jest aktualizowana na bieżąco, wraz z postępem symulacji.
 
@@ -241,12 +248,13 @@ Poniżej panelu kontrolnego znajduje się panel zdarzeń symulacji. W czasie pos
 \centering
 \includegraphics[width=160mm]{graphics/components.png}
 \caption{Diagram komponentów składowych symulatora}
+\label{fig:components}
 \end{figure}
 
 Symulator jest kluczowym elementem projektu. Z edytora, poprzez serwer symulacji, przyjmuje konfigurację, na podstawie której przeprowadza symulację wypłat z sieci bankomatów. Wygenerowane dane są zapisywane do dziennika danych, a następnie udostępnione przez serwer danych na potrzeby wizualizacji.
 
 Symulator został zaprojektowany jako system wieloagentowy wykorzystując model aktorowy.
-Symulator składa się z pięciu głównych elementów:
+Symulator składa się z pięciu głównych elementów, których powiązania przedstawiono na rysunku \ref{fig:components}:
 
  - aktora generatora
  - aktora bankomatu
@@ -405,7 +413,7 @@ używając środowiska uruchomieniowego Java wydaniu OpenJDK Runtime Environment
 
 ### Zmienna liczba bankomatów
 
-Eksperyment zależności liczby bankomatów przeprowadzono w siedmiu wariantach, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
+Eksperyment zależności liczby bankomatów przeprowadzono w siedmiu wariantach, patrz tabela \ref{tab:benchmark-atms}, zmieniając liczbę skonfigurowanych bankomatów: 0, 1, 10, 100, 1000, 10000, 100000.
 
 | Liczba bankomatów | Czas przetwarzania (s) |
 |-------------------|------------------------|
@@ -417,18 +425,20 @@ Eksperyment zależności liczby bankomatów przeprowadzono w siedmiu wariantach,
 | 10000             | 7.171100241            |
 | 100000            | 67.38502417            |
 
-Table: Czas przetwarzania w zależności od liczby bankomatów
+Table: Czas przetwarzania w zależności od liczby bankomatów \label{tab:benchmark-atms}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-atms-direct.png}
 \caption{Wykres czasu przetwarzania w zależności od liczby bankomatów}
+\label{fig:benchmark-atms-direct}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-atms-log.png}
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby bankomatów}
+\label{fig:benchmark-atms-log}
 \end{figure}
 
 \pagebreak
@@ -438,7 +448,7 @@ Warianty z liczbą bankomatów od 1 do 1000 włącznie zwróciły zbliżone czas
 Wariant z liczbą bankomatów równą 10000 już odstaje do poprzednich wyników osiągając czas przetwarzania ponad dwukrotnie większy od najwyższego wyniku z poprzedzających prób.
 Czas przetwarzania ostatniego z wariantów, z liczbą bankomatów równą 100000, uzyskał czas niemalże dziesięć razy większy niż próba poprzednia.
 
-Pierwszą znaczącą różnicę wynikach można zaobserwować po przekroczeniu 1000 bankomatów. Zmiana ta wynika z maksymalnej liczby wątków skonfigurowanej dla procesu symulatora, który wynosi dokładnie 1000.
+Pierwszą znaczącą różnicę wynikach można zaobserwować na rysunkach \ref{fig:benchmark-atms-direct}, \ref{fig:benchmark-atms-log} po przekroczeniu 1000 bankomatów. Zmiana ta wynika z maksymalnej liczby wątków skonfigurowanej dla procesu symulatora, który wynosi dokładnie 1000.
 Zrzut wątków procesu symulatora przedstawia wiele wątków oczekujących w kodzie aktora bankomatu na uzyskanie odpowiedzi zwrotnej od aktora wyjścia. Oczekiwanie to wynika z zastosowania wzorca *zapytaj*. Aktory wyjścia oraz efektów ubocznych wyposażone, każdy wyposażony w jedną kolejkę skrzynki odbiorczej muszą obsłużyć wiadomości przychodzące od dużej liczby aktorów bankomatów wykonująca obliczenia w sposób współbieżny. Dodatkowo aktor wyjścia jest obciążony operacjami wejścia wyjścia na dysku.
 
 \pagebreak
@@ -447,7 +457,7 @@ Zachowanie to można zinterpretować jako przypadek zastosowania *prawa Amdhala*
 
 ### Zmienna liczba wypłat gotówki na godzinę symulacji
 
-Eksperyment zależności liczby wypłat gotówki na godzinę symulacji przeprowadzono w sześciu wariantach, zmieniając wypłat gotówki na godzinę czasu symulacji 0, 1, 10, 100, 1000, 10000.
+Eksperyment zależności liczby wypłat gotówki na godzinę symulacji przeprowadzono w sześciu wariantach, patrz tabela \ref{tab:benchmark-events},  zmieniając wypłat gotówki na godzinę czasu symulacji 0, 1, 10, 100, 1000, 10000.
 
 | Liczba wypłat gotówki na godzinę czasu symulacji | Czas przetwarzania (s) |
 |--------------------------------------------------|------------------------|
@@ -458,27 +468,29 @@ Eksperyment zależności liczby wypłat gotówki na godzinę symulacji przeprowa
 | 1000                                             | 30.12316105            |
 | 10000                                            | 295.2026618            |
 
-Table: Czas przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji
+Table: Czas przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji \label{tab:benchmark-events}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-events-direct.png}
 \caption{Wykres czasu przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji}
+\label{fig:benchmark-events-direct}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-events-log.png}
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od liczby wypłat gotówki na godzinę czasu symulacji}
+\label{fig:benchmark-events-log}
 \end{figure}
 
 \pagebreak
 
-Wariant z liczbą wypłat gotówki równą 0 jest próbą kontrolną. Można zaobserwować liniową zależność czasu przetwarzania do liczby gotówki na godzinę symulacji. Zwiększając liczbę wypłat dziesięciokrotnie, czas przetwarzania również rośnie dziesięciokrotnie.
+Wariant z liczbą wypłat gotówki równą 0 jest próbą kontrolną. Na rysunkach \ref{fig:benchmark-events-direct}, \ref{fig:benchmark-events-log} można zaobserwować liniową zależność czasu przetwarzania do liczby gotówki na godzinę symulacji. Zwiększając liczbę wypłat dziesięciokrotnie, czas przetwarzania również rośnie dziesięciokrotnie.
 
 ### Zmienny okres symulacji
 
-Eksperyment zależności okresu symulacji przeprowadzono w siedmiu wariantach, zmieniając okres symulacji: 0, 1, 10, 100, 1000, 10000, 100000.
+Eksperyment zależności okresu symulacji przeprowadzono w siedmiu wariantach, patrz tabela \ref{tab:benchmark-length},  zmieniając okres symulacji: 0, 1, 10, 100, 1000, 10000, 100000.
 
 | Okres symulacji (h)   | Czas przetwarzania (s)     |
 |-----------------------|----------------------------|
@@ -490,22 +502,24 @@ Eksperyment zależności okresu symulacji przeprowadzono w siedmiu wariantach, z
 | 10000                 | 12.16457639                |
 | 100000                | 106.68885781               |
 
-Table: Czas przetwarzania w zależności od okresu symulacji
+Table: Czas przetwarzania w zależności od okresu symulacji \label{tab:benchmark-length}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-length-direct.png}
 \caption{Wykres czasu przetwarzania w zależności od okresu symulacji}
+\label{fig:benchmark-length-direct}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=160mm]{graphics/benchmark-length-log.png}
 \caption{Logarytmiczny wykres czasu przetwarzania w zależności od okresu symulacji}
+\label{fig:benchmark-length-log}
 \end{figure}
 
 \newpage
 
-Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości, czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność, jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji. 
+Wariant z liczbą bankomatów równą 0 jest próbą kontrolną. Na rysunkach \ref{fig:benchmark-length-direct}, \ref{fig:benchmark-length-log} można zaobserwować zbliżoną do liniowej zależność czasu przetwarzania do liczby zdarzeń na godzinę symulacji. Zwiększając liczbę zdarzeń o rząd wielkości, czas przetwarzania również rośnie o rząd wielkości. Nie jest to tak jednoznaczna zależność, jak w przypadku zmiennej liczby zdarzeń na godzinę czasu symulacji. 
 Zgodnie z założeniami projektu symulator powinien symulować długie okresy czasu w rozsądnym czasie. Biorąc pod uwagę, że rok nieprzestępny składa się 8760 godzin, wariantem najbliższym tej liczbie jest wariant numer 6 z okresem symulacji równym 10000 godzin, którego czas przetwarzania wyniósł 12 sekund. Jednakże należy zwrócić uwagę na fakt, że tej konfiguracji wykonywane jest jedynie 100 wypłat gotówki na godzinę ze 100 bankomatów. Analizując dane statystyczne wypłat z bankomatów w Polsce \autocite{nbp:stats} można obliczyć, że średnia liczba wypłat dla pojedynczego bankomatu wynosi 3 na godzinę, a w opisywanym wariancie liczba ta wynosi jedną wypłatę na godzinę. Biorąc pod uwagę wyniki poprzednich wariantów, można wywnioskować, że czas przetwarzania symulacji jest liniowo zależny od liczby wypłat na godzinę symulacji.
 W świetle powyższych danych można wywnioskować, że zwiększając trzykrotnie liczbę wypłat z bankomatów, tak aby średnia odpowiadała średniej w Polsce, czas przetwarzania wydłuży się trzykrotnie do czasu przetwarzania 36 sekund. 
